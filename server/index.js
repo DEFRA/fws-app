@@ -19,6 +19,18 @@ async function createServer () {
   await server.register(require('./plugins/views'))
   await server.register(require('./plugins/router'))
   await server.register(require('./plugins/error-pages'))
+  await server.register(require('./plugins/socket'))
+
+  server.route({
+    method: 'GET',
+    path: '/h',
+    config: {
+      id: 'hello',
+      handler: (request, h) => {
+        return 'world!'
+      }
+    }
+  })
 
   if (config.isDev) {
     await server.register(require('blipp'))
