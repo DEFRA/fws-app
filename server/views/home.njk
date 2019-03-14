@@ -1,28 +1,45 @@
 {% extends 'layout.njk' %}
 
 {% from "date-input/macro.njk" import govukDateInput %}
+{% from "tabs/macro.njk" import govukTabs %}
+{% from "table/macro.njk" import govukTable %}
 
 {% block content %}
   <div class="govuk-body">
-    {{
-      govukDateInput({
-        id: "dob",
-        namePrefix: "dob",
-        fieldset: {
-          legend: {
-            text: "What is your date of birth?",
-            isPageHeading: true,
-            classes: "govuk-fieldset__legend--xl"
-          }
-        },
-        hint: {
-          text: "For example, 31 3 1980"
-        }
-      })
-    }}
+    <h1>{{title}}</h1>
 
 
-    <p>{{title}}</p>
-    <p>{{message}}</p>
+
+{% set summaryReportHtml %}
+  <h2 class="govuk-heading-l">Summary</h2>
+  {{ govukTable(summaryTable) }}
+{% endset -%}
+
+{% set areaReportHtml %}
+  <h2 class="govuk-heading-l">Areas</h2>
+  {{ govukTable() }}
+{% endset -%}
+
+
+
+{{ govukTabs({
+  items: [
+    {
+      label: "Summary report",
+      id: "summary-report",
+      panel: {
+        html: summaryReportHtml
+      }
+    },
+    {
+      label: "Area report",
+      id: "area-report",
+      panel: {
+        html: areaReportHtml
+      }
+    }
+  ]
+}) }}
+
   </div>
 {% endblock %}
