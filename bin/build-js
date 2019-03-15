@@ -1,1 +1,2 @@
-browserify client/js/h.js -o server/public/build/scripts/h.js -d
+browserify client/scripts/h.js -o server/public/build/scripts/h.js -d
+nunjucks-precompile client/templates > server/public/build/scripts/templates.js

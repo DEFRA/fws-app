@@ -7,41 +7,11 @@
 {% block content %}
   <div class="govuk-body">
     <h1>{{title}}</h1>
+    <div id="data-table"></div>
 
 
-
-{% set summaryReportHtml %}
-  <h2 class="govuk-heading-l">Summary</h2>
-  {{ govukTable(summaryTable) }}
-{% endset -%}
-
-{% set areaReportHtml %}
-  <h2 class="govuk-heading-l">Areas</h2>
-  {{ govukTable() }}
-{% endset -%}
-
-
-
-{{ govukTabs({
-  items: [
-    {
-      label: "Summary report",
-      id: "summary-report",
-      panel: {
-        html: summaryReportHtml
-      }
-    },
-    {
-      label: "Area report",
-      id: "area-report",
-      panel: {
-        html: areaReportHtml
-      }
-    }
-  ]
-}) }}
-
-  </div>
-  <script src="/assets/scripts/h.js"/>
+  </div> 
+  <script src="{{ assetPath }}/scripts/templates.js"></script>
+  <script src="{{ assetPath }}/scripts/h.js"></script>
 {% endblock %}
 

@@ -7,7 +7,8 @@ module.exports = {
     handler: (request, h) => {
       return h.view('home', {
         title: 'Flood warnings management tool',
-        summaryTable: areas.summaryTable
+        summaryTable: areas.summaryTable,
+        updateTime: new Date().toISOString()
       })
     }
   }
