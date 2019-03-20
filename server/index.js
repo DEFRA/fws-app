@@ -38,7 +38,7 @@ async function createServer () {
         params: fwis.getSummaryTable(),
         updateTime: new Date().toISOString()
       })
-    }, 5000)
+    }, 60000)
   }
   broadcastSummary()
 
