@@ -1,18 +1,18 @@
-const Nes = require('nes')
+(function async (window) {
+  const Nes = require('nes')
 
-var client = new Nes.Client('ws://localhost:3000')
+  var client = new Nes.Client('ws://localhost:3000')
 
-const nunjucks = require('nunjucks')
+  const nunjucks = require('nunjucks')
 
-const start = async () => {
-  await client.connect()
-  client.onUpdate = (update) => {
-    // set time into html
-    // document.getElementById('update-time').innerHTML = update.updateTime
-    var html = nunjucks.render('table.html', update)
-    document.getElementById('data-table').innerHTML = html
-    // here render a new table from nunjucks template
+  const start = async () => {
+    await client.connect()
+    client.onUpdate = (update) => {
+      console.log('Received broadcast from server...')
+      var html = nunjucks.render('table.html', update)
+      document.getElementById('data-table').innerHTML = html
+    }
   }
-}
 
-start()
+  start()
+})(window)

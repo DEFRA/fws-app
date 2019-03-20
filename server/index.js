@@ -28,7 +28,7 @@ async function createServer () {
     await server.register(require('./plugins/logging'))
   }
 
-  function broadcastTime () {
+  function broadcastSummary () {
     setInterval(async () => {
       console.log('Broadcasting new data')
       const fwis = new Fwis(await fwisService.get())
@@ -36,9 +36,9 @@ async function createServer () {
         params: fwis.getSummaryTable(),
         updateTime: new Date().toISOString()
       })
-    }, 10000)
+    }, 60000)
   }
-  broadcastTime()
+  broadcastSummary()
 
   return server
 }
