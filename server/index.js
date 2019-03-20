@@ -23,6 +23,8 @@ async function createServer () {
   await server.register(require('./plugins/error-pages'))
   await server.register(require('./plugins/socket'))
 
+  server.subscription('/summary')
+
   if (config.isDev) {
     await server.register(require('blipp'))
     await server.register(require('./plugins/logging'))
@@ -32,11 +34,11 @@ async function createServer () {
     setInterval(async () => {
       console.log('Broadcasting new data')
       const fwis = new Fwis(await fwisService.get())
-      server.broadcast({
+      server.publish('/summary', {
         params: fwis.getSummaryTable(),
         updateTime: new Date().toISOString()
       })
-    }, 60000)
+    }, 5000)
   }
   broadcastSummary()
 

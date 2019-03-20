@@ -14,16 +14,12 @@
   const nunjucks = require('nunjucks')
 
   const start = async () => {
-    try {
-      await client.connect()
-    } catch (err) {
-      console.log(err)
-    }
-    client.onUpdate = (update) => {
+    await client.connect()
+    client.subscribe('/summary', (update, flags) => {
       console.log('Received broadcast from server...')
       var html = nunjucks.render('table.html', update)
       document.getElementById('data-table').innerHTML = html
-    }
+    })
   }
 
   start()
