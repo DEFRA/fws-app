@@ -1,6 +1,7 @@
 const hapi = require('hapi')
 const config = require('./config')
-const areas = require('./models/areas')
+const Fwis = require('./models/fwis')
+const fwisService = require('./services/fwis')
 
 async function createServer () {
   // Create the hapi server
@@ -22,17 +23,6 @@ async function createServer () {
   await server.register(require('./plugins/error-pages'))
   await server.register(require('./plugins/socket'))
 
-  server.route({
-    method: 'GET',
-    path: '/h',
-    config: {
-      id: 'hello',
-      handler: (request, h) => {
-        return new Date().toISOString()
-      }
-    }
-  })
-
   if (config.isDev) {
     await server.register(require('blipp'))
     await server.register(require('./plugins/logging'))
@@ -40,19 +30,13 @@ async function createServer () {
 
   function broadcastTime () {
     setInterval(async () => {
-      // console.log('Broadcasting new data')
-      // const table = await server.render('partial/table', {
-      //   title: 'Flood warnings management tool',
-      //   summaryTable: areas.summaryTable,
-      //   updateTime: new Date().toISOString()
-      // })
-      // console.log(table)
+      console.log('Broadcasting new data')
+      const fwis = new Fwis(await fwisService.get())
       server.broadcast({
-        title: 'Summary',
-        params: areas.summaryTable,
+        params: fwis.getSummaryTable(),
         updateTime: new Date().toISOString()
       })
-    }, 1000)
+    }, 10000)
   }
   broadcastTime()
 

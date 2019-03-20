@@ -7,11 +7,14 @@
 {% block content %}
   <div class="govuk-body">
     <h1>{{title}}</h1>
-    <div id="data-table"></div>
 
+    <div id="data-table">
+      <p>Last updated: <time>{{updateTime}}</time></p>
+      {{ govukTable(summaryTable)}}
+    </div>
 
   </div> 
   <script src="{{ assetPath }}/scripts/templates.js"></script>
-  <script src="{{ assetPath }}/scripts/h.js"></script>
+  <script src="{{ assetPath }}/scripts/home.js"></script>
 {% endblock %}
 

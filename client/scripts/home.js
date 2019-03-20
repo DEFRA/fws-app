@@ -4,12 +4,8 @@ var client = new Nes.Client('ws://localhost:3000')
 
 const nunjucks = require('nunjucks')
 
-
 const start = async () => {
   await client.connect()
-  // const payload = await client.request('hello')// Can also request '/h'
-  // alert(payload.payload)
-  // payload -> 'world!'
   client.onUpdate = (update) => {
     // set time into html
     // document.getElementById('update-time').innerHTML = update.updateTime

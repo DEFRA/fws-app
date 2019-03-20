@@ -1,5 +1,5 @@
 {
-  "name": "glupe-base",
+  "name": "fws-app",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
@@ -21,12 +21,14 @@
     "exorcist": "^1.0.1",
     "govuk-frontend": "2.8.0",
     "hapi": "18.1.0",
+    "https-proxy-agent": "^2.2.1",
     "inert": "5.1.2",
     "joi": "14.3.1",
     "nes": "10.0.2",
     "nunjucks": "3.2.0",
     "preact": "8.4.2",
-    "vision": "5.4.4"
+    "vision": "5.4.4",
+    "wreck": "^14.2.0"
   },
   "devDependencies": {
     "blipp": "^3.1.2",
