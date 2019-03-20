@@ -14,6 +14,7 @@ module.exports = {
           updateTime: new Date().toISOString()
         })
       } catch (err) {
+        console.error(err)
         throw err
       }
     }

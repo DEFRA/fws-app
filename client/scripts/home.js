@@ -1,7 +1,15 @@
 (function async (window) {
   const Nes = require('nes')
 
-  var client = new Nes.Client('ws://localhost:3000')
+  var location = window.location
+  var wsUri
+  if (location.protocol === 'https:') {
+    wsUri = 'wss:' + location.host
+  } else {
+    wsUri = 'ws:' + location.host
+  }
+
+  var client = new Nes.Client(wsUri)
 
   const nunjucks = require('nunjucks')
 
