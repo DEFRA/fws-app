@@ -1,3 +1,5 @@
+[![Build Status](https://www.travis-ci.com/DEFRA/fws-app.svg?token=gaJqX8fxhoSAADGJKMvM&branch=master)](https://www.travis-ci.com/DEFRA/fws-app)
+
 # fws-app
 This is the FWIS replacement management tool
 
