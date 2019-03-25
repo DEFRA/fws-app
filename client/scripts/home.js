@@ -1,3 +1,4 @@
+import '@babel/polyfill'
 (function async (window) {
   const Nes = require('nes')
 
