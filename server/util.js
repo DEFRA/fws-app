@@ -14,6 +14,7 @@ if (config.proxy) {
 
 module.exports = {
   getJson: function (url, ext = false) {
+    console.log('Hitting: ' + url)
     const thisWreck = (ext && wreckExt) ? wreckExt : wreck
     return thisWreck.get(url, {
       json: true,
