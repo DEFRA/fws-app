@@ -14,8 +14,10 @@ module.exports = {
       console.log('Publishing warnings to sockets')
       const fwis = new Fwis(await fwisService.get())
       console.log('Warning count: ' + fwis.data.warnings.length)
-      console.log(JSON.stringify(fwis.data))
+      // console.log(JSON.stringify(fwis.data))
       console.log(JSON.stringify(fwis.summaryData))
+      const summaryTable = fwis.getSummaryTable()
+      console.log(JSON.stringify(summaryTable))
       server.publish('/summary', {
         params: fwis.getSummaryTable(),
         updateTime: new Date().toISOString()
