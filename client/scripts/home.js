@@ -18,6 +18,7 @@ import '@babel/polyfill'
 
   const start = () => {
     client.connect().then(() => {
+      console.log('Socket connected...')
       client.subscribe('/summary', (update, flags) => {
         console.log('Received broadcast from server...')
         var html = nunjucks.render('table.html', update)
