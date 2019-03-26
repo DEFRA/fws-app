@@ -1,8 +1,8 @@
-import '@babel/polyfill'
+// import '@babel/polyfill'
 (function async (window) {
   const Nes = require('nes')
-  const { polyfill } = require('es6-promise')
-  polyfill()
+  // const { polyfill } = require('es6-promise')
+  // polyfill()
 
   var location = window.location
   var wsUri

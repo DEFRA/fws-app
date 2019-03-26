@@ -1,4 +1,4 @@
-# browserify client/scripts/home.js -o server/public/build/scripts/home.js -d
+browserify client/scripts/home.js -o server/public/build/scripts/home.js -d
 # browserify client/scripts/home.js -d -t [ babelify --presets [ es2015 ] ] 
-browserify client/scripts/home.js -o server/public/build/scripts/home.js -t [ babelify --presets [ @babel/preset-env ] --plugins [ @babel/transform-runtime ] ]
+# browserify client/scripts/home.js -o server/public/build/scripts/home.js -t [ babelify --presets [ @babel/preset-env ] --plugins [ @babel/transform-runtime ] ]
 nunjucks-precompile client/templates > server/public/build/scripts/templates.js
