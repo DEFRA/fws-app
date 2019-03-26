@@ -5,7 +5,7 @@
       {
         "useBuiltIns": "entry",
         "targets": {
-          "chrome": "73",
+          "chrome": "58",
           "ie": "11"
         },
         "debug": true
