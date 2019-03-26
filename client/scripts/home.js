@@ -1,8 +1,8 @@
-// import '@babel/polyfill'
+import '@babel/polyfill'
 (function async (window) {
-  const Nes = require('nes')
-  // const { polyfill } = require('es6-promise')
-  // polyfill()
+  const Nes = require('nes/client')
+  const { polyfill } = require('es6-promise')
+  polyfill()
 
   var location = window.location
   var wsUri
@@ -25,15 +25,5 @@
       })
     })
   }
-
-  // const start = async () => {
-  //   await client.connect()
-  //   client.subscribe('/summary', (update, flags) => {
-  //     console.log('Received broadcast from server...')
-  //     var html = nunjucks.render('table.html', update)
-  //     document.getElementById('data-table').innerHTML = html
-  //   })
-  // }
-
   start()
 })(window)
