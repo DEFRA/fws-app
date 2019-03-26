@@ -1,9 +1,22 @@
-const areas = require('./areas')
-
 class fwis {
   constructor (data) {
     this.data = data
-    this.summaryData = areas
+    this.summaryData = {
+      'Cumbria and Lancashire': {},
+      'Devon and Cornwall': {},
+      'East Anglia': {},
+      'East Midlands': {},
+      'Gtr Mancs Mersey and Ches': {},
+      'Herts and North London': {},
+      'Kent S London and E Sussex': {},
+      'Lincs and Northants': {},
+      'North East': {},
+      'Solent and South Downs': {},
+      'Thames': {},
+      'Wessex': {},
+      'West Midlands': {},
+      'Yorkshire': {}
+    }
     this.data.warnings.forEach(warning => {
       this.summaryData[warning.attr.ownerArea][warning.attr.severity] = this.summaryData[warning.attr.ownerArea][warning.attr.severity]++ || 1
     })
