@@ -32,7 +32,7 @@ async function createServer () {
   ws.init(server)
 
   // Publish warning data every minute
-  schedule.scheduleJob('*/6 * * * *', () => {
+  schedule.scheduleJob('* * * * *', () => {
     console.log('Schedule warnings')
     ws.publishWarnings(server)
   })
