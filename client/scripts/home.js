@@ -4,6 +4,8 @@ import '@babel/polyfill'
   const { polyfill } = require('es6-promise')
   polyfill()
 
+  const Fwis = require('../../server/models/fwis')
+
   var location = window.location
   var wsUri
   if (location.protocol === 'https:') {
@@ -25,7 +27,11 @@ import '@babel/polyfill'
     console.log('Socket connected...')
     client.subscribe('/summary', (update, flags) => {
       console.log('Received broadcast from server...')
-      var html = nunjucks.render('table.html', update)
+      const fwis = new Fwis(update.warnings)
+      var html = nunjucks.render('table.html', {
+        params: fwis.getSummaryTable(),
+        updateTime: update.updateTime
+      })
       document.getElementById('data-table').innerHTML = html
     })
   }

@@ -12,9 +12,9 @@ module.exports = {
     })
     if (connected) {
       console.log('Publishing warnings to sockets')
-      const fwis = new Fwis(await fwisService.get())
+      // const fwis = new Fwis(await fwisService.get())
       server.publish('/summary', {
-        params: fwis.getSummaryTable(),
+        warnings: await fwisService.get(),
         updateTime: new Date().toISOString()
       })
     } else {
