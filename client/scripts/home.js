@@ -16,20 +16,12 @@ import '@babel/polyfill'
 
   const nunjucks = require('nunjucks')
 
-  // callback method
-  // const start = () => {
-  //   client.connect().then(() => {
-  //     console.log('Socket connected...')
-  //     client.subscribe('/summary', (update, flags) => {
-  //       console.log('Received broadcast from server...')
-  //       var html = nunjucks.render('table.html', update)
-  //       document.getElementById('data-table').innerHTML = html
-  //     })
-  //   })
-  // }
-  // async function
   const start = async () => {
+    const timestart = new Date().getTime()
     await client.connect()
+    const timeconnect = new Date().getTime()
+    const diff = timeconnect - timestart
+    console.log(`Seconds to connect: ${diff / 1000}`)
     console.log('Socket connected...')
     client.subscribe('/summary', (update, flags) => {
       console.log('Received broadcast from server...')
