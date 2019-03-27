@@ -16,15 +16,27 @@ import '@babel/polyfill'
 
   const nunjucks = require('nunjucks')
 
-  const start = () => {
-    client.connect().then(() => {
-      console.log('Socket connected...')
-      client.subscribe('/summary', (update, flags) => {
-        console.log('Received broadcast from server...')
-        var html = nunjucks.render('table.html', update)
-        document.getElementById('data-table').innerHTML = html
-      })
+  // callback method
+  // const start = () => {
+  //   client.connect().then(() => {
+  //     console.log('Socket connected...')
+  //     client.subscribe('/summary', (update, flags) => {
+  //       console.log('Received broadcast from server...')
+  //       var html = nunjucks.render('table.html', update)
+  //       document.getElementById('data-table').innerHTML = html
+  //     })
+  //   })
+  // }
+  // async function
+  const start = async () => {
+    await client.connect()
+    console.log('Socket connected...')
+    client.subscribe('/summary', (update, flags) => {
+      console.log('Received broadcast from server...')
+      var html = nunjucks.render('table.html', update)
+      document.getElementById('data-table').innerHTML = html
     })
   }
+
   start()
 })(window)
