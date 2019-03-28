@@ -1,4 +1,3 @@
-const Fwis = require('../models/fwis')
 const fwisService = require('./fwis')
 
 module.exports = {

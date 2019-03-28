@@ -6,7 +6,7 @@ const schema = {
   env: joi.string().valid('dev', 'tst', 'prd').default('dev'),
   api: joi.string().uri().required(),
   apiKey: joi.string().required(),
-  proxy: joi.string().uri()
+  proxy: joi.string().uri().allow('')
 }
 
 // Build config

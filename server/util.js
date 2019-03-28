@@ -26,8 +26,6 @@ module.exports = {
         if (response.res.statusCode !== 200) {
           throw new Error('Requested resource returned a non 200 status code')
         }
-        // console.log('Warnings count: ' + response.payload.warnings.length || 0)
-        // console.log(JSON.stringify(response.payload))
         return response.payload
       })
   }
