@@ -8,10 +8,25 @@
   <div class="govuk-body">
     <h1>{{title}}</h1>
 
-    <div id="data-table">
+   
       <p>Last updated: <time>{{updateTime}}</time></p>
+      {% set summaryTable %}
+      <h2 class="govuk-heading-l">Summary</h2>
       {{ govukTable(summaryTable)}}
-    </div>
+      {% endset -%}
+   
+
+    {{ govukTabs({
+  items: [
+    {
+      label: "Summary",
+      id: "Summary",
+      panel: {
+        html: summaryTable
+      }
+    }
+  ]
+}) }}
 
   </div> 
   <script src="{{ assetPath }}/scripts/templates.js"></script>
