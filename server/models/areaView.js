@@ -1,4 +1,4 @@
-class fwis {
+class Area {
   constructor (data) {
     this.data = data
     this.summaryData = {
@@ -17,40 +17,38 @@ class fwis {
       'West Midlands': {},
       'Yorkshire': {}
     }
+    this.areaView = {
+      'Severe Flood Warnings': {},
+      'Flood Warnings': {},
+      'Flood Alerts': {},
+      'No Longer In Force': {}
+    }
     this.data.warnings.forEach(warning => {
       this.summaryData[warning.attr.ownerArea][warning.attr.severity] = this.summaryData[warning.attr.ownerArea][warning.attr.severity]++ || 1
     })
   }
 
-  getSummaryTable () {
+  getAreaView () {
     const head = [
       {
         text: 'Area'
       }, {
-        text: 'Severe Flood Warnings'
-      }, {
-        text: 'Flood Warnings'
-      }, {
-        text: 'Flood Alerts'
-      }, {
-        text: 'No Longer In Force'
-      }, {
         text: 'Total'
+      }, {
+        text: 'Local Area Name'
+      }, {
+        text: 'Last Changed'
       }
     ]
     const rows = Object.keys(this.summaryData).map(area => {
       return [{
-        html: `<a href='#Area'> ${area} </a>`
+        text: 'test'
       }, {
-        text: this.summaryData[area]['Severe Flood Warning'] || 0
+        text: (this.summaryData[area]['Severe Flood Warning'] || 0) + (this.summaryData[area]['Flood Warning'] || 0) + (this.summaryData[area]['Flood Alert'] || 0) + (this.summaryData[area]['No Longer In Force'] || 0)
       }, {
         text: this.summaryData[area]['Flood Warning'] || 0
       }, {
         text: this.summaryData[area]['Flood Alert'] || 0
-      }, {
-        text: this.summaryData[area]['No Longer In Force'] || 0
-      }, {
-        text: (this.summaryData[area]['Severe Flood Warning'] || 0) + (this.summaryData[area]['Flood Warning'] || 0) + (this.summaryData[area]['Flood Alert'] || 0) + (this.summaryData[area]['No Longer In Force'] || 0)
       }]
     })
     return {
@@ -60,4 +58,4 @@ class fwis {
   }
 }
 
-module.exports = fwis
+module.exports = Area

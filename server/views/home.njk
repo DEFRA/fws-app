@@ -3,16 +3,25 @@
 {% from "date-input/macro.njk" import govukDateInput %}
 {% from "tabs/macro.njk" import govukTabs %}
 {% from "table/macro.njk" import govukTable %}
+{% from "button/macro.njk" import govukButton %}
 
 {% block content %}
   <div class="govuk-body">
     <h1>{{title}}</h1>
 
-   
-      <p>Last updated: <time>{{updateTime}}</time></p>
+      <div class="govuk-inset-text">
+        This Information was last updated: <time>{{updateTime}}</time>
+      </div>
+
       {% set summaryTable %}
       <h2 class="govuk-heading-l">Summary</h2>
       {{ govukTable(summaryTable)}}
+      {{ govukButton({text: "Refresh"}) }}
+      {% endset -%}
+      
+      {% set areaView %}
+      <h2 class="govuk-heading-l">Area View</h2>
+      {{ govukTable(areaView)}}
       {% endset -%}
    
 
@@ -23,6 +32,12 @@
       id: "Summary",
       panel: {
         html: summaryTable
+      }
+    }, {
+      label: "Area",
+      id: "Area",
+      panel: {
+        html: areaView
       }
     }
   ]
