@@ -1,91 +1,58 @@
-const moment = require('moment')
-
-class Area {
+class fwis {
   constructor (data) {
     this.data = data
-    this.summaryData = {}
-
+    this.summaryData = {
+      'Cumbria and Lancashire': {},
+      'Devon, Cornwall and the Isles of Scilly': {},
+      'East Anglia': {},
+      'East Midlands': {},
+      'Greater Manchester, Merseyside and Cheshire': {},
+      'Hertfordshire and North London': {},
+      'Kent and South London': {},
+      'Lincs and Northants': {},
+      'North East': {},
+      'Solent and South Downs': {},
+      'Thames': {},
+      'Wessex': {},
+      'West Midlands': {},
+      'Yorkshire': {}
+    }
     this.data.warnings.forEach(warning => {
-      if (!this.summaryData[warning.attr.ownerArea]) {
-        this.summaryData[warning.attr.ownerArea] = {}
-      }
-
-      if (!this.summaryData[warning.attr.ownerArea][warning.attr.severity]) {
-        this.summaryData[warning.attr.ownerArea][warning.attr.severity] = []
-      }
-
-      this.summaryData[warning.attr.ownerArea][warning.attr.severity].push(
-        {
-          name: warning.attr.taName,
-          changed: moment(warning.attr.situationChanged).format('DD/MM/YYYY - hh:mm')
-        }
-      )
+      this.summaryData[warning.attr.ownerArea][warning.attr.severity] = this.summaryData[warning.attr.ownerArea][warning.attr.severity]++ || 1
     })
   }
 
-  getAreaView () {
-    let head = []
-    let rows = []
-
-    const areaRows = Object.keys(this.summaryData).map(area => {
-      let subRows = []
-      let headRow = [
-        {
-          text: area,
-          classes: 'govuk-table__header',
-          attributes: { valign: 'top' }
-        }, {
-          text: 'Total',
-          classes: 'govuk-table__header',
-          attributes: { valign: 'top' }
-        }, {
-          text: 'Local Area Name',
-          classes: 'govuk-table__header',
-          attributes: { valign: 'top' }
-        }, {
-          text: 'Last Changed',
-          classes: 'govuk-table__header',
-          attributes: { valign: 'top' }
-        }
-      ]
-      subRows.push(headRow)
-      let subRow = []
-      Object.keys(this.summaryData[area]).forEach(severity => {
-        Object.keys(this.summaryData[area][severity]).forEach(localArea => {
-          if (localArea === '0') {
-            subRow = [
-              {
-                text: severity,
-                attributes: { valign: 'top', rowspan: Object.keys(this.summaryData[area][severity]).length }
-              }, {
-                text: Object.keys(this.summaryData[area][severity]).length || 0,
-                attributes: { valign: 'top', rowspan: Object.keys(this.summaryData[area][severity]).length }
-              }, {
-                text: this.summaryData[area][severity][localArea]['name'],
-                attributes: { valign: 'top' }
-              }, {
-                text: this.summaryData[area][severity][localArea]['changed'],
-                attributes: { valign: 'top' }
-              }
-            ]
-          } else {
-            subRow = [
-              {
-                text: this.summaryData[area][severity][localArea]['name'],
-                attributes: { valign: 'top' }
-              }, {
-                text: this.summaryData[area][severity][localArea]['changed'],
-                attributes: { valign: 'top' }
-              }
-            ]
-          }
-          subRows.push(subRow)
-        })
-      })
-      return subRows
+  getSummaryTable () {
+    const head = [
+      {
+        text: 'Area'
+      }, {
+        text: 'Severe Flood Warnings'
+      }, {
+        text: 'Flood Warnings'
+      }, {
+        text: 'Flood Alerts'
+      }, {
+        text: 'No Longer In Force'
+      }, {
+        text: 'Total'
+      }
+    ]
+    const rows = Object.keys(this.summaryData).map(area => {
+      return [{
+        html: `<a href='#Area'> ${area} </a>`
+      }, {
+        text: this.summaryData[area]['Severe Flood Warning'] || 0
+      }, {
+        text: this.summaryData[area]['Flood Warning'] || 0
+      }, {
+        text: this.summaryData[area]['Flood Alert'] || 0
+      }, {
+        text: this.summaryData[area]['No Longer In Force'] || 0
+      }, {
+        text: (this.summaryData[area]['Severe Flood Warning'] || 0) + (this.summaryData[area]['Flood Warning'] || 0) + (this.summaryData[area]['Flood Alert'] || 0) + (this.summaryData[area]['No Longer In Force'] || 0)
+      }]
     })
-    areaRows.forEach(element => element.forEach(subElement => rows.push(subElement)))
-
     return {
       head: head,
       rows: rows
@@ -93,4 +60,4 @@ class Area {
   }
 }
 
-module.exports = Area
+module.exports = fwis
