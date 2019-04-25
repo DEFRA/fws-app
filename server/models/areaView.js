@@ -31,7 +31,7 @@ class Area {
       let subRows = []
       let headRow = [
         {
-          html: `<h4 id=3> ${area}</h4>`,
+          text: area,
           classes: 'govuk-table__header',
           attributes: { valign: 'top' }
         }, {
@@ -50,7 +50,7 @@ class Area {
       ]
       subRows.push(headRow)
       let subRow = []
-      
+
       Object.keys(this.summaryData[area]).forEach(severity => {
         Object.keys(this.summaryData[area][severity]).forEach(localArea => {
           if (localArea === '0') {
