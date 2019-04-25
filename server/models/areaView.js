@@ -66,7 +66,8 @@ class Area {
                 attributes: { valign: 'top' }
               }, {
                 text: this.summaryData[area][severity][localArea]['changed'],
-                attributes: { valign: 'top' }
+                attributes: { valign: 'top' },
+                classes: 'govuk-!-width-one-quarter'
               }
             ]
           } else {

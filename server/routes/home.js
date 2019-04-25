@@ -1,6 +1,7 @@
 const Fwis = require('../models/fwis')
 const Area = require('../models/areaView')
 const fwisService = require('../services/fwis')
+const moment = require('moment-timezone')
 
 module.exports = {
   method: 'GET',
@@ -14,7 +15,7 @@ module.exports = {
           title: 'Flood warnings management tool',
           summaryTable: fwis.getSummaryTable(),
           areaView: area.getAreaView(),
-          updateTime: new Date().toISOString()
+          updateTime: moment.tz().format('DD/MM/YYYY - HH:mm:ss', 'Europe/London')
         })
       } catch (err) {
         console.error(err)
