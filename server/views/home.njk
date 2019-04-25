@@ -16,12 +16,13 @@
       {% set summaryTable %}
       <h2 class="govuk-heading-l">Summary</h2>
       {{ govukTable(summaryTable)}}
-      {{ govukButton({text: "Refresh"}) }}
+      <button type="submit" class="govuk-button" onclick="location.reload()">Refresh</button>
       {% endset -%}
       
       {% set areaView %}
       <h2 class="govuk-heading-l">Area View</h2>
       {{ govukTable(areaView)}}
+      <button type="submit" class="govuk-button" onclick="location.reload()">Refresh</button>
       {% endset -%}
    
 
