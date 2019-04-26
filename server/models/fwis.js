@@ -25,22 +25,28 @@ class fwis {
   getSummaryTable () {
     const head = [
       {
-        text: 'Area'
+        text: 'Area',
+        classes: 'govuk-table__row bg'
       }, {
-        text: 'Severe Flood Warnings'
+        text: 'Severe Flood Warnings',
+        classes: 'govuk-table__row bg'
       }, {
-        text: 'Flood Warnings'
+        text: 'Flood Warnings',
+        classes: 'govuk-table__row bg'
       }, {
-        text: 'Flood Alerts'
+        text: 'Flood Alerts',
+        classes: 'govuk-table__row bg'
       }, {
-        text: 'No Longer In Force'
+        text: 'No Longer In Force',
+        classes: 'govuk-table__row bg'
       }, {
-        text: 'Total'
+        text: 'Total',
+        classes: 'govuk-table__row bg'
       }
     ]
     const rows = Object.keys(this.summaryData).map(area => {
       return [{
-        html: `<a href='#Area'> ${area} </a>`
+        html: `<a href='#area-0'> ${area} </a>`
       }, {
         text: this.summaryData[area]['Severe Flood Warning'] || 0
       }, {

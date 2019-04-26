@@ -32,19 +32,20 @@ class Area {
       let headRow = [
         {
           text: area,
-          classes: 'govuk-table__header',
+          // classes: 'govuk-table__header',
+          classes: 'govuk-table__header govuk-table__row bg',
           attributes: { valign: 'top' }
         }, {
           text: 'Total',
-          classes: 'govuk-table__header',
+          classes: 'govuk-table__header govuk-table__row bg',
           attributes: { valign: 'top' }
         }, {
           text: 'Local Area Name',
-          classes: 'govuk-table__header',
+          classes: 'govuk-table__header govuk-table__row bg',
           attributes: { valign: 'top' }
         }, {
           text: 'Last Changed',
-          classes: 'govuk-table__header',
+          classes: 'govuk-table__header govuk-table__row bg',
           attributes: { valign: 'top' }
         }
       ]
