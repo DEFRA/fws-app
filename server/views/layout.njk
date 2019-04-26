@@ -1,38 +1,36 @@
 {% extends "template.njk" %}
 
+{% block headIcons %}
+  <link rel="shortcut icon" href="{{ assetPath }}/images/unbranded.ico?0.18.3" type="image/x-icon" />
+  <link rel="mask-icon" href="{{ assetPath }}/images/gov.uk_logotype_crown.svg?0.18.3" color="#0b0c0c">
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ asset_path }}/images/apple-touch-icon-152x152.png?0.18.3">
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{{ asset_path }}/images/apple-touch-icon-120x120.png?0.18.3">
+  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="{{ asset_path }}/images/apple-touch-icon-76x76.png?0.18.3">
+  <link rel="apple-touch-icon-precomposed" href="{{ assetPath }}/images/apple-touch-icon-60x60.png?0.18.3">
+{% endblock %}
+
 {% block head %}
-  <!--[if !IE 8]><!-->
-    <link href="{{ assetPath }}/stylesheets/application.css" rel="stylesheet" />
-  <!--<![endif]-->
-
-  {# For Internet Explorer 8, you need to compile specific stylesheet #}
-  {# see https://github.com/alphagov/govuk-frontend/blob/master/docs/installation/supporting-internet-explorer-8.md #}
-  <!--[if IE 8]>
-    <link href="{{ assetPath }}/govuk-frontend/all-ie8.css" rel="stylesheet" />
-  <![endif]-->
-
-  {# For older browsers to allow them to recognise HTML5 elements such as `<header>` #}
-  <!--[if lt IE 9]>
-    <script src="/html5-shiv/html5shiv.js"></script>
-  <![endif]-->
+  <link href="{{ assetPath }}/stylesheets/unbranded.css" media="all" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block header %}
-  {{ govukHeader({
-    homepageUrl: "#",
-    containerClasses: "govuk-width-container",
-    serviceName: serviceName,
-    serviceUrl: "#"
-  }) }}
+<header class="govuk-header " role="banner" data-module="header">
+  <div class="govuk-header__container govuk-width-container">
+    <div class="govuk-header__logo">
+      <a href="#" class="govuk-header__link govuk-header__link--homepage">
+        <div class="eaLogo"></div>
+      </a>
+    </div>
+    <span class="loginSection">
+      <span class="devider">|</span> <a href="#">Login</a>
+    </span>
+  </div>
+</header>
 {% endblock %}
 
 {% block pageTitle %}
-  {{ pageTitle }}
 {% endblock %}
 
-{% block content %}
-  <h1 class="govuk-heading-xl">Default page template</h1>
-{% endblock %}
 
 {% block bodyEnd %}
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
