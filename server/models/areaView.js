@@ -18,6 +18,7 @@ class Area {
         this.summaryData[warning.attr.ownerArea][warning.attr.severity].push(
           {
             name: warning.attr.taName,
+            warningCode: warning.attr.taCode,
             changed: moment(warning.attr.situationChanged).format('DD/MM/YYYY - hh:mm')
           }
         )
@@ -74,8 +75,8 @@ class Area {
                 text: this.summaryData[area][severity][localArea]['name'],
                 attributes: { valign: 'top' }
               }, {
-                text: 'TBA',
-                attributes: { valign: 'top', rowspan: Object.keys(this.summaryData[area][severity]).length }
+                text: this.summaryData[area][severity][localArea]['warningCode'],
+                attributes: { valign: 'top' }
               }, {
                 text: this.summaryData[area][severity][localArea]['changed'],
                 attributes: { valign: 'top' },
@@ -86,6 +87,10 @@ class Area {
             subRow = [
               {
                 text: this.summaryData[area][severity][localArea]['name'],
+                attributes: { valign: 'top' }
+              },
+              {
+                text: this.summaryData[area][severity][localArea]['warningCode'],
                 attributes: { valign: 'top' }
               }, {
                 text: this.summaryData[area][severity][localArea]['changed'],
