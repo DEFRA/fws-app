@@ -17,8 +17,12 @@ module.exports = {
           }
         },
         prepare: (options, next) => {
+          const nunjucksPath = path.join(options.relativeTo || process.cwd(), options.path)
+          const clientTemplatesPath = path.join(options.relativeTo || process.cwd(), '../../client/templates')
           options.compileOptions.environment = nunjucks.configure([
-            path.join(options.relativeTo || process.cwd(), options.path),
+            // path.join(options.relativeTo || process.cwd(), options.path),
+            nunjucksPath,
+            clientTemplatesPath,
             'node_modules/govuk-frontend/',
             'node_modules/govuk-frontend/components/'
           ], {

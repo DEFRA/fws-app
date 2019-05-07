@@ -1,4 +1,5 @@
 const fwisService = require('./fwis')
+const moment = require('moment-timezone')
 
 module.exports = {
   init: (server) => {
@@ -14,7 +15,8 @@ module.exports = {
       // const fwis = new Fwis(await fwisService.get())
       server.publish('/summary', {
         warnings: await fwisService.get(),
-        updateTime: new Date().toISOString()
+        updateTime: new Date().toISOString(),
+        updateTimePretty: moment.tz().format('DD/MM/YYYY - HH:mm:ss', 'Europe/London')
       })
     } else {
       console.log('No sockets to publish warnings to')

@@ -5,22 +5,27 @@ class Area {
     this.data = data
     this.summaryData = {}
 
-    this.data.warnings.forEach(warning => {
-      if (!this.summaryData[warning.attr.ownerArea]) {
-        this.summaryData[warning.attr.ownerArea] = {}
-      }
-
-      if (!this.summaryData[warning.attr.ownerArea][warning.attr.severity]) {
-        this.summaryData[warning.attr.ownerArea][warning.attr.severity] = []
-      }
-
-      this.summaryData[warning.attr.ownerArea][warning.attr.severity].push(
-        {
-          name: warning.attr.taName,
-          changed: moment(warning.attr.situationChanged).format('DD/MM/YYYY - hh:mm')
+    if (data && data.warnings) {
+      this.data.warnings.forEach(warning => {
+        if (!this.summaryData[warning.attr.ownerArea]) {
+          this.summaryData[warning.attr.ownerArea] = {}
         }
-      )
-    })
+
+        if (!this.summaryData[warning.attr.ownerArea][warning.attr.severity]) {
+          this.summaryData[warning.attr.ownerArea][warning.attr.severity] = []
+        }
+
+        this.summaryData[warning.attr.ownerArea][warning.attr.severity].push(
+          {
+            name: warning.attr.taName,
+            changed: moment(warning.attr.situationChanged).format('DD/MM/YYYY - hh:mm')
+          }
+        )
+      })
+    } else {
+      let error = 'No warning data provided.'
+      throw new Error(error)
+    }
   }
 
   getAreaView () {
@@ -32,7 +37,6 @@ class Area {
       let headRow = [
         {
           text: area,
-          // classes: 'govuk-table__header',
           classes: 'govuk-table__header govuk-table__row bg',
           attributes: { valign: 'top' }
         }, {
@@ -78,7 +82,8 @@ class Area {
                 attributes: { valign: 'top' }
               }, {
                 text: this.summaryData[area][severity][localArea]['changed'],
-                attributes: { valign: 'top' }
+                attributes: { valign: 'top' },
+                classes: 'govuk-!-width-one-quarter'
               }
             ]
           }

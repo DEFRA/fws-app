@@ -1,25 +1,21 @@
+const moment = require('moment')
+
 class fwis {
   constructor (data) {
     this.data = data
-    this.summaryData = {
-      'Cumbria and Lancashire': {},
-      'Devon, Cornwall and the Isles of Scilly': {},
-      'East Anglia': {},
-      'East Midlands': {},
-      'Greater Manchester, Merseyside and Cheshire': {},
-      'Hertfordshire and North London': {},
-      'Kent and South London': {},
-      'Lincs and Northants': {},
-      'North East': {},
-      'Solent and South Downs': {},
-      'Thames': {},
-      'Wessex': {},
-      'West Midlands': {},
-      'Yorkshire': {}
+    this.summaryData = {}
+
+    if (data && data.warnings) {
+      this.data.warnings.forEach(warning => {
+        if (!this.summaryData[warning.attr.ownerArea]) {
+          this.summaryData[warning.attr.ownerArea] = {}
+        }
+        this.summaryData[warning.attr.ownerArea][warning.attr.severity] = this.summaryData[warning.attr.ownerArea][warning.attr.severity]++ || 1
+      })
+    } else {
+      let error = 'No warning data provided.'
+      throw new Error(error)
     }
-    this.data.warnings.forEach(warning => {
-      this.summaryData[warning.attr.ownerArea][warning.attr.severity] = this.summaryData[warning.attr.ownerArea][warning.attr.severity]++ || 1
-    })
   }
 
   getSummaryTable () {

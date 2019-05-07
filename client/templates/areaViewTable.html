@@ -1,0 +1,45 @@
+{% block content %}
+<table class="govuk-table
+  {%- if areaView.classes %} {{ areaView.classes }}{% endif %}"{% for attribute, value in areaView.attributes %} {{ attribute }}="{{ value }}"{% endfor %}>
+  {% if areaView.caption %}
+  <caption class="govuk-table__caption
+  {%- if areaView.captionClasses %} {{ areaView.captionClasses }}{% endif %}">{{ areaView.caption }}</caption>
+  {% endif %}
+  {% if areaView.head %}
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+    {% for item in areaView.head %}
+      <th class="govuk-table__header
+      {%- if item.format %} govuk-table__header--{{ item.format }}{% endif %}
+      {%- if item.classes %} {{ item.classes }}{% endif %}"
+      {%- if item.colspan %} colspan="{{ item.colspan }}"{% endif %}
+      {%- if item.rowspan %} rowspan="{{ item.rowspan }}"{% endif %}{% for attribute, value in item.attributes %} {{ attribute }}="{{ value }}"{% endfor %} scope="col">{{ item.html |safe if item.html else item.text }}</th>
+    {% endfor %}
+    </tr>
+  </thead>
+  {% endif %}
+  <tbody class="govuk-table__body">
+    {% for row in areaView.rows %}
+    <tr class="govuk-table__row">
+    {% for cell in row %}
+      {% if loop.first and areaView.firstCellIsHeader %}
+      <th class="govuk-table__header" scope="row">{{ cell.html | safe if cell.html else cell.text }}</th>
+      {% elseif loop.first %}
+      <td class="govuk-table__cell
+      {%- if cell.format %} govuk-table__cell--{{ cell.format }}{% endif %}
+      {%- if cell.classes %} {{ cell.classes }}{% endif %}"
+      {%- if cell.colspan %} colspan="{{ cell.colspan }}"{% endif %}
+      {%- if cell.rowspan %} rowspan="{{ cell.rowspan }}"{% endif %}{% for attribute, value in cell.attributes %} {{ attribute }}="{{ value }}"{% endfor %}>{{ cell.html | safe if cell.html else cell.text }}</td>
+      {% else %}
+      <td class="govuk-table__cell 
+      {%- if cell.format %} govuk-table__cell--{{ cell.format }}{% endif %}
+      {%- if cell.classes %} {{ cell.classes }}{% endif %}"
+      {%- if cell.colspan %} colspan="{{ cell.colspan }}"{% endif %}
+      {%- if cell.rowspan %} rowspan="{{ cell.rowspan }}"{% endif %}{% for attribute, value in cell.attributes %} {{ attribute }}="{{ value }}"{% endfor %}>{{ cell.html | safe if cell.html else cell.text }}</td>
+      {% endif %}
+    {% endfor %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

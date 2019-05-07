@@ -8,23 +8,19 @@
 {% set bodyClasses = "internal" %}
 
 {% block content %}
-  <div class="govuk-body">
+  <div class="govuk-body" >
     <h1>{{title}}</h1>
 
       <div class="govuk-inset-text">
-        This Information was last updated: <time>{{updateTime}}</time>
+        This Information was last updated: <time id="updated-time">{{updateTime}}</time>
       </div>
 
       {% set summaryTable %}
-      <h2 class="govuk-heading-l">Summary</h2>
       {{ govukTable(summaryTable)}}
-      <button type="submit" class="govuk-button" onclick="location.reload()">Refresh</button>
       {% endset -%}
       
       {% set areaView %}
-      <h2 class="govuk-heading-l">Area View</h2>
       {{ govukTable(areaView)}}
-      <button type="submit" class="govuk-button" onclick="location.reload()">Refresh</button>
       {% endset -%}
    
 
@@ -34,20 +30,22 @@
       label: "Summary",
       id: "Summary",
       panel: {
-        html: summaryTable
+        html: '<div id="summary-table">' + summaryTable + '</div>'
       }
     }, {
       label: "Area",
       id: "Area",
       panel: {
-        html: areaView
+        html: '<div id="area-view-table">' + areaView + '</div>'
       }
     }
   ]
 }) }}
 
-  </div> 
+  </div>
+  <div>
+    <button type="submit" class="govuk-button" onclick="location.reload()">Refresh</button>
+  </div>
   <script src="{{ assetPath }}/scripts/templates.js"></script>
   <script src="{{ assetPath }}/scripts/home.js"></script>
 {% endblock %}
-

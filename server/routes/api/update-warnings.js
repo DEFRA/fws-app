@@ -10,7 +10,7 @@ module.exports = {
         await ws.publishWarnings(request.server)
         return 'OK'
       } catch (err) {
-        throw err
+        throw new Error(err)
       }
     }
   }
