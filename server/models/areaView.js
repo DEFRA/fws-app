@@ -48,6 +48,10 @@ class Area {
           classes: 'govuk-table__header govuk-table__row bg',
           attributes: { valign: 'top' }
         }, {
+          text: 'Warning Area Code',
+          classes: 'govuk-table__header govuk-table__row bg',
+          attributes: { valign: 'top' }
+        }, {
           text: 'Last Changed',
           classes: 'govuk-table__header govuk-table__row bg',
           attributes: { valign: 'top' }
@@ -69,6 +73,9 @@ class Area {
               }, {
                 text: this.summaryData[area][severity][localArea]['name'],
                 attributes: { valign: 'top' }
+              }, {
+                text: 'TBA',
+                attributes: { valign: 'top', rowspan: Object.keys(this.summaryData[area][severity]).length }
               }, {
                 text: this.summaryData[area][severity][localArea]['changed'],
                 attributes: { valign: 'top' },
