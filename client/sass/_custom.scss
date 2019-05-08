@@ -1,3 +1,38 @@
+// **** Panels ****
+
+.govuk-width-container{
+  max-width: 1280px;
+}
+.govuk-grid-column-one-third{
+width: 50%; 
+}
+.floodingIcons{
+  width: 50px; 
+}
+.govuk-inset-text.flood{
+  border-left: 5px solid #28a197;
+  clear: none;
+  margin-left: 70px;  
+}
+
+.govuk-button.center{
+  display: block;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.govuk-button.right{
+  display: block;
+  text-align: center;
+  margin-left: auto;
+  position: relative;
+}
+// **********************
+
+
 .govuk-panel__title {
   margin-top: 0;
   margin-bottom: govuk-spacing(4);
@@ -7,8 +42,22 @@
   padding: 15px !important;
   cursor: pointer;
 }
+.floodImage{
+  float: left; 
+  width: 85px;
+  margin-top: 2px;
+  margin-left: 15px;
+  border-right: 2px solid white;
+  padding-right: 30px;
+}
+.floodImage2{
+  position: relative;
+  float: left;
+  height: 50px;
+  clear: none;
+}
 .govuk-panel__body {
-  font-size: 1.8rem !important;
+  font-size: 1.5rem !important;
 }
 .last .govuk-table__cell {
   border-bottom: none;
@@ -22,11 +71,8 @@
   width: 50%;
 }
 
-.govuk-table__row.bg {
-  background-color: #f3f3f3;
-}
+
 .govuk-table__cell a {
-  color: black;
   text-decoration: none;
 }
 .govuk-table__cell.center,
@@ -48,8 +94,8 @@
   padding: 10px 10px;
   text-align: center;
 }
-.govuk-table__row.bg th:first-of-type,
-.govuk-table__row td:first-of-type {
+.govuk-table__row.bg th:nth-child(2),
+.govuk-table__row td:nth-child(2) {
   text-align: left;
 }
 
@@ -61,6 +107,8 @@
   background-color: white; 
 }
 
+
+
 .govuk-template__body.internal.js-enabled {
   margin: 0;
   background-color: #f3f3f3;
@@ -70,7 +118,7 @@
   .govuk-header {
     color: #454a4c;
     background: #ffffff;
-    border-bottom: 3px solid #00823b;
+    border-bottom: 3px solid #029E42;
     padding-bottom: 15px;
   }
   .govuk-header__link:link,
@@ -82,7 +130,7 @@
     border-bottom: none;
   }
   .govuk-footer {
-    border-top: 2px solid #00823b;
+    border-top: 2px solid #029E42;
     color: #454a4c;
     background: #ffffff;
   }
@@ -90,10 +138,10 @@
     background: #ffffff;
   }
   .govuk-inset-text {
-    border-left: 10px solid #00823b;
+    border-left: 10px solid #029E42;
   }
   .devider{
-    color: #00823b; 
+    color: #029E42; 
     font-weight: bold;
   }
   .govuk-tabs__tab {

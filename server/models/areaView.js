@@ -41,6 +41,10 @@ class Area {
           classes: 'govuk-table__header govuk-table__row bg',
           attributes: { valign: 'top' }
         }, {
+          text: '',
+          classes: 'govuk-table__header govuk-table__row bg',
+          attributes: { valign: 'top' }
+        }, {
           text: 'Total',
           classes: 'govuk-table__header govuk-table__row bg',
           attributes: { valign: 'top' }
@@ -64,8 +68,12 @@ class Area {
       Object.keys(this.summaryData[area]).forEach(severity => {
         Object.keys(this.summaryData[area][severity]).forEach(localArea => {
           if (localArea === '0') {
+            let severityIconLocation = '/assets/images/' + severity.replace(' ', '') + '.png'
             subRow = [
               {
+                html: `<img src="${severityIconLocation}" class="floodingIcons" alt="FloodingIcon">`,
+                attributes: { valign: 'top', rowspan: Object.keys(this.summaryData[area][severity]).length }
+              }, {
                 text: severity,
                 attributes: { valign: 'top', rowspan: Object.keys(this.summaryData[area][severity]).length }
               }, {
