@@ -30,7 +30,6 @@ class Area {
   }
 
   getAreaView () {
-    let head = []
     let rows = []
 
     const areaRows = Object.keys(this.summaryData).map(area => {
@@ -115,7 +114,6 @@ class Area {
     areaRows.forEach(element => element.forEach(subElement => rows.push(subElement)))
 
     return {
-      head: head,
       rows: rows
     }
   }
