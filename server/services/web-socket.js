@@ -16,7 +16,7 @@ module.exports = {
       server.publish('/summary', {
         warnings: await fwisService.get(),
         updateTime: new Date().toISOString(),
-        updateTimePretty: moment.tz().format('DD/MM/YYYY - HH:mm:ss', 'Europe/London')
+        updateTimePretty: moment.tz('Europe/London').format('DD/MM/YYYY - HH:mm:ss')
       })
     } else {
       console.log('No sockets to publish warnings to')
