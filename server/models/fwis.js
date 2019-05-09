@@ -1,4 +1,3 @@
-const moment = require('moment')
 
 class fwis {
   constructor (data) {
@@ -22,22 +21,22 @@ class fwis {
     const head = [
       {
         text: 'Environment Agency Area',
-        classes: 'govuk-table__row bg'
+        attributes: { valign: 'top' }
       }, {
         text: 'Flood Alerts',
-        classes: 'govuk-table__row bg'
+        attributes: { valign: 'top' }
       }, {
         text: 'Flood Warnings',
-        classes: 'govuk-table__row bg'
+        attributes: { valign: 'top' }
       }, {
         text: 'Severe Flood Warnings',
-        classes: 'govuk-table__row bg'
+        attributes: { valign: 'top' }
       }, {
         text: 'Warnings No Longer In Force',
-        classes: 'govuk-table__row bg'
+        attributes: { valign: 'top' }
       }, {
         text: 'Total',
-        classes: 'govuk-table__row bg'
+        attributes: { valign: 'top' }
       }
     ]
     const rows = Object.keys(this.summaryData).map(area => {
@@ -56,7 +55,7 @@ class fwis {
       }]
     })
     return {
-      caption: 'Summary',
+      caption: ' ',
       captionClasses: 'govuk-heading-l',
       head: head,
       rows: rows

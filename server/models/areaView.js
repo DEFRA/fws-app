@@ -115,8 +115,6 @@ class Area {
     areaRows.forEach(element => element.forEach(subElement => rows.push(subElement)))
 
     return {
-      caption: 'Area View',
-      captionClasses: 'govuk-heading-l',
       head: head,
       rows: rows
     }
