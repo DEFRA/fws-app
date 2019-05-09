@@ -170,6 +170,9 @@ width: 50%;
   .govuk-tabs__tab--selected {
     background-color: white;
   }
+  .govuk-tabs__tab--selected:focus{
+    background-color: white;
+  }
   .govuk-header__logotype-text{
     display: none;
   }
