@@ -12,13 +12,13 @@
     <h1>{{title}}</h1>
 
       <div class="govuk-inset-text">
-        This Information was last updated: <time id="updated-time">{{updateTime}}</time>
+        This Information was last updated: <time id="updated-time">{{updateTime}}</time> GMT
       </div>
 
       {% set summaryTable %}
       {{ govukTable(summaryTable)}}
       {% endset -%}
-      
+
       {% set areaView %}
       {{ govukTable(areaView)}}
       {% endset -%}

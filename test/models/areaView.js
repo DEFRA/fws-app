@@ -10,7 +10,7 @@ lab.experiment('AreaView model test', () => {
     Code.expect(AreaView).to.be.a.function()
     Code.expect(AreaView.prototype).to.be.a.object()
   })
-  lab.test('Check new', () => {
+  lab.test('1 - Check new', () => {
     const fakeWarningData = {
       warnings: [
         {
@@ -42,7 +42,7 @@ lab.experiment('AreaView model test', () => {
     Code.expect(area.getAreaView()).to.be.a.object()
   })
 
-  lab.test('Check new with no warning data', () => {
+  lab.test('2 - Check new with no warning data', () => {
     const fakeWarningData = {}
 
     try {
@@ -54,7 +54,7 @@ lab.experiment('AreaView model test', () => {
     }
   })
 
-  lab.test('Check new with partial data', () => {
+  lab.test('3 - Check new with partial data', () => {
     const fakeWarningData = {
       warnings: [
         {
@@ -80,6 +80,17 @@ lab.experiment('AreaView model test', () => {
         }
       ]
     }
+
+    try {
+      const area = new AreaView(fakeWarningData)
+      Code.expect(area).to.be.an.object()
+    } catch (err) {
+      Code.expect(err).to.be.an.error(Error)
+      Code.expect(err).to.be.an.error('No warning data provided.')
+    }
+  })
+  lab.test('4 - Check Error message with no data', () => {
+    const fakeWarningData = {}
 
     try {
       const area = new AreaView(fakeWarningData)

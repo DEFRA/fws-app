@@ -10,7 +10,7 @@ lab.experiment('Fwis model test', () => {
     Code.expect(Fwis).to.be.a.function()
     Code.expect(Fwis.prototype).to.be.a.object()
   })
-  lab.test('Check new', () => {
+  lab.test('1 - Check new', () => {
     const fakeWarningData = {
       warnings: [
         {
@@ -41,7 +41,7 @@ lab.experiment('Fwis model test', () => {
     Code.expect(area.getSummaryTable).to.be.a.function()
     Code.expect(area.getSummaryTable()).to.be.a.object()
   })
-  lab.test('Check new with no warning data', () => {
+  lab.test('2 - Check new with no warning data', () => {
     const fakeWarningData = {}
 
     try {

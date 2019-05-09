@@ -56,6 +56,8 @@ class fwis {
       }]
     })
     return {
+      caption: 'Summary',
+      captionClasses: 'govuk-heading-l',
       head: head,
       rows: rows
     }

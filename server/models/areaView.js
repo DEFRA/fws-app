@@ -38,27 +38,27 @@ class Area {
       let headRow = [
         {
           text: area,
-          classes: 'govuk-table__header govuk-table__row bg',
+          classes: 'govuk-table__header',
           attributes: { valign: 'top' }
         }, {
           text: '',
-          classes: 'govuk-table__header govuk-table__row bg',
+          classes: 'govuk-table__header',
           attributes: { valign: 'top' }
         }, {
           text: 'Total',
-          classes: 'govuk-table__header govuk-table__row bg',
+          classes: 'govuk-table__header',
           attributes: { valign: 'top' }
         }, {
           text: 'Local Area Name',
-          classes: 'govuk-table__header govuk-table__row bg',
+          classes: 'govuk-table__header',
           attributes: { valign: 'top' }
         }, {
           text: 'Warning Area Code',
-          classes: 'govuk-table__header govuk-table__row bg',
+          classes: 'govuk-table__header',
           attributes: { valign: 'top' }
         }, {
           text: 'Last Changed',
-          classes: 'govuk-table__header govuk-table__row bg',
+          classes: 'govuk-table__header',
           attributes: { valign: 'top' }
         }
       ]
@@ -68,7 +68,7 @@ class Area {
       Object.keys(this.summaryData[area]).forEach(severity => {
         Object.keys(this.summaryData[area][severity]).forEach(localArea => {
           if (localArea === '0') {
-            let severityIconLocation = '/assets/images/' + severity.replace(' ', '') + '.png'
+            let severityIconLocation = '/assets/images/' + severity.replace(/ /g, '') + '.png'
             subRow = [
               {
                 html: `<img src="${severityIconLocation}" class="floodingIcons" alt="FloodingIcon">`,
@@ -115,6 +115,8 @@ class Area {
     areaRows.forEach(element => element.forEach(subElement => rows.push(subElement)))
 
     return {
+      caption: 'Area View',
+      captionClasses: 'govuk-heading-l',
       head: head,
       rows: rows
     }

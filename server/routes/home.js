@@ -12,10 +12,10 @@ module.exports = {
         const fwis = new Fwis(await fwisService.get())
         const area = new Area(await fwisService.get())
         return h.view('home', {
-          title: 'Flood warnings management tool',
+          title: 'Flood Digital Management Console',
           summaryTable: fwis.getSummaryTable(),
           areaView: area.getAreaView(),
-          updateTime: moment.tz().format('DD/MM/YYYY - HH:mm:ss', 'Europe/London')
+          updateTime: moment.tz('Europe/London').format('DD/MM/YYYY - HH:mm:ss')
         })
       } catch (err) {
         console.error(err)
