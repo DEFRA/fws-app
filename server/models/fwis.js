@@ -1,52 +1,53 @@
+
 class fwis {
   constructor (data) {
     this.data = data
-    this.summaryData = {
-      'Cumbria and Lancashire': {},
-      'Devon and Cornwall': {},
-      'East Anglia': {},
-      'East Midlands': {},
-      'Gtr Mancs Mersey and Ches': {},
-      'Herts and North London': {},
-      'Kent S London and E Sussex': {},
-      'Lincs and Northants': {},
-      'North East': {},
-      'Solent and South Downs': {},
-      'Thames': {},
-      'Wessex': {},
-      'West Midlands': {},
-      'Yorkshire': {}
+    this.summaryData = {}
+
+    if (data && data.warnings) {
+      this.data.warnings.forEach(warning => {
+        if (!this.summaryData[warning.attr.ownerArea]) {
+          this.summaryData[warning.attr.ownerArea] = {}
+        }
+        this.summaryData[warning.attr.ownerArea][warning.attr.severity] = this.summaryData[warning.attr.ownerArea][warning.attr.severity]++ || 1
+      })
+    } else {
+      let error = 'No warning data provided.'
+      throw new Error(error)
     }
-    this.data.warnings.forEach(warning => {
-      this.summaryData[warning.attr.ownerArea][warning.attr.severity] = this.summaryData[warning.attr.ownerArea][warning.attr.severity]++ || 1
-    })
   }
 
   getSummaryTable () {
     const head = [
       {
-        text: 'Area'
+        text: 'Environment Agency Area',
+        attributes: { valign: 'top' }
       }, {
-        text: 'Severe Flood Warnings'
+        text: 'Flood Alerts',
+        attributes: { valign: 'top' }
       }, {
-        text: 'Flood Warnings'
+        text: 'Flood Warnings',
+        attributes: { valign: 'top' }
       }, {
-        text: 'Flood Alerts'
+        text: 'Severe Flood Warnings',
+        attributes: { valign: 'top' }
       }, {
-        text: 'No Longer In Force'
+        text: 'Warnings No Longer In Force',
+        attributes: { valign: 'top' }
       }, {
-        text: 'Total'
+        text: 'Total',
+        attributes: { valign: 'top' }
       }
     ]
     const rows = Object.keys(this.summaryData).map(area => {
       return [{
-        text: area
+        html: `<a href='#Area'> ${area} </a>`
       }, {
-        text: this.summaryData[area]['Severe Flood Warning'] || 0
+        text: this.summaryData[area]['Flood Alert'] || 0
       }, {
         text: this.summaryData[area]['Flood Warning'] || 0
       }, {
-        text: this.summaryData[area]['Flood Alert'] || 0
+        text: this.summaryData[area]['Severe Flood Warning'] || 0
       }, {
         text: this.summaryData[area]['No Longer In Force'] || 0
       }, {

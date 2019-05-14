@@ -5,6 +5,7 @@ import '@babel/polyfill'
   polyfill()
 
   const Fwis = require('../../server/models/fwis')
+  const AreaView = require('../../server/models/areaView')
 
   var location = window.location
   var wsUri
@@ -28,11 +29,25 @@ import '@babel/polyfill'
     client.subscribe('/summary', (update, flags) => {
       console.log('Received broadcast from server...')
       const fwis = new Fwis(update.warnings)
-      var html = nunjucks.render('table.html', {
+      // var html = nunjucks.render('table.html', {
+      //   params: fwis.getSummaryTable(),
+      //   updateTime: update.updateTime
+      // })
+      // document.getElementById('data-table').innerHTML = html
+      var summaryHtml = nunjucks.render('summaryTable.html', {
         params: fwis.getSummaryTable(),
         updateTime: update.updateTime
       })
-      document.getElementById('data-table').innerHTML = html
+      document.getElementById('summary-table').innerHTML = summaryHtml
+
+      const areaView = new AreaView(update.warnings)
+      var areaViewHtml = nunjucks.render('areaViewTable.html', {
+        areaView: areaView.getAreaView(),
+        updateTime: update.updateTime
+      })
+      document.getElementById('area-view-table').innerHTML = areaViewHtml
+      // document.getElementById('updated-time').innerHTML = update.updateTime
+      document.getElementById('updated-time').innerHTML = update.updateTimePretty
     })
   }
 
