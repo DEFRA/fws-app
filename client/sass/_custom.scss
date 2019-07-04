@@ -1,25 +1,28 @@
 // **** Panels ****
 
-.govuk-width-container{
+.govuk-width-container {
   max-width: 1280px;
 }
-.govuk-grid-column-one-third{
-width: 50%; 
+
+.govuk-grid-column-one-third {
+  width: 50%;
 }
-.floodingIcons{
+
+.flooding-icons {
   width: 50px;
   padding-right: 15px;
   margin-bottom: -10px;
   border-right: 1px solid #bfc1c3;
   margin-right: 15px;
 }
-.govuk-inset-text.flood{
+
+.govuk-inset-text.flood {
   border-left: 5px solid #28a197;
   clear: none;
-  margin-left: 70px;  
+  margin-left: 70px;
 }
 
-.govuk-button.center{
+.govuk-button.center {
   display: block;
   text-align: center;
   margin-left: auto;
@@ -28,7 +31,8 @@ width: 50%;
   padding-left: 15px;
   padding-right: 15px;
 }
-.govuk-button.right{
+
+.govuk-button.right {
   display: block;
   text-align: center;
   margin-left: auto;
@@ -36,30 +40,33 @@ width: 50%;
 }
 // **********************
 
-
 .govuk-panel__title {
   margin-top: 0;
   margin-bottom: govuk-spacing(4);
   @include govuk-font($size: 36, $weight: bold);
 }
+
 .govuk-panel {
   padding: 15px !important;
   cursor: pointer;
 }
-.floodImage{
-  float: left; 
+
+.flood-image {
+  float: left;
   width: 85px;
   margin-top: 2px;
   margin-left: 15px;
   border-right: 2px solid white;
   padding-right: 30px;
 }
-.floodImage2{
+
+.flood-image2 {
   position: relative;
   float: left;
   height: 50px;
   clear: none;
 }
+
 .govuk-panel__body {
   font-size: 1.5rem !important;
 }
@@ -67,6 +74,7 @@ width: 50%;
   border-bottom: none;
   padding-bottom: 1.4em;
 }
+
 .noborder {
   border-bottom: none;
   border-top: none;
@@ -75,43 +83,49 @@ width: 50%;
   width: 50%;
 }
 
-
 .govuk-table__cell a {
   text-decoration: none;
 }
+
 .govuk-table__cell.center,
 .govuk-table__header.center {
   text-align: center;
 }
-.govuk-table{
-  font-size: 0.96em; 
+
+.govuk-table {
+  font-size: 0.96em;
 }
+
 .govuk-select.custom {
   border-radius: 0 !important;
   border-top-left-radius: 0px !important;
   width: 100%;
 }
+
 .govuk-table__header:last-child,
 .govuk-table__cell:last-child {
   padding-right: 10px;
 }
+
 .govuk-table__header,
 .govuk-table__cell {
   padding: 10px 10px;
   text-align: center;
 }
+
 .govuk-table__row.bg th:nth-child(2),
 .govuk-table__row td:nth-child(2) {
   text-align: center;
 }
 
-.govuk-table__row{
-  height: 100px; 
-  line-height: 1.6em; 
+.govuk-table__row {
+  height: 100px;
+  line-height: 1.6em;
 }
-.govuk-table__row.bg{
-  height: 50px; 
-  font-size: 1.1em; 
+
+.govuk-table__row.bg {
+  height: 50px;
+  font-size: 1.1em;
 }
 
 .govuk-table__row.bg th:nth-child(1),
@@ -123,24 +137,24 @@ width: 50%;
   padding: 10px;
 }
 
-.govuk-template{
-  background-color: white; 
+.govuk-template {
+  background-color: white;
 }
-
-
 
 .govuk-template__body.internal.js-enabled {
   margin: 0;
   background-color: #f3f3f3;
   font-family: Arial, Helvetica, sans-serif;
 }
+
 .internal {
   .govuk-header {
     color: #454a4c;
     background: #ffffff;
-    border-bottom: 3px solid #029E42;
+    border-bottom: 3px solid #029e42;
     padding-bottom: 15px;
   }
+
   .govuk-header__link:link,
   .govuk-header__link:visited {
     color: #000;
@@ -149,38 +163,45 @@ width: 50%;
   .govuk-header__container {
     border-bottom: none;
   }
+
   .govuk-footer {
-    border-top: 2px solid #029E42;
+    border-top: 2px solid #029e42;
     color: #454a4c;
     background: #ffffff;
   }
+
   .govuk-tabs__panel {
     background: #ffffff;
   }
+
   .govuk-inset-text {
-    border-left: 10px solid #029E42;
+    border-left: 10px solid #029e42;
   }
-  .devider{
-    color: #029E42; 
+
+  .devider {
+    color: #029e42;
     font-weight: bold;
   }
+
   .govuk-tabs__tab {
     background-color: inherit;
   }
+
   .govuk-tabs__tab--selected {
     background-color: white;
   }
-  .govuk-tabs__tab--selected:focus{
+
+  .govuk-tabs__tab--selected:focus {
     background-color: white;
   }
-  .govuk-header__logotype-text{
+
+  .govuk-header__logotype-text {
     display: none;
   }
 }
 
-
 // *** header ***
-.loginSection{
+.login-section {
   float: right;
   display: block;
   position: relative;
@@ -190,8 +211,9 @@ width: 50%;
   text-align: right;
   line-height: 60px;
 }
-.eaLogo{
-  background-image: url("../images/ealogo.png");
+
+.ea-logo {
+  background-image: url("../images/ea-logo.png");
   width: 200px;
   height: 60px;
   background-size: contain;

@@ -70,7 +70,7 @@ class Area {
             let severityIconLocation = '/assets/images/' + severity.replace(/ /g, '') + '.png'
             subRow = [
               {
-                html: `<img src="${severityIconLocation}" class="floodingIcons" alt="FloodingIcon">`,
+                html: `<img src="${severityIconLocation}" class="flooding-icons" alt="Flooding Icon">`,
                 attributes: { valign: 'top', rowspan: Object.keys(this.summaryData[area][severity]).length }
               }, {
                 text: severity,
