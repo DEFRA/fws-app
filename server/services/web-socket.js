@@ -1,5 +1,7 @@
-const fwisService = require('./fwis')
 const moment = require('moment-timezone')
+const fwisService = require('./fwis')
+const Fwis = require('../models/fwis')
+const Area = require('../models/area-view')
 
 module.exports = {
   init: (server) => {
@@ -12,11 +14,17 @@ module.exports = {
     })
     if (connected) {
       console.log('Publishing warnings to sockets')
-      // const fwis = new Fwis(await fwisService.get())
+      const data = await fwisService.get()
+      const fwis = new Fwis(data)
+      const area = new Area(data)
+
       server.publish('/summary', {
+        fwis,
+        areaView: area.getAreaView(),
+        summaryTable: fwis.getSummaryTable(),
         warnings: await fwisService.get(),
         updateTime: new Date().toISOString(),
-        updateTimePretty: moment.tz('Europe/London').format('DD/MM/YYYY - HH:mm:ss')
+        updateTimePretty: moment.tz('Europe/London').format('DD/MM/YYYY hh:mma')
       })
     } else {
       console.log('No sockets to publish warnings to')

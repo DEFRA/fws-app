@@ -3,7 +3,7 @@
 const Lab = require('lab')
 const Code = require('code')
 const lab = exports.lab = Lab.script()
-const AreaView = require('../../server/models/areaView')
+const AreaView = require('../../server/models/area-view')
 
 lab.experiment('AreaView model test', () => {
   lab.test('Check AreaView model exists', () => {

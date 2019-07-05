@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+
+{% from "date-input/macro.njk" import govukDateInput %}
+{% from "tabs/macro.njk" import govukTabs %}
+{% from "table/macro.njk" import govukTable %}
+{% from "button/macro.njk" import govukButton %}
+
+{% set bodyClasses = "internal" %}
+
+{% block content %}
+  <div class="govuk-body" >
+    <h1>{{title}}</h1>
+
+      <div class="govuk-inset-text">
+        This information was last updated: <time id="updated-time">{{updateTime}}</time> GMT
+      </div>
+
+      {% set summaryTable %}
+      {{ govukTable(summaryTable)}}
+      {% endset -%}
+
+      {% set areaView %}
+      {{ govukTable(areaView)}}
+      {% endset -%}
+
+    {{ govukTabs({
+  items: [
+    {
+      label: "Summary",
+      id: "Summary",
+      panel: {
+        html: '<div id="summary-table">' + summaryTable + '</div>'
+      }
+    }, {
+      label: "Area View",
+      id: "Area",
+      panel: {
+        html: '<div id="area-view-table">' + areaView + '</div>'
+      }
+    }
+  ]
+}) }}
+
+  </div>
+  <div>
+    <button type="submit" class="govuk-button right" onclick="location.reload()">Refresh</button>
+  </div>
+  <div>For help and information please contact: <a href="mailto:wandlsupport@enviroment-agency.gov.uk">wandisupport@enviroment-agency.gov.uk</a></div>
+  <script src="{{ assetPath }}/scripts/templates.js"></script>
+  <script src="{{ assetPath }}/scripts/home.js"></script>
+{% endblock %}

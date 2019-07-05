@@ -4,8 +4,8 @@ import '@babel/polyfill'
   const { polyfill } = require('es6-promise')
   polyfill()
 
-  const Fwis = require('../../server/models/fwis')
-  const AreaView = require('../../server/models/areaView')
+  // const Fwis = require('../../server/models/fwis')
+  // const AreaView = require('../../server/models/area-view')
 
   var location = window.location
   var wsUri
@@ -17,7 +17,8 @@ import '@babel/polyfill'
 
   var client = new Nes.Client(wsUri)
 
-  const nunjucks = require('nunjucks')
+  const nunjucks = require('nunjucks/browser/nunjucks-slim')
+  nunjucks.PrecompiledLoader.prototype.isRelative = function () {}
 
   const start = async () => {
     const timestart = new Date().getTime()
@@ -28,28 +29,37 @@ import '@babel/polyfill'
     console.log('Socket connected...')
     client.subscribe('/summary', (update, flags) => {
       console.log('Received broadcast from server...')
-      const fwis = new Fwis(update.warnings)
+      // const fwis = new Fwis(update.warnings)
+
+      var summaryHtml = nunjucks.render('summary.html', {
+        summaryTable: update.summaryTable
+      })
+      document.getElementById('summary-table').innerHTML = summaryHtml
       // var html = nunjucks.render('table.html', {
       //   params: fwis.getSummaryTable(),
       //   updateTime: update.updateTime
       // })
       // document.getElementById('data-table').innerHTML = html
-      var summaryHtml = nunjucks.render('summaryTable.html', {
-        params: fwis.getSummaryTable(),
-        updateTime: update.updateTime
-      })
-      document.getElementById('summary-table').innerHTML = summaryHtml
+      // var summaryHtml = nunjucks.render('summary.html', {
+      //   params: fwis.getSummaryTable(),
+      //   updateTime: update.updateTime
+      // })
+      // document.getElementById('summary-table').innerHTML = summaryHtml
 
-      const areaView = new AreaView(update.warnings)
-      var areaViewHtml = nunjucks.render('areaViewTable.html', {
-        areaView: areaView.getAreaView(),
-        updateTime: update.updateTime
+      // const areaView = new AreaView(update.warnings)
+      var areaViewHtml = nunjucks.render('area.html', {
+        areaView: update.areaView
       })
       document.getElementById('area-view-table').innerHTML = areaViewHtml
-      // document.getElementById('updated-time').innerHTML = update.updateTime
+      // // document.getElementById('updated-time').innerHTML = update.updateTime
       document.getElementById('updated-time').innerHTML = update.updateTimePretty
     })
   }
 
   start()
+
+  // var env = new nunjucks.Environment(new MyLoader(window.nunjucksPrecompiled))
+  // nunjucks.configure('/views', { autoescape: true })
+  // var egg = nunjucks.render('client/templates/summary.html', { username: 'bar' })
+  // var egg = nunjucks.render('tables.html', { username: 'bar' })
 })(window)

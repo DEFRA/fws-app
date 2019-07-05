@@ -110,12 +110,12 @@
 .govuk-table__header,
 .govuk-table__cell {
   padding: 10px 10px;
-  text-align: center;
+  // text-align: center;
 }
 
 .govuk-table__row.bg th:nth-child(2),
 .govuk-table__row td:nth-child(2) {
-  text-align: center;
+  // text-align: center;
 }
 
 .govuk-table__row {
@@ -130,7 +130,7 @@
 
 .govuk-table__row.bg th:nth-child(1),
 .govuk-table__row td:nth-child(1) {
-  text-align: center;
+  // text-align: left;
 }
 
 .govuk-table__cell {
@@ -213,7 +213,7 @@
 }
 
 .ea-logo {
-  background-image: url("../images/ea-logo.png");
+  background-image: url("../images/ealogo.png");
   width: 200px;
   height: 60px;
   background-size: contain;

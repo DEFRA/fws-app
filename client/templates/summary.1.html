@@ -1,0 +1,5 @@
+{% macro govukTable(params) %}
+  {%- include "node_modules/govuk-frontend/components/table/template.njk" -%}
+{% endmacro %}
+
+{{ govukTable(summary)}}

@@ -30,4 +30,17 @@ module.exports = [{
       }
     }
   }
+}, {
+  method: 'GET',
+  path: '/views/{path*}',
+  options: {
+    handler: {
+      directory: {
+        path: [
+          'client/templates',
+          'node_modules/govuk-frontend/components'
+        ]
+      }
+    }
+  }
 }]

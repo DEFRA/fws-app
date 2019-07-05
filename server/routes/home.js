@@ -1,7 +1,7 @@
 const Fwis = require('../models/fwis')
-const Area = require('../models/areaView')
+const Area = require('../models/area-view')
 const fwisService = require('../services/fwis')
-const moment = require('moment-timezone')
+const HomeView = require('../models/home-view')
 
 module.exports = {
   method: 'GET',
@@ -9,14 +9,11 @@ module.exports = {
   options: {
     handler: async (request, h) => {
       try {
-        const fwis = new Fwis(await fwisService.get())
-        const area = new Area(await fwisService.get())
-        return h.view('home', {
-          title: 'Flood Digital Management Console',
-          summaryTable: fwis.getSummaryTable(),
-          areaView: area.getAreaView(),
-          updateTime: moment.tz('Europe/London').format('DD/MM/YYYY - HH:mm:ss')
-        })
+        const data = await fwisService.get()
+        const fwis = new Fwis(data)
+        const area = new Area(data)
+
+        return h.view('index', new HomeView(fwis, area))
       } catch (err) {
         console.error(err)
         throw err
