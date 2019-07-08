@@ -34,7 +34,7 @@ async function createServer () {
   // Publish warning data every minute
   schedule.scheduleJob('* * * * *', () => {
     console.log('Schedule warnings')
-    ws.publishWarnings(server)
+    // ws.publishWarnings(server)
   })
 
   return server

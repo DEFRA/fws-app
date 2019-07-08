@@ -54,6 +54,12 @@ import '@babel/polyfill'
       // // document.getElementById('updated-time').innerHTML = update.updateTime
       document.getElementById('updated-time').innerHTML = update.updateTimePretty
     })
+
+    window.addEventListener('hashchange', function (e) {
+      if (location.hash === '#Area') {
+        window.alert('Area')
+      }
+    }, true)
   }
 
   start()
