@@ -18,22 +18,22 @@
   <div class="govuk-body">
 
       <div class="govuk-inset-text">
-        Generated on
+        Generated on 
         <time id="updated-time">{{updateTime}}</time>
       </div>
       <div class="govuk-tabs">
         <h2 class="govuk-tabs__title">
-          Summary View
+          Area View
         </h2>
       
         <ul class="govuk-tabs__list">
           <li class="govuk-tabs__list-item">
-            <a class="govuk-tabs__tab govuk-tabs__tab--selected" href="/">
+            <a class="govuk-tabs__tab" href="/">
               Summary
             </a>
           </li>
           <li class="govuk-tabs__list-item">
-            <a class="govuk-tabs__tab" href="/area">
+            <a class="govuk-tabs__tab govuk-tabs__tab--selected" href="/area">
               Area View
             </a>
           </li>
@@ -50,13 +50,23 @@
         </ul>
       
         <section class="govuk-tabs__panel" id="past-day">
-          <h2 class="govuk-heading-l">Summary</h2>
-          {% include "./partials/summary.html" %}
+          {% if id %}
+          <span style="float: right">
+            <a href="/area" class="govuk-link">Show All Areas</a>
+          </span>
+          <span class="govuk-caption-xl">
+            {{id}}
+          </span>
+          {% endif %}
+          
+          <h2 class="govuk-heading-l">Area View</h2>
+          {% include "./partials/area.html" %}
         </section>
       </div>
+
   </div>
   <div>
-    <a href="/" class="govuk-button">Refresh</a>
+    <a href="{{url}}" class="govuk-button">Refresh</a>
   </div>
   <div>For help and information please contact: <a href="mailto:wandlsupport@enviroment-agency.gov.uk">wandisupport@enviroment-agency.gov.uk</a></div>
   <script src="{{ assetPath }}/scripts/templates.js"></script>

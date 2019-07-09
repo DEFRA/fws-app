@@ -39,10 +39,11 @@ class fwis {
         classes: 'center'
       }
     ]
+
     const rows = Object.keys(this.summaryData).map(area => {
       return [{
-        // html: `<a href='?area=${encodeURIComponent(area)}'> ${area} </a>`
-        html: `<a href='/area'> ${area} </a>`
+        html: `<a href='/area/${encodeURIComponent(area)}'>${area}</a>`
+        // html: `<a href='/area'> ${area} </a>`
       }, {
         text: this.summaryData[area]['Flood Alert'] || 0,
         classes: 'center'

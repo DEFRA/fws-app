@@ -243,34 +243,50 @@
 //   `
 // }
 
+// function table (warnings, name) {
+//   return `
+//     <div class='c'>
+//       ${warnings.map(warning => `<div class='r'>${warning[name]}</div>`).join('')}
+//     </div>
+//   `
+// }
+
 // module.exports = AreaView
 
 // #3
 const moment = require('moment')
 
 class AreaView {
-  constructor (data) {
+  constructor (data, url, id) {
     this.data = data
+    this.id = id
+    this.url = url
     this.summaryData = {}
 
     if (data && data.warnings) {
-      this.data.warnings.forEach(warning => {
-        if (!this.summaryData[warning.attr.ownerArea]) {
-          this.summaryData[warning.attr.ownerArea] = {}
-        }
-
-        if (!this.summaryData[warning.attr.ownerArea][warning.attr.severity]) {
-          this.summaryData[warning.attr.ownerArea][warning.attr.severity] = []
-        }
-
-        this.summaryData[warning.attr.ownerArea][warning.attr.severity].push(
-          {
-            name: warning.attr.taName,
-            warningCode: warning.attr.taCode,
-            changed: moment(warning.attr.situationChanged).format('DD/MM/YYYY hh:mma')
+      this.data.warnings
+        .filter(w => id ? w.attr.ownerArea === id : true)
+        .forEach(warning => {
+          if (!this.summaryData[warning.attr.ownerArea]) {
+            this.summaryData[warning.attr.ownerArea] = {}
           }
-        )
-      })
+
+          if (!this.summaryData[warning.attr.ownerArea][warning.attr.severity]) {
+            this.summaryData[warning.attr.ownerArea][warning.attr.severity] = []
+          }
+
+          this.summaryData[warning.attr.ownerArea][warning.attr.severity].push(
+            {
+              name: warning.attr.taName,
+              warningCode: warning.attr.taCode,
+              situationChanged: moment(warning.attr.situationChanged),
+              severityChanged: moment(warning.attr.severityChanged)
+            }
+          )
+        })
+
+      this.areaView = this.getAreaView()
+      this.updateTime = moment.tz('Europe/London').format('dddd D MMMM YYYY [at] h:mma')
     } else {
       let error = 'No warning data provided.'
       throw new Error(error)
@@ -279,12 +295,12 @@ class AreaView {
 
   getAreaView () {
     const rows = []
-
-    const areaRows = Object.keys(this.summaryData).map(area => {
+    const areas = Object.keys(this.summaryData).sort()
+    const areaRows = areas.map(area => {
       const subRows = []
       const headRow = [
         {
-          text: area,
+          html: `<a href='/area/${encodeURIComponent(area)}'> ${area} </a>`,
           classes: 'govuk-table__header govuk-!-width-one-quarter',
           attributes: { valign: 'center', xwidth: '35%' },
           colspan: 2
@@ -301,8 +317,12 @@ class AreaView {
           classes: 'govuk-table__header center',
           attributes: { valign: 'center' }
         }, {
-          text: 'Last Changed',
-          classes: 'govuk-table__header center govuk-!-width-one-quarter',
+          text: 'Situation Changed',
+          classes: 'govuk-table__header center',
+          attributes: { valign: 'center' }
+        }, {
+          text: 'Severity Changed',
+          classes: 'govuk-table__header center',
           attributes: { valign: 'center' }
         }
       ]
@@ -331,12 +351,16 @@ class AreaView {
               text: count,
               attributes: { valign: 'center' },
               classes: 'center'
-            }, {}, {}, {}
+            }, {}, {}, {}, {}
           ]
 
           subRows.push(subRow)
         } else {
-          this.summaryData[area][severity].forEach((warning, index) => {
+          const warnings = this.summaryData[area][severity].sort((a, b) => {
+            return b.situationChanged - a.situationChanged
+          })
+
+          warnings.forEach((warning, index) => {
             if (index === 0) {
               const subRow = [{
                 html: `<img src="${severityIconLocation}" class="flooding-icons" alt="Flooding Icon">`,
@@ -359,11 +383,14 @@ class AreaView {
                 attributes: { valign: 'center' },
                 classes: 'center'
               }, {
-                text: warning.changed,
+                text: warning.situationChanged.format('DD/MM/YYYY h:mma'),
                 attributes: { valign: 'center' },
                 classes: 'center'
-              }
-              ]
+              }, {
+                text: warning.severityChanged.format('DD/MM/YYYY h:mma'),
+                attributes: { valign: 'center' },
+                classes: 'center'
+              }]
 
               subRows.push(subRow)
             } else {
@@ -382,11 +409,15 @@ class AreaView {
                 attributes: { valign: 'center' },
                 classes: 'center'
               }, {
-                text: warning.changed,
+                text: warning.situationChanged.format('DD/MM/YYYY h:mma'),
                 attributes: { valign: 'center' },
                 classes: 'center'
-              }
-              ]
+              }, {
+                text: warning.severityChanged.format('DD/MM/YYYY h:mma'),
+                attributes: { valign: 'center' },
+                classes: 'center'
+              }]
+
               subRows.push(subRow)
             }
           })
@@ -402,14 +433,6 @@ class AreaView {
       rows
     }
   }
-}
-
-function table (warnings, name) {
-  return `
-    <div class='c'>
-      ${warnings.map(warning => `<div class='r'>${warning[name]}</div>`).join('')}
-    </div>
-  `
 }
 
 module.exports = AreaView

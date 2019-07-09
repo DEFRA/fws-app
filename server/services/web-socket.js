@@ -24,7 +24,7 @@ module.exports = {
         summaryTable: fwis.getSummaryTable(),
         warnings: await fwisService.get(),
         updateTime: new Date().toISOString(),
-        updateTimePretty: moment.tz('Europe/London').format('DD/MM/YYYY hh:mma')
+        updateTimePretty: moment.tz('Europe/London').format('dddd D MMMM YYYY [at] h:mma')
       })
     } else {
       console.log('No sockets to publish warnings to')

@@ -1,18 +1,16 @@
-const Fwis = require('../models/fwis')
-const Area = require('../models/area-view')
+const AreaView = require('../models/area-view')
 const fwisService = require('../services/fwis')
-const HomeView = require('../models/home-view')
 
 module.exports = {
   method: 'GET',
-  path: '/',
+  path: '/area/{id?}',
   options: {
     handler: async (request, h) => {
       try {
+        const { id } = request.params
         const data = await fwisService.get()
-        const fwis = new Fwis(data)
 
-        return h.view('index', new HomeView(fwis))
+        return h.view('area', new AreaView(data, request.url.href, id))
       } catch (err) {
         console.error(err)
         throw err
