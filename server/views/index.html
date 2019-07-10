@@ -20,6 +20,7 @@
       <div class="govuk-inset-text">
         Generated on
         <time id="updated-time">{{updateTime}}</time>
+        <small>(page will update every minute)</small>
       </div>
       <div class="govuk-tabs">
         <h2 class="govuk-tabs__title">
@@ -37,19 +38,19 @@
               Area View
             </a>
           </li>
-          <!-- <li class="govuk-tabs__list-item">
-            <a class="govuk-tabs__tab" href="/severity">
-              Severity View
+          <li class="govuk-tabs__list-item">
+            <a class="govuk-tabs__tab" href="/target-area">
+              Search
             </a>
           </li>
-          <li class="govuk-tabs__list-item">
+          <!-- <li class="govuk-tabs__list-item">
             <a class="govuk-tabs__tab" href="#past-year">
               Past year
             </a>
           </li> -->
         </ul>
       
-        <section class="govuk-tabs__panel" id="past-day">
+        <section class="govuk-tabs__panel">
           <h2 class="govuk-heading-l">Summary</h2>
           {% include "./partials/summary.html" %}
         </section>

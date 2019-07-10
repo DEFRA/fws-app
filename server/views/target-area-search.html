@@ -1,0 +1,95 @@
+{% extends 'layout.html' %}
+
+{% from "date-input/macro.njk" import govukDateInput %}
+{% from "tabs/macro.njk" import govukTabs %}
+{% from "table/macro.njk" import govukTable %}
+{% from "table/macro.njk" import govukTable %}
+{% from "button/macro.njk" import govukButton %}
+
+{% set bodyClasses = "internal" %}
+
+{% block content %}
+  {{super()}}
+  <div class="govuk-body">
+
+      <div class="govuk-inset-text">
+        Generated on 
+        <time id="updated-time">{{updateTime}}</time>
+      </div>
+      <div class="govuk-tabs">
+        <h2 class="govuk-tabs__title">
+          Search
+        </h2>
+      
+        <ul class="govuk-tabs__list">
+          <li class="govuk-tabs__list-item">
+            <a class="govuk-tabs__tab" href="/">
+              Summary
+            </a>
+          </li>
+          <li class="govuk-tabs__list-item">
+            <a class="govuk-tabs__tab" href="/area">
+              Area View
+            </a>
+          </li>
+          <li class="govuk-tabs__list-item">
+            <a class="govuk-tabs__tab govuk-tabs__tab--selected" href="/target-area">
+              Search
+            </a>
+          </li>
+          <!-- <li class="govuk-tabs__list-item">
+            <a class="govuk-tabs__tab" href="#past-year">
+              Past year
+            </a>
+          </li> -->
+        </ul>
+      
+        <section class="govuk-tabs__panel">          
+          <h2 class="govuk-heading-l">Search</h2>
+          <form>
+            <div class="govuk-grid-row">
+              <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-grid-row">
+                  <div class="govuk-grid-column-one-half">
+                    <h4 class="govuk-label-wrapper">
+                      <label class="govuk-label govuk-label--s" for="query">Search</label>
+                    </h4> 
+                    <input class="govuk-input" id="query" name="query" value="{{query}}"
+                      type="text" placeholder="Please enter search query">
+                    <br>
+                    <br>
+                    <button class="govuk-button" type="submit">Search</button>
+                    <a class="govuk-button" href="/target-area">Clear</a>
+                  </div>
+                  <div class="govuk-grid-column-one-half">
+                    <h4 class="govuk-label-wrapper">
+                      <label class="govuk-label govuk-label--s" for="area">Enviroment Agency Area</label>
+                    </h4>
+                    <select class="govuk-select" id="area" name="area">
+                      <option value="">All</option>
+                      {% for a in areas %}
+                      <option value="{{a.name}}" {% if a.name === area %}selected{% endif %}>{{a.name}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="govuk-grid-column-one-third">
+              </div>
+            </div>
+          </form>
+
+          {% if showTargetAreaTable %}
+          {{ govukTable(targetAreaView)}}
+          {% endif %}
+        </section>
+      </div>
+
+  </div>
+  <div>
+    <a href="{{url}}" class="govuk-button">Refresh</a>
+  </div>
+  <div>For help and information please contact: <a href="mailto:wandlsupport@enviroment-agency.gov.uk">wandisupport@enviroment-agency.gov.uk</a></div>
+  <script src="{{ assetPath }}/scripts/templates.js"></script>
+  <script src="{{ assetPath }}/scripts/home.js"></script>
+{% endblock %}

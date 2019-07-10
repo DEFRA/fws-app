@@ -309,11 +309,11 @@ class AreaView {
           classes: 'govuk-table__header center',
           attributes: { valign: 'center' }
         }, {
-          text: 'Local Area Name',
+          text: 'Target Area Name',
           classes: 'govuk-table__header center',
           attributes: { valign: 'center' }
         }, {
-          text: 'Warning Area Code',
+          text: 'Target Area Code',
           classes: 'govuk-table__header center',
           attributes: { valign: 'center' }
         }, {
@@ -364,15 +364,15 @@ class AreaView {
             if (index === 0) {
               const subRow = [{
                 html: `<img src="${severityIconLocation}" class="flooding-icons" alt="Flooding Icon">`,
-                attributes: { valign: 'center', rowspanx: count },
+                attributes: { valign: 'center' },
                 classes: count > 1 ? 'noborder' : ''
               }, {
                 text: severity,
-                attributes: { valign: 'center', rowspanx: count },
+                attributes: { valign: 'center' },
                 classes: count > 1 ? 'noborder' : ''
               }, {
                 text: count,
-                attributes: { valign: 'center', rowspanx: count },
+                attributes: { valign: 'center' },
                 classes: count > 1 ? 'center noborder' : 'center'
               }, {
                 text: warning.name,
