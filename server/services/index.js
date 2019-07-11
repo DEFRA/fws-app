@@ -4,10 +4,6 @@ const targetAreas = require('../services/areas.json').items
 const grouped = groupBy(targetAreas, 'eaAreaName')
 const areas = Object.keys(grouped).sort().map(name => ({ name }))
 
-// function unique (value, index, arr) {
-//   return arr.indexOf(value) === index
-// }
-
 function groupBy (arr, key) {
   return arr.reduce(function (acc, curr) {
     (acc[curr[key]] = acc[curr[key]] || []).push(curr)
@@ -16,7 +12,7 @@ function groupBy (arr, key) {
 }
 
 module.exports = {
-  get () {
+  getFloods () {
     return util.getJson(`${config.api}/fwis.json`, true)
   },
 

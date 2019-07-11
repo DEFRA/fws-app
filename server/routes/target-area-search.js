@@ -1,5 +1,5 @@
 const joi = require('joi')
-const fwisService = require('../services/fwis')
+const service = require('../services')
 const TargetAreaSearchView = require('../models/target-area-search-view')
 
 module.exports = {
@@ -9,9 +9,9 @@ module.exports = {
     handler: async (request, h) => {
       try {
         const { query, area } = request.query
-        const areas = await fwisService.getAllAreas()
-        const targetAreas = await fwisService.findTargetAreas(query, area)
-        const { warnings } = await fwisService.get()
+        const areas = await service.getAllAreas()
+        const targetAreas = await service.findTargetAreas(query, area)
+        const { warnings } = await service.getFloods()
         const url = request.url.href
         const viewModel = new TargetAreaSearchView(targetAreas, warnings, areas, {
           url,

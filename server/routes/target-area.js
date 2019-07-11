@@ -1,5 +1,5 @@
 const joi = require('joi')
-const fwisService = require('../services/fwis')
+const service = require('../services')
 const TargetAreaView = require('../models/target-area-view')
 
 module.exports = {
@@ -9,8 +9,8 @@ module.exports = {
     handler: async (request, h) => {
       try {
         const { id } = request.params
-        const targetArea = await fwisService.getTargetArea(id)
-        const { warnings } = await fwisService.get()
+        const targetArea = await service.getTargetArea(id)
+        const { warnings } = await service.getFloods()
         const targetAreaWarnings = warnings.filter(w => w.attr.taCode === id)
         const historicWarnings = targetAreaWarnings
 

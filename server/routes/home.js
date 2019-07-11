@@ -1,6 +1,5 @@
 const Fwis = require('../models/fwis')
-const Area = require('../models/area-view')
-const fwisService = require('../services/fwis')
+const service = require('../services')
 const HomeView = require('../models/home-view')
 
 module.exports = {
@@ -9,7 +8,7 @@ module.exports = {
   options: {
     handler: async (request, h) => {
       try {
-        const data = await fwisService.get()
+        const data = await service.getFloods()
         const fwis = new Fwis(data)
 
         return h.view('index', new HomeView(fwis))

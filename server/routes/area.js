@@ -1,5 +1,5 @@
 const AreaView = require('../models/area-view')
-const fwisService = require('../services/fwis')
+const service = require('../services')
 
 module.exports = {
   method: 'GET',
@@ -8,7 +8,7 @@ module.exports = {
     handler: async (request, h) => {
       try {
         const { id } = request.params
-        const data = await fwisService.get()
+        const data = await service.getFloods()
 
         return h.view('area', new AreaView(data, request.url.href, id))
       } catch (err) {
