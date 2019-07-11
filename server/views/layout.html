@@ -1,11 +1,10 @@
 {% extends "template.njk" %}
 
-{% from "date-input/macro.njk" import govukDateInput %}
-{% from "tabs/macro.njk" import govukTabs %}
-{% from "table/macro.njk" import govukTable %}
-{% from "button/macro.njk" import govukButton %}
-
 {% set bodyClasses = "internal" %}
+
+{% block pageTitle %}
+  {{pageTitle}}
+{% endblock %}
 
 {% block headIcons %}
   <link rel="shortcut icon" href="{{ assetPath }}/images/unbranded.ico?0.18.3" type="image/x-icon" />
@@ -41,6 +40,6 @@
 
 {% block bodyEnd %}
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
-  <script src="{{ assetPath }}/all.js"></script>
-  <script>window.GOVUKFrontend.initAll()</script>
+  <!-- <script src="{{ assetPath }}/all.js"></script>
+  <script>window.GOVUKFrontend.initAll()</script> -->
 {% endblock %}

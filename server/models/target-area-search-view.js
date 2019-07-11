@@ -1,9 +1,10 @@
 const moment = require('moment')
 
 class TargetAreaSearchView {
-  constructor (targetAreas, areas, { url, query, area }) {
-    this.areas = areas
+  constructor (targetAreas, warnings, areas, { url, query, area }) {
     this.targetAreas = targetAreas
+    this.warnings = warnings
+    this.areas = areas
     this.url = url
     this.area = area
     this.query = query
@@ -37,6 +38,7 @@ class TargetAreaSearchView {
     ]
 
     const rows = this.targetAreas.map(ta => {
+      const targetAreaWarning = this.warnings.find(w => w.attr.taCode === ta.fwdCode)
       return [
         {
           html: `<a href='/area/${encodeURIComponent(ta.eaAreaName)}'>${ta.eaAreaName}</a>`,
@@ -50,7 +52,7 @@ class TargetAreaSearchView {
           classes: 'center',
           attributes: { valign: 'center' }
         }, {
-          text: 'Severity',
+          text: targetAreaWarning ? targetAreaWarning.attr.severity : '',
           classes: 'center',
           attributes: { valign: 'center' }
         }
@@ -58,8 +60,8 @@ class TargetAreaSearchView {
     })
 
     return {
-      head: head,
-      rows: rows
+      head,
+      rows
     }
   }
 }

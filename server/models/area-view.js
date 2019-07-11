@@ -375,7 +375,7 @@ class AreaView {
                 attributes: { valign: 'center' },
                 classes: count > 1 ? 'center noborder' : 'center'
               }, {
-                text: warning.name,
+                html: `<a href="/target-area/${warning.warningCode}">${warning.name}</a>`,
                 attributes: { valign: 'center' },
                 classes: 'center'
               }, {
@@ -401,7 +401,7 @@ class AreaView {
               }, {
                 classes: index < count - 1 ? 'noborder' : ''
               }, {
-                text: warning.name,
+                html: `<a href="/target-area/${warning.warningCode}">${warning.name}</a>`,
                 attributes: { valign: 'center' },
                 classes: 'center'
               }, {

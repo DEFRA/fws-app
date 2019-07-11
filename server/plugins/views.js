@@ -19,10 +19,12 @@ module.exports = {
         prepare: (options, next) => {
           const nunjucksPath = path.join(options.relativeTo || process.cwd(), options.path)
           const clientTemplatesPath = path.join(options.relativeTo || process.cwd(), '../../client/templates')
+          const macroTemplatesPath = path.join(options.relativeTo || process.cwd(), '../views/macros')
           options.compileOptions.environment = nunjucks.configure([
             // path.join(options.relativeTo || process.cwd(), options.path),
             nunjucksPath,
             clientTemplatesPath,
+            macroTemplatesPath,
             'node_modules/govuk-frontend/',
             'node_modules/govuk-frontend/components/'
           ], {
@@ -41,7 +43,7 @@ module.exports = {
       appVersion: pkg.version,
       assetPath: '/assets',
       serviceName: 'FWApp',
-      pageTitle: 'FWApp - GOV.UK',
+      pageTitle: 'Flood Digital Management Console',
       analyticsAccount: analyticsAccount
     }
   }

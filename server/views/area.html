@@ -1,10 +1,7 @@
 {% extends 'layout.html' %}
 
-{% from "date-input/macro.njk" import govukDateInput %}
-{% from "tabs/macro.njk" import govukTabs %}
 {% from "table/macro.njk" import govukTable %}
-{% from "table/macro.njk" import govukTable %}
-{% from "button/macro.njk" import govukButton %}
+{% from "tabs.html" import tabs %}
 
 {% set bodyClasses = "internal" %}
 
@@ -23,32 +20,7 @@
         <small>(page will update every minute)</small>
       </div>
       <div class="govuk-tabs">
-        <h2 class="govuk-tabs__title">
-          Area View
-        </h2>
-      
-        <ul class="govuk-tabs__list">
-          <li class="govuk-tabs__list-item">
-            <a class="govuk-tabs__tab" href="/">
-              Summary
-            </a>
-          </li>
-          <li class="govuk-tabs__list-item">
-            <a class="govuk-tabs__tab govuk-tabs__tab--selected" href="/area">
-              Area View
-            </a>
-          </li>
-          <li class="govuk-tabs__list-item">
-            <a class="govuk-tabs__tab" href="/target-area">
-              Search
-            </a>
-          </li>
-          <!-- <li class="govuk-tabs__list-item">
-            <a class="govuk-tabs__tab" href="#past-year">
-              Past year
-            </a>
-          </li> -->
-        </ul>
+        {{tabs('area')}}
       
         <section class="govuk-tabs__panel">
           {% if id %}
@@ -70,6 +42,6 @@
     <a href="{{url}}" class="govuk-button">Refresh</a>
   </div>
   <div>For help and information please contact: <a href="mailto:wandlsupport@enviroment-agency.gov.uk">wandisupport@enviroment-agency.gov.uk</a></div>
-  <script src="{{ assetPath }}/scripts/templates.js"></script>
-  <script src="{{ assetPath }}/scripts/home.js"></script>
+  <!-- <script src="{{ assetPath }}/scripts/templates.js"></script>
+  <script src="{{ assetPath }}/scripts/home.js"></script> -->
 {% endblock %}
