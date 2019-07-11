@@ -1,10 +1,9 @@
 [![Build Status](https://www.travis-ci.com/DEFRA/fws-app.svg?token=gaJqX8fxhoSAADGJKMvM&branch=master)](https://www.travis-ci.com/DEFRA/fws-app)
 
 # fws-app
-This is the FWIS replacement management tool
+This is the FWIS management tool
 
 # Environment variables
-(Be sure to describe any environment variables here by maintaining a list like this)
 
 | name     | description      | required | default |            valid            | notes |
 |----------|------------------|:--------:|---------|:---------------------------:|-------|

@@ -13,25 +13,15 @@
 {% block body %}
   <div class="govuk-body">
     <div class="govuk-inset-text">
-      Generated on 
+      Generated on
       <time id="page-time">{{meta.longDateString}}</time>
       <small>(page will update every minute)</small>
     </div>
     <div class="govuk-tabs">
-      {{tabs('area')}}
-    
+      {{tabs('summary')}}
       <section class="govuk-tabs__panel">
-        {% if id %}
-        <span style="float: right">
-          <a href="/area" class="govuk-link">Show All Areas</a>
-        </span>
-        <span class="govuk-caption-xl">
-          {{id}}
-        </span>
-        {% endif %}
-        
-        <h2 class="govuk-heading-l">Area View</h2>
-        {% include "./partials/area.html" %}
+        <h2 class="govuk-heading-l">Summary</h2>
+        {% include "./partials/summary.html" %}
       </section>
     </div>
   </div>

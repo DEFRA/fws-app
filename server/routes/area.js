@@ -10,7 +10,7 @@ module.exports = {
         const { id } = request.params
         const data = await service.getFloods()
 
-        return h.view('area', new AreaView(data, request.url.href, id))
+        return h.view('area', new AreaView(data, id))
       } catch (err) {
         console.error(err)
         throw err

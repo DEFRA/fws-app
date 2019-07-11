@@ -1,45 +1,37 @@
 {% extends 'layout.html' %}
 
 {% from "table/macro.njk" import govukTable %}
-{% from "tabs.html" import tabs %}
+{% from "macros/tabs.html" import tabs %}
 
 {% set bodyClasses = "internal" %}
 
-{% block content %}
-  {{super()}}
+{% block body %}
   <div class="govuk-body">
+    <div class="govuk-inset-text">
+      Generated on 
+      <time id="page-time">{{meta.longDateString}}</time>
+    </div>
+    <div class="govuk-tabs">
+      {{tabs('target-area')}}
+    
+      <section class="govuk-tabs__panel">  
+        <span class="govuk-caption-xl">{{targetArea.eaAreaName}}</span>
+        <h2 class="govuk-heading-l">{{targetArea.label}} ({{targetArea.fwdCode}})</h2>
 
-      <div class="govuk-inset-text">
-        Generated on 
-        <time id="updated-time">{{updateTime}}</time>
-      </div>
-      <div class="govuk-tabs">
-        {{tabs('target-area')}}
-      
-        <section class="govuk-tabs__panel">  
-          <span class="govuk-caption-xl">{{targetArea.eaAreaName}}</span>
-          <h2 class="govuk-heading-l">{{targetArea.label}} ({{targetArea.fwdCode}})</h2>
+        <h2 class="govuk-heading-s">Current Warning</h2>
+        {% if warningsTable %}
+        {{govukTable(warningsTable)}}
+        {% else %}
+        <p>There are no warnings currently in force for {{targetArea.label}}</p>
+        {% endif %}
 
-          <h2 class="govuk-heading-s">Current Warning</h2>
-          {% if warningsTable %}
-          {{govukTable(warningsTable)}}
-          {% else %}
-          <p>There are no warnings currently in force for {{targetArea.label}}</p>
-          {% endif %}
-
-          <h2 class="govuk-heading-s">Historic Warnings</h2>
-          {% if historicWarningsTable %}
-          {{govukTable(historicWarningsTable)}}
-          {% else %}
-          <p>No historic messages available for {{targetArea.label}}</p>
-          {% endif %}
-        </section>
-      </div>
+        <h2 class="govuk-heading-s">Historic Warnings</h2>
+        {% if historicWarningsTable %}
+        {{govukTable(historicWarningsTable)}}
+        {% else %}
+        <p>No historic messages available for {{targetArea.label}}</p>
+        {% endif %}
+      </section>
+    </div>
   </div>
-  <div>
-    <a href="{{url}}" class="govuk-button">Refresh</a>
-  </div>
-  <div>For help and information please contact: <a href="mailto:wandlsupport@enviroment-agency.gov.uk">wandisupport@enviroment-agency.gov.uk</a></div>
-  <!-- <script src="{{ assetPath }}/scripts/templates.js"></script>
-  <script src="{{ assetPath }}/scripts/home.js"></script> -->
 {% endblock %}

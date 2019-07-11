@@ -1,13 +1,11 @@
 const moment = require('moment-timezone')
+const { dateFormat } = require('../constants')
 
 class TargetAreaView {
   constructor (targetArea, warnings, historicWarnings) {
     this.targetArea = targetArea
     this.warnings = warnings
     this.historicWarnings = historicWarnings
-    this.updateTime = moment
-      .tz('Europe/London')
-      .format('dddd D MMMM YYYY [at] h:mma')
 
     if (warnings && warnings.length) {
       this.warningsTable = this.getTargetAreaWarningsView()
@@ -56,16 +54,16 @@ class TargetAreaView {
           attributes: { valign: 'center' }
         },
         {
-          text: moment(warning.attr.severityChanged).format('DD/MM/YYYY h:mma'),
+          text: moment(warning.attr.severityChanged).format(dateFormat),
           attributes: { valign: 'center' },
           classes: 'govuk-body-s center'
         },
         {
-          text: moment(warning.attr.situationChanged).format('DD/MM/YYYY h:mma'),
+          text: moment(warning.attr.situationChanged).format(dateFormat),
           attributes: { valign: 'center' },
           classes: 'govuk-body-s center'
         }, {
-          text: moment(warning.attr.timeMessageReceived).format('DD/MM/YYYY h:mma'),
+          text: moment(warning.attr.timeMessageReceived).format(dateFormat),
           attributes: { valign: 'center' },
           classes: 'govuk-body-s center'
         }, {
@@ -116,7 +114,7 @@ class TargetAreaView {
           attributes: { valign: 'center' }
         },
         {
-          text: moment(warning.attr.timeMessageReceived).format('DD/MM/YYYY h:mma'),
+          text: moment(warning.attr.timeMessageReceived).format(dateFormat),
           attributes: { valign: 'center' },
           classes: 'govuk-body-s center'
         }

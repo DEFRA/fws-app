@@ -11,7 +11,7 @@ module.exports = {
         const data = await service.getFloods()
         const fwis = new Fwis(data)
 
-        return h.view('index', new HomeView(fwis))
+        return h.view('summary', new HomeView(fwis))
       } catch (err) {
         console.error(err)
         throw err

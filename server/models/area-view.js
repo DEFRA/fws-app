@@ -19,7 +19,7 @@
 //           {
 //             name: warning.attr.taName,
 //             warningCode: warning.attr.taCode,
-//             changed: moment(warning.attr.situationChanged).format('DD/MM/YYYY hh:mma')
+//             changed: moment(warning.attr.situationChanged).format(dateFormat)
 //           }
 //         )
 //       })
@@ -148,7 +148,7 @@
 //           {
 //             name: warning.attr.taName,
 //             warningCode: warning.attr.taCode,
-//             changed: moment(warning.attr.situationChanged).format('DD/MM/YYYY hh:mma')
+//             changed: moment(warning.attr.situationChanged).format(dateFormat)
 //           }
 //         )
 //       })
@@ -255,12 +255,12 @@
 
 // #3
 const moment = require('moment-timezone')
+const { dateFormat } = require('../constants')
 
 class AreaView {
-  constructor (data, url, id) {
+  constructor (data, id) {
     this.data = data
     this.id = id
-    this.url = url
     this.summaryData = {}
 
     if (data && data.warnings) {
@@ -286,7 +286,6 @@ class AreaView {
         })
 
       this.areaView = this.getAreaView()
-      this.updateTime = moment.tz('Europe/London').format('dddd D MMMM YYYY [at] h:mma')
     } else {
       let error = 'No warning data provided.'
       throw new Error(error)
@@ -383,11 +382,11 @@ class AreaView {
                 attributes: { valign: 'center' },
                 classes: 'center'
               }, {
-                text: warning.situationChanged.format('DD/MM/YYYY h:mma'),
+                text: warning.situationChanged.format(dateFormat),
                 attributes: { valign: 'center' },
                 classes: 'center'
               }, {
-                text: warning.severityChanged.format('DD/MM/YYYY h:mma'),
+                text: warning.severityChanged.format(dateFormat),
                 attributes: { valign: 'center' },
                 classes: 'center'
               }]
@@ -409,11 +408,11 @@ class AreaView {
                 attributes: { valign: 'center' },
                 classes: 'center'
               }, {
-                text: warning.situationChanged.format('DD/MM/YYYY h:mma'),
+                text: warning.situationChanged.format(dateFormat),
                 attributes: { valign: 'center' },
                 classes: 'center'
               }, {
-                text: warning.severityChanged.format('DD/MM/YYYY h:mma'),
+                text: warning.severityChanged.format(dateFormat),
                 attributes: { valign: 'center' },
                 classes: 'center'
               }]

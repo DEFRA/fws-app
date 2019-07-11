@@ -12,9 +12,7 @@ module.exports = {
         const areas = await service.getAllAreas()
         const targetAreas = await service.findTargetAreas(query, area)
         const { warnings } = await service.getFloods()
-        const url = request.url.href
         const viewModel = new TargetAreaSearchView(targetAreas, warnings, areas, {
-          url,
           query,
           area
         })

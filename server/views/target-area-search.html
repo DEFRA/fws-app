@@ -1,21 +1,18 @@
 {% extends 'layout.html' %}
 
 {% from "table/macro.njk" import govukTable %}
-{% from "tabs.html" import tabs %}
+{% from "macros/tabs.html" import tabs %}
 
 {% set bodyClasses = "internal" %}
 
-{% block content %}
-  {{super()}}
+{% block body %}
   <div class="govuk-body">
-
       <div class="govuk-inset-text">
         Generated on 
-        <time id="updated-time">{{updateTime}}</time>
+        <time id="page-time">{{meta.longDateString}}</time>
       </div>
       <div class="govuk-tabs">
         {{tabs('target-area')}}
-      
         <section class="govuk-tabs__panel">          
           <h2 class="govuk-heading-l">Search</h2>
           <form>
@@ -56,12 +53,5 @@
           {% endif %}
         </section>
       </div>
-
   </div>
-  <div>
-    <a href="{{url}}" class="govuk-button">Refresh</a>
-  </div>
-  <div>For help and information please contact: <a href="mailto:wandlsupport@enviroment-agency.gov.uk">wandisupport@enviroment-agency.gov.uk</a></div>
-  <!-- <script src="{{ assetPath }}/scripts/templates.js"></script>
-  <script src="{{ assetPath }}/scripts/home.js"></script> -->
 {% endblock %}

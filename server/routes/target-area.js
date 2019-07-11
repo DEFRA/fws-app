@@ -14,7 +14,8 @@ module.exports = {
         const targetAreaWarnings = warnings.filter(w => w.attr.taCode === id)
         const historicWarnings = targetAreaWarnings
 
-        return h.view('target-area', new TargetAreaView(targetArea, targetAreaWarnings, historicWarnings))
+        return h.view('target-area', new TargetAreaView(targetArea,
+          targetAreaWarnings, historicWarnings))
       } catch (err) {
         console.error(err)
         throw err

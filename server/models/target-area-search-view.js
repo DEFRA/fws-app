@@ -1,16 +1,13 @@
 const moment = require('moment-timezone')
+const { longDateFormat } = require('../constants')
 
 class TargetAreaSearchView {
-  constructor (targetAreas, warnings, areas, { url, query, area }) {
+  constructor (targetAreas, warnings, areas, { query, area }) {
     this.targetAreas = targetAreas
     this.warnings = warnings
     this.areas = areas
-    this.url = url
     this.area = area
     this.query = query
-    this.updateTime = moment
-      .tz('Europe/London')
-      .format('dddd D MMMM YYYY [at] h:mma')
 
     this.targetAreaView = this.getTargetAreaView()
     this.showTargetAreaTable = !!this.targetAreaView.rows.length

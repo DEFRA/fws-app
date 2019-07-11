@@ -2,7 +2,6 @@ const path = require('path')
 const nunjucks = require('nunjucks')
 const config = require('../config')
 const pkg = require('../../package.json')
-const analyticsAccount = config.analyticsAccount
 
 module.exports = {
   plugin: require('vision'),
@@ -18,19 +17,20 @@ module.exports = {
         },
         prepare: (options, next) => {
           const nunjucksPath = path.join(options.relativeTo || process.cwd(), options.path)
-          const clientTemplatesPath = path.join(options.relativeTo || process.cwd(), '../../client/templates')
-          const macroTemplatesPath = path.join(options.relativeTo || process.cwd(), '../views/macros')
-          options.compileOptions.environment = nunjucks.configure([
-            // path.join(options.relativeTo || process.cwd(), options.path),
+          const env = nunjucks.configure([
             nunjucksPath,
-            clientTemplatesPath,
-            macroTemplatesPath,
             'node_modules/govuk-frontend/',
             'node_modules/govuk-frontend/components/'
           ], {
             autoescape: true,
             watch: false
           })
+
+          // env.addFilter('format-date', function (date, format = '') {
+          //   return moment(date).format(format)
+          // })
+
+          options.compileOptions.environment = env
 
           return next()
         }
@@ -42,9 +42,9 @@ module.exports = {
     context: {
       appVersion: pkg.version,
       assetPath: '/assets',
-      serviceName: 'FWApp',
+      serviceName: 'FWIS',
       pageTitle: 'Flood Digital Management Console',
-      analyticsAccount: analyticsAccount
+      analyticsAccount: config.analyticsAccount
     }
   }
 }

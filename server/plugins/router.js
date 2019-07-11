@@ -1,5 +1,5 @@
 const routes = [].concat(
-  require('../routes/home'),
+  require('../routes/summary'),
   require('../routes/area'),
   require('../routes/target-area'),
   require('../routes/target-area-search'),
