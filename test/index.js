@@ -3,8 +3,7 @@ const Code = require('code')
 const lab = exports.lab = Lab.script()
 const sinon = require('sinon')
 const createServer = require('../server')
-const fwisService = require('../server/services/fwis')
-const wsService = require('../server/services/web-socket')
+const service = require('../server/services')
 
 lab.experiment('Web test', () => {
   let server
@@ -56,7 +55,7 @@ lab.experiment('Web test', () => {
       ]
     }
 
-    let fwisStub = sandbox.stub(fwisService, 'get')
+    let fwisStub = sandbox.stub(service, 'get')
     fwisStub.returns(fwisJsonData)
 
     const options = {
@@ -69,24 +68,8 @@ lab.experiment('Web test', () => {
     Code.expect(response.headers['content-type']).to.include('text/html')
   })
 
-  lab.test('2 - GET /api/update-warnings route works', async () => {
-    const wsJsonData = {}
-
-    let wsStub = sandbox.stub(wsService, 'publishWarnings')
-    wsStub.returns(wsJsonData)
-
-    const options = {
-      method: 'POST',
-      url: '/api/update-warnings'
-    }
-
-    const response = await server.inject(options)
-    Code.expect(response.statusCode).to.equal(200)
-    Code.expect(response.headers['content-type']).to.include('text/html')
-  })
-
   lab.test('3 - GET / route fails simulating service not available ', async () => {
-    let fwisStub = sandbox.stub(fwisService, 'get')
+    let fwisStub = sandbox.stub(service, 'get')
     fwisStub.returns(null)
 
     const options = {
@@ -101,7 +84,7 @@ lab.experiment('Web test', () => {
   lab.test('4 - GET / route fails with empty warning data', async () => {
     const fwisJsonData = {}
 
-    let fwisStub = sandbox.stub(fwisService, 'get')
+    let fwisStub = sandbox.stub(service, 'get')
     fwisStub.returns(fwisJsonData)
 
     const options = {
