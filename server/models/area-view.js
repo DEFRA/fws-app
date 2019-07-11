@@ -1,4 +1,4 @@
-// const moment = require('moment')
+// const moment = require('moment-timezone')
 
 // class AreaView {
 //   constructor (data) {
@@ -127,7 +127,7 @@
 // module.exports = AreaView
 
 // #2
-// const moment = require('moment')
+// const moment = require('moment-timezone')
 
 // class AreaView {
 //   constructor (data) {
@@ -254,7 +254,7 @@
 // module.exports = AreaView
 
 // #3
-const moment = require('moment')
+const moment = require('moment-timezone')
 
 class AreaView {
   constructor (data, url, id) {
