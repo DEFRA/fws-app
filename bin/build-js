@@ -1,9 +1,0 @@
-browserify client/scripts/home.js -o server/public/build/scripts/home.js -t [ babelify --presets [ @babel/preset-env ] --plugins [ @babel/transform-runtime ] ]
-#nunjucks-precompile node_modules/govuk-frontend/components/table/template.njk --name './template.njk' >> server/public/build/scripts/templates.js
-#nunjucks-precompile node_modules/govuk-frontend/components/table/macro.njk >> server/public/build/scripts/templates.js
-#nunjucks-precompile client/templates/summary.html >> server/public/build/scripts/templates.js
-
-nunjucks-precompile node_modules/govuk-frontend/components/table/template.njk --name './template.njk' > server/public/build/scripts/templates.js
-nunjucks-precompile node_modules/govuk-frontend/components/table/macro.njk --name 'table/macro.njk' >> server/public/build/scripts/templates.js
-nunjucks-precompile server/views/partials/summary.html --name 'summary.html' >> server/public/build/scripts/templates.js
-nunjucks-precompile server/views/partials/area.html --name 'area.html' >> server/public/build/scripts/templates.js
