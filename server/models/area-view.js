@@ -1,307 +1,27 @@
-// const moment = require('moment-timezone')
-
-// class AreaView {
-//   constructor (data) {
-//     this.data = data
-//     this.summaryData = {}
-
-//     if (data && data.warnings) {
-//       this.data.warnings.forEach(warning => {
-//         if (!this.summaryData[warning.attr.ownerArea]) {
-//           this.summaryData[warning.attr.ownerArea] = {}
-//         }
-
-//         if (!this.summaryData[warning.attr.ownerArea][warning.attr.severity]) {
-//           this.summaryData[warning.attr.ownerArea][warning.attr.severity] = []
-//         }
-
-//         this.summaryData[warning.attr.ownerArea][warning.attr.severity].push(
-//           {
-//             name: warning.attr.taName,
-//             warningCode: warning.attr.taCode,
-//             changed: moment(warning.attr.situationChanged).format(dateFormat)
-//           }
-//         )
-//       })
-//     } else {
-//       let error = 'No warning data provided.'
-//       throw new Error(error)
-//     }
-//   }
-
-//   getAreaView () {
-//     const rows = []
-
-//     const areaRows = Object.keys(this.summaryData).map(area => {
-//       const subRows = []
-//       const headRow = [
-//         {
-//           text: area,
-//           classes: 'govuk-table__header govuk-!-width-one-quarter',
-//           attributes: { valign: 'center', xwidth: '35%' },
-//           colspan: 2
-//         }, {
-//           text: 'Total',
-//           classes: 'govuk-table__header center',
-//           attributes: { valign: 'center' }
-//         }, {
-//           text: 'Local Area Name',
-//           classes: 'govuk-table__header center',
-//           attributes: { valign: 'center' }
-//         }, {
-//           text: 'Warning Area Code',
-//           classes: 'govuk-table__header center',
-//           attributes: { valign: 'center' }
-//         }, {
-//           text: 'Last Changed',
-//           classes: 'govuk-table__header center govuk-!-width-one-quarter',
-//           attributes: { valign: 'center' }
-//         }
-//       ]
-//       subRows.push(headRow)
-
-//       Object.keys(this.summaryData[area]).forEach(severity => {
-//         Object.keys(this.summaryData[area][severity]).forEach(localArea => {
-//           let subRow
-//           if (localArea === '0') {
-//             const severityIconLocation = '/assets/images/' + severity.replace(/ /g, '') + '.png'
-//             const count = Object.keys(this.summaryData[area][severity]).length
-//             subRow = [
-//               {
-//                 html: `<img src="${severityIconLocation}" class="flooding-icons" alt="Flooding Icon">`,
-//                 attributes: { valign: 'center', rowspan: count }
-//               }, {
-//                 text: severity,
-//                 attributes: { valign: 'center', rowspan: count }
-//               }, {
-//                 text: Object.keys(this.summaryData[area][severity]).length || 0,
-//                 attributes: { valign: 'center', rowspan: count },
-//                 classes: 'center'
-//               }, {
-//                 text: this.summaryData[area][severity][localArea]['name'],
-//                 attributes: { valign: 'center' },
-//                 classes: 'center'
-//               }, {
-//                 text: this.summaryData[area][severity][localArea]['warningCode'],
-//                 attributes: { valign: 'center' },
-//                 classes: 'center'
-//               }, {
-//                 text: this.summaryData[area][severity][localArea]['changed'],
-//                 attributes: { valign: 'center' },
-//                 classes: 'center'
-//               }
-//             ]
-//           } else {
-//             subRow = [
-//               {
-//                 text: this.summaryData[area][severity][localArea]['name'],
-//                 attributes: { valign: 'center' },
-//                 classes: 'center'
-//               },
-//               {
-//                 text: this.summaryData[area][severity][localArea]['warningCode'],
-//                 attributes: { valign: 'center' },
-//                 classes: 'center'
-//               }, {
-//                 text: this.summaryData[area][severity][localArea]['changed'],
-//                 attributes: { valign: 'center' },
-//                 classes: 'center'
-//               }
-//             ]
-//           }
-//           subRows.push(subRow)
-//         })
-//       })
-
-//       return subRows
-//     })
-
-//     areaRows.forEach(element => element.forEach(subElement => rows.push(subElement)))
-
-//     return {
-//       rows
-//     }
-//   }
-// }
-
-// module.exports = AreaView
-
-// #2
-// const moment = require('moment-timezone')
-
-// class AreaView {
-//   constructor (data) {
-//     this.data = data
-//     this.summaryData = {}
-
-//     if (data && data.warnings) {
-//       this.data.warnings.forEach(warning => {
-//         if (!this.summaryData[warning.attr.ownerArea]) {
-//           this.summaryData[warning.attr.ownerArea] = {}
-//         }
-
-//         if (!this.summaryData[warning.attr.ownerArea][warning.attr.severity]) {
-//           this.summaryData[warning.attr.ownerArea][warning.attr.severity] = []
-//         }
-
-//         this.summaryData[warning.attr.ownerArea][warning.attr.severity].push(
-//           {
-//             name: warning.attr.taName,
-//             warningCode: warning.attr.taCode,
-//             changed: moment(warning.attr.situationChanged).format(dateFormat)
-//           }
-//         )
-//       })
-//     } else {
-//       let error = 'No warning data provided.'
-//       throw new Error(error)
-//     }
-//   }
-
-//   getAreaView () {
-//     const rows = []
-
-//     const areaRows = Object.keys(this.summaryData).map(area => {
-//       const subRows = []
-//       const headRow = [
-//         {
-//           text: area,
-//           classes: 'govuk-table__header govuk-!-width-one-quarter',
-//           attributes: { valign: 'center', xwidth: '35%' },
-//           colspan: 2
-//         }, {
-//           text: 'Total',
-//           classes: 'govuk-table__header center',
-//           attributes: { valign: 'center' }
-//         }, {
-//           text: 'Local Area Name',
-//           classes: 'govuk-table__header center',
-//           attributes: { valign: 'center' }
-//         }, {
-//           text: 'Warning Area Code',
-//           classes: 'govuk-table__header center',
-//           attributes: { valign: 'center' }
-//         }, {
-//           text: 'Last Changed',
-//           classes: 'govuk-table__header center govuk-!-width-one-quarter',
-//           attributes: { valign: 'center' }
-//         }
-//       ]
-//       subRows.push(headRow)
-
-//       const severities = ['Severe Flood Warning', 'Flood Warning', 'Flood Alert', 'Warnings No Longer In Force']
-//       severities.forEach(severity => {
-//         const severityIconLocation = '/assets/images/' + severity.replace(/ /g, '') + '.png'
-//         const count = this.summaryData[area][severity]
-//           ? Object.keys(this.summaryData[area][severity]).length
-//           : 0
-//         const subRow = [
-//           {
-//             html: `<img src="${severityIconLocation}" class="flooding-icons" alt="Flooding Icon">`,
-//             attributes: { valign: 'center' }
-//           }, {
-//             text: severity,
-//             attributes: { valign: 'center' }
-//           }, {
-//             text: count,
-//             attributes: { valign: 'center' },
-//             classes: 'center'
-//           }, {
-//             html: count && table(this.summaryData[area][severity], 'name'),
-//             attributes: { valign: 'center' },
-//             classes: 'center'
-//           }, {
-//             html: count && table(this.summaryData[area][severity], 'warningCode'),
-//             attributes: { valign: 'center' },
-//             classes: 'center'
-//           }, {
-//             html: count && table(this.summaryData[area][severity], 'changed'),
-//             attributes: { valign: 'center' },
-//             classes: 'center'
-//           }
-//         ]
-
-//         subRows.push(subRow)
-//       })
-
-//       return subRows
-//     })
-
-//     areaRows.forEach(element => element.forEach(subElement => rows.push(subElement)))
-
-//     return {
-//       rows
-//     }
-//   }
-// }
-
-// function table (warnings, name) {
-//   return `
-//     <div class='c'>
-//       ${warnings.map(warning => `<div class='r'>${warning[name]}</div>`).join('')}
-//     </div>
-//   `
-// }
-
-// function table (warnings, name) {
-//   return `
-//     <div class='c'>
-//       ${warnings.map(warning => `<div class='r'>${warning[name]}</div>`).join('')}
-//     </div>
-//   `
-// }
-
-// module.exports = AreaView
-
-// #3
 const moment = require('moment-timezone')
 const { dateFormat } = require('../constants')
+const { groupBy } = require('../helpers')
 
 class AreaView {
-  constructor (data, id) {
-    this.data = data
+  constructor (warnings, id) {
+    this.warnings = warnings
     this.id = id
-    this.summaryData = {}
-
-    if (data && data.warnings) {
-      this.data.warnings
-        .filter(w => id ? w.attr.ownerArea === id : true)
-        .forEach(warning => {
-          if (!this.summaryData[warning.attr.ownerArea]) {
-            this.summaryData[warning.attr.ownerArea] = {}
-          }
-
-          if (!this.summaryData[warning.attr.ownerArea][warning.attr.severity]) {
-            this.summaryData[warning.attr.ownerArea][warning.attr.severity] = []
-          }
-
-          this.summaryData[warning.attr.ownerArea][warning.attr.severity].push(
-            {
-              name: warning.attr.taName,
-              warningCode: warning.attr.taCode,
-              situationChanged: moment(warning.attr.situationChanged),
-              severityChanged: moment(warning.attr.severityChanged)
-            }
-          )
-        })
-
-      this.areaView = this.getAreaView()
-    } else {
-      let error = 'No warning data provided.'
-      throw new Error(error)
-    }
+    this.areaView = this.getAreaView()
   }
 
   getAreaView () {
+    const warnings = this.warnings.map(w => w.attr)
+    const grouped = groupBy(warnings, 'ownerArea')
+
     const rows = []
-    const areas = Object.keys(this.summaryData).sort()
+    const areas = Object.keys(grouped).sort()
     const areaRows = areas.map(area => {
       const subRows = []
       const headRow = [
         {
-          html: `<a href='/area/${encodeURIComponent(area)}'> ${area} </a>`,
+          html: `<a href='/area/${encodeURIComponent(area)}'>${area}</a>`,
           classes: 'govuk-table__header govuk-!-width-one-quarter',
-          attributes: { valign: 'center', xwidth: '35%' },
+          attributes: { valign: 'center' },
           colspan: 2
         }, {
           text: 'Total',
@@ -332,10 +52,12 @@ class AreaView {
         'Flood Alert', 'Warnings No Longer In Force'
       ]
 
+      const areaGrouped = groupBy(grouped[area], 'severity')
+
       severities.forEach(severity => {
         const severityIconLocation = '/assets/images/' + severity.replace(/ /g, '') + '.png'
-        const count = this.summaryData[area][severity]
-          ? Object.keys(this.summaryData[area][severity]).length
+        const count = areaGrouped[severity]
+          ? Object.keys(areaGrouped[severity]).length
           : 0
 
         if (!count) {
@@ -355,7 +77,7 @@ class AreaView {
 
           subRows.push(subRow)
         } else {
-          const warnings = this.summaryData[area][severity].sort((a, b) => {
+          const warnings = areaGrouped[severity].sort((a, b) => {
             return b.situationChanged - a.situationChanged
           })
 
@@ -374,7 +96,7 @@ class AreaView {
                 attributes: { valign: 'center' },
                 classes: count > 1 ? 'center noborder' : 'center'
               }, {
-                html: `<a href="/target-area/${warning.warningCode}">${warning.name}</a>`,
+                html: `<a href="/target-area/${warning.taCode}">${warning.taName}</a>`,
                 attributes: { valign: 'center' },
                 classes: 'center'
               }, {
@@ -382,11 +104,11 @@ class AreaView {
                 attributes: { valign: 'center' },
                 classes: 'center'
               }, {
-                text: warning.situationChanged.format(dateFormat),
+                text: moment(warning.situationChanged).format(dateFormat),
                 attributes: { valign: 'center' },
                 classes: 'center'
               }, {
-                text: warning.severityChanged.format(dateFormat),
+                text: moment(warning.severityChanged).format(dateFormat),
                 attributes: { valign: 'center' },
                 classes: 'center'
               }]
@@ -400,7 +122,7 @@ class AreaView {
               }, {
                 classes: index < count - 1 ? 'noborder' : ''
               }, {
-                html: `<a href="/target-area/${warning.warningCode}">${warning.name}</a>`,
+                html: `<a href="/target-area/${warning.taCode}">${warning.taName}</a>`,
                 attributes: { valign: 'center' },
                 classes: 'center'
               }, {
@@ -408,11 +130,11 @@ class AreaView {
                 attributes: { valign: 'center' },
                 classes: 'center'
               }, {
-                text: warning.situationChanged.format(dateFormat),
+                text: moment(warning.situationChanged).format(dateFormat),
                 attributes: { valign: 'center' },
                 classes: 'center'
               }, {
-                text: warning.severityChanged.format(dateFormat),
+                text: moment(warning.severityChanged).format(dateFormat),
                 attributes: { valign: 'center' },
                 classes: 'center'
               }]

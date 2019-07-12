@@ -1,7 +1,7 @@
 {
   "name": "fws-app",
   "version": "0.0.1",
-  "description": "",
+  "description": "FWS Web App",
   "main": "index.js",
   "scripts": {
     "start": "pm2 start index.js --name fws-app -i 0",

@@ -23,22 +23,7 @@ module.exports = [{
         path: [
           'server/public/static',
           'server/public/build',
-          'node_modules/govuk-frontend/assets',
-          'node_modules/govuk-frontend/components',
-          'node_modules/nunjucks/browser'
-        ]
-      }
-    }
-  }
-}, {
-  method: 'GET',
-  path: '/views/{path*}',
-  options: {
-    handler: {
-      directory: {
-        path: [
-          'client/templates',
-          'node_modules/govuk-frontend/components'
+          'node_modules/govuk-frontend/assets'
         ]
       }
     }

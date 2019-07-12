@@ -8,9 +8,9 @@ module.exports = {
     handler: async (request, h) => {
       try {
         const { id } = request.params
-        const data = await service.getFloods()
+        const { warnings } = await service.getFloods()
 
-        return h.view('area', new AreaView(data, id))
+        return h.view('area', new AreaView(warnings, id))
       } catch (err) {
         console.error(err)
         throw err
