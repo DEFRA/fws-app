@@ -1,15 +1,9 @@
-const util = require('../util')
+const util = require('../http')
 const config = require('../config')
+const { groupBy } = require('../helpers')
 const targetAreas = require('../services/areas.json').items
 const grouped = groupBy(targetAreas, 'eaAreaName')
 const areas = Object.keys(grouped).sort().map(name => ({ name }))
-
-function groupBy (arr, key) {
-  return arr.reduce(function (acc, curr) {
-    (acc[curr[key]] = acc[curr[key]] || []).push(curr)
-    return acc
-  }, {})
-}
 
 module.exports = {
   getFloods () {

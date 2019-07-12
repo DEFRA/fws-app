@@ -1,6 +1,3 @@
-const moment = require('moment-timezone')
-const { longDateFormat } = require('../constants')
-
 class TargetAreaSearchView {
   constructor (targetAreas, warnings, areas, { query, area }) {
     this.targetAreas = targetAreas

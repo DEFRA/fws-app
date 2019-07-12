@@ -1,6 +1,5 @@
-const Fwis = require('../models/fwis')
 const service = require('../services')
-const HomeView = require('../models/home-view')
+const SummaryView = require('../models/summary-view')
 
 module.exports = {
   method: 'GET',
@@ -8,10 +7,9 @@ module.exports = {
   options: {
     handler: async (request, h) => {
       try {
-        const data = await service.getFloods()
-        const fwis = new Fwis(data)
+        const { warnings } = await service.getFloods()
 
-        return h.view('summary', new HomeView(fwis))
+        return h.view('summary', new SummaryView(warnings))
       } catch (err) {
         console.error(err)
         throw err
