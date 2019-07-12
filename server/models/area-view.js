@@ -1,10 +1,10 @@
 const moment = require('moment-timezone')
-const { dateFormat } = require('../constants')
+const { dateFormat, severities } = require('../constants')
 const { groupBy } = require('../helpers')
 
 class AreaView {
   constructor (warnings, id) {
-    this.warnings = warnings
+    this.warnings = warnings.filter(w => id ? w.attr.ownerArea === id : true)
     this.id = id
     this.areaView = this.getAreaView()
   }
@@ -47,17 +47,15 @@ class AreaView {
       ]
       subRows.push(headRow)
 
-      const severities = [
-        'Severe Flood Warning', 'Flood Warning',
-        'Flood Alert', 'Warnings No Longer In Force'
-      ]
+      const severityRowOrder = ['3', '2', '1', '4']
 
-      const areaGrouped = groupBy(grouped[area], 'severity')
+      const areaGrouped = groupBy(grouped[area], 'severityValue')
 
-      severities.forEach(severity => {
-        const severityIconLocation = '/assets/images/' + severity.replace(/ /g, '') + '.png'
-        const count = areaGrouped[severity]
-          ? Object.keys(areaGrouped[severity]).length
+      severityRowOrder.forEach(severityRow => {
+        const severity = severities.find(s => s.value === severityRow)
+        const severityIconLocation = '/assets/images/' + severity.image
+        const count = areaGrouped[severity.value]
+          ? Object.keys(areaGrouped[severity.value]).length
           : 0
 
         if (!count) {
@@ -66,7 +64,7 @@ class AreaView {
               html: `<img src="${severityIconLocation}" class="flooding-icons" alt="Flooding Icon">`,
               attributes: { valign: 'center' }
             }, {
-              text: severity,
+              text: severity.name,
               attributes: { valign: 'center' }
             }, {
               text: count,
@@ -77,8 +75,8 @@ class AreaView {
 
           subRows.push(subRow)
         } else {
-          const warnings = areaGrouped[severity].sort((a, b) => {
-            return b.situationChanged - a.situationChanged
+          const warnings = areaGrouped[severity.value].sort((a, b) => {
+            return moment(b.situationChanged) - moment(a.situationChanged)
           })
 
           warnings.forEach((warning, index) => {
@@ -88,7 +86,7 @@ class AreaView {
                 attributes: { valign: 'center' },
                 classes: count > 1 ? 'noborder' : ''
               }, {
-                text: severity,
+                text: severity.name,
                 attributes: { valign: 'center' },
                 classes: count > 1 ? 'noborder' : ''
               }, {
@@ -100,7 +98,7 @@ class AreaView {
                 attributes: { valign: 'center' },
                 classes: 'center'
               }, {
-                text: warning.warningCode,
+                text: warning.taCode,
                 attributes: { valign: 'center' },
                 classes: 'center'
               }, {
@@ -126,7 +124,7 @@ class AreaView {
                 attributes: { valign: 'center' },
                 classes: 'center'
               }, {
-                text: warning.warningCode,
+                text: warning.taCode,
                 attributes: { valign: 'center' },
                 classes: 'center'
               }, {

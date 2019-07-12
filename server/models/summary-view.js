@@ -1,4 +1,5 @@
 const { groupBy } = require('../helpers')
+const { severities } = require('../constants')
 
 class SummaryView {
   constructor (warnings) {
@@ -10,64 +11,52 @@ class SummaryView {
     const warnings = this.warnings.map(w => w.attr)
     const grouped = groupBy(warnings, 'ownerArea')
 
+    const severityHeaders = severities.map(severity => {
+      return {
+        text: severity.pluralisedName,
+        classes: 'center'
+      }
+    })
+
+    // Head
     const head = [
       {
         text: 'Environment Agency Area'
-      }, {
-        text: 'Flood Alerts',
-        classes: 'center'
-      }, {
-        text: 'Flood Warnings',
-        classes: 'center'
-      }, {
-        text: 'Severe Flood Warnings',
-        classes: 'center'
-      }, {
-        text: 'Warnings No Longer In Force',
-        classes: 'center'
-      }, {
+      }, ...severityHeaders, {
         text: 'Area Total',
         classes: 'center'
       }
     ]
 
-    const rows = Object.keys(grouped).map(area => {
+    // Rows
+    const rows = Object.keys(grouped).sort().map(area => {
+      const severityValues = severities.map(severity => {
+        return {
+          text: grouped[area].filter(w => w.severityValue === severity.value).length,
+          classes: 'center'
+        }
+      })
+
       return [{
         html: `<a href='/area/${encodeURIComponent(area)}'>${area}</a>`
-      }, {
-        text: grouped[area].filter(w => w.severityValue === '1').length,
-        classes: 'center'
-      }, {
-        text: grouped[area].filter(w => w.severityValue === '2').length,
-        classes: 'center'
-      }, {
-        text: grouped[area].filter(w => w.severityValue === '3').length,
-        classes: 'center'
-      }, {
-        text: grouped[area].filter(w => w.severityValue === '4').length,
-        classes: 'center'
-      }, {
+      }, ...severityValues, {
         text: grouped[area].length,
         classes: 'center'
       }]
     })
 
+    // Totals
+    const severityTotals = severities.map(severity => {
+      return {
+        text: warnings.filter(warning => warning.severityValue === severity.value).length,
+        classes: 'govuk-table__header center'
+      }
+    })
+
     rows.push([{
       text: 'Severity Total',
       classes: 'govuk-table__header'
-    }, {
-      text: warnings.filter(warning => warning.severityValue === '1').length,
-      classes: 'govuk-table__header center'
-    }, {
-      text: warnings.filter(warning => warning.severityValue === '2').length,
-      classes: 'govuk-table__header center'
-    }, {
-      text: warnings.filter(warning => warning.severityValue === '3').length,
-      classes: 'govuk-table__header center'
-    }, {
-      text: warnings.filter(warning => warning.severityValue === '4').length,
-      classes: 'govuk-table__header center'
-    }, {
+    }, ...severityTotals, {
       text: ''
     }])
 
