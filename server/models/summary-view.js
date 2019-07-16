@@ -22,7 +22,9 @@ class SummaryView {
     const head = [
       {
         text: 'Environment Agency Area'
-      }, ...severityHeaders, {
+      },
+      ...severityHeaders,
+      {
         text: 'Area Total',
         classes: 'center'
       }
@@ -37,12 +39,16 @@ class SummaryView {
         }
       })
 
-      return [{
-        html: `<a href='/area/${encodeURIComponent(area)}'>${area}</a>`
-      }, ...severityValues, {
-        text: grouped[area].length,
-        classes: 'center'
-      }]
+      return [
+        {
+          html: `<a href='/area/${encodeURIComponent(area)}'>${area}</a>`
+        },
+        ...severityValues,
+        {
+          text: grouped[area].length,
+          classes: 'center'
+        }
+      ]
     })
 
     // Totals
@@ -53,12 +59,16 @@ class SummaryView {
       }
     })
 
-    rows.push([{
-      text: 'Severity Total',
-      classes: 'govuk-table__header'
-    }, ...severityTotals, {
-      text: ''
-    }])
+    rows.push([
+      {
+        text: 'Severity Total',
+        classes: 'govuk-table__header'
+      },
+      ...severityTotals,
+      {
+        text: ''
+      }
+    ])
 
     return {
       head,

@@ -1,3 +1,4 @@
+const boom = require('boom')
 const service = require('../services')
 const SummaryView = require('../models/summary-view')
 
@@ -11,8 +12,7 @@ module.exports = {
 
         return h.view('summary', new SummaryView(warnings))
       } catch (err) {
-        console.error(err)
-        throw err
+        return boom.badRequest('Summary handler caught error', err)
       }
     }
   }

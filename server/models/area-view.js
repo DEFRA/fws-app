@@ -23,23 +23,28 @@ class AreaView {
           classes: 'govuk-table__header govuk-!-width-one-quarter',
           attributes: { valign: 'center' },
           colspan: 2
-        }, {
+        },
+        {
           text: 'Total',
           classes: 'govuk-table__header center',
           attributes: { valign: 'center' }
-        }, {
+        },
+        {
           text: 'Target Area Name',
           classes: 'govuk-table__header center',
           attributes: { valign: 'center' }
-        }, {
+        },
+        {
           text: 'Target Area Code',
           classes: 'govuk-table__header center',
           attributes: { valign: 'center' }
-        }, {
+        },
+        {
           text: 'Situation Changed',
           classes: 'govuk-table__header center',
           attributes: { valign: 'center' }
-        }, {
+        },
+        {
           text: 'Severity Changed',
           classes: 'govuk-table__header center',
           attributes: { valign: 'center' }
@@ -63,14 +68,17 @@ class AreaView {
             {
               html: `<img src="${severityIconLocation}" class="flooding-icons" alt="Flooding Icon">`,
               attributes: { valign: 'center' }
-            }, {
+            },
+            {
               text: severity.name,
               attributes: { valign: 'center' }
-            }, {
+            },
+            {
               text: count,
               attributes: { valign: 'center' },
               classes: 'center'
-            }, {}, {}, {}, {}
+            },
+            {}, {}, {}, {}
           ]
 
           subRows.push(subRow)
@@ -81,61 +89,76 @@ class AreaView {
 
           warnings.forEach((warning, index) => {
             if (index === 0) {
-              const subRow = [{
-                html: `<img src="${severityIconLocation}" class="flooding-icons" alt="Flooding Icon">`,
-                attributes: { valign: 'center' },
-                classes: count > 1 ? 'noborder' : ''
-              }, {
-                text: severity.name,
-                attributes: { valign: 'center' },
-                classes: count > 1 ? 'noborder' : ''
-              }, {
-                text: count,
-                attributes: { valign: 'center' },
-                classes: count > 1 ? 'center noborder' : 'center'
-              }, {
-                html: `<a href="/target-area/${warning.taCode}">${warning.taName}</a>`,
-                attributes: { valign: 'center' },
-                classes: 'center'
-              }, {
-                text: warning.taCode,
-                attributes: { valign: 'center' },
-                classes: 'center'
-              }, {
-                text: moment(warning.situationChanged).format(dateFormat),
-                attributes: { valign: 'center' },
-                classes: 'center'
-              }, {
-                text: moment(warning.severityChanged).format(dateFormat),
-                attributes: { valign: 'center' },
-                classes: 'center'
-              }]
+              const subRow = [
+                {
+                  html: `<img src="${severityIconLocation}" class="flooding-icons" alt="Flooding Icon">`,
+                  attributes: { valign: 'center' },
+                  classes: count > 1 ? 'noborder' : ''
+                },
+                {
+                  text: severity.name,
+                  attributes: { valign: 'center' },
+                  classes: count > 1 ? 'noborder' : ''
+                },
+                {
+                  text: count,
+                  attributes: { valign: 'center' },
+                  classes: count > 1 ? 'center noborder' : 'center'
+                },
+                {
+                  html: `<a href="/target-area/${warning.taCode}">${warning.taName}</a>`,
+                  attributes: { valign: 'center' },
+                  classes: 'center'
+                },
+                {
+                  text: warning.taCode,
+                  attributes: { valign: 'center' },
+                  classes: 'center'
+                },
+                {
+                  text: moment(warning.situationChanged).format(dateFormat),
+                  attributes: { valign: 'center' },
+                  classes: 'center'
+                },
+                {
+                  text: moment(warning.severityChanged).format(dateFormat),
+                  attributes: { valign: 'center' },
+                  classes: 'center'
+                }]
 
               subRows.push(subRow)
             } else {
-              const subRow = [{
-                classes: index < count - 1 ? 'noborder' : ''
-              }, {
-                classes: index < count - 1 ? 'noborder' : ''
-              }, {
-                classes: index < count - 1 ? 'noborder' : ''
-              }, {
-                html: `<a href="/target-area/${warning.taCode}">${warning.taName}</a>`,
-                attributes: { valign: 'center' },
-                classes: 'center'
-              }, {
-                text: warning.taCode,
-                attributes: { valign: 'center' },
-                classes: 'center'
-              }, {
-                text: moment(warning.situationChanged).format(dateFormat),
-                attributes: { valign: 'center' },
-                classes: 'center'
-              }, {
-                text: moment(warning.severityChanged).format(dateFormat),
-                attributes: { valign: 'center' },
-                classes: 'center'
-              }]
+              const subRow = [
+                {
+                  classes: index < count - 1 ? 'noborder' : ''
+                },
+                {
+                  classes: index < count - 1 ? 'noborder' : ''
+                },
+                {
+                  classes: index < count - 1 ? 'noborder' : ''
+                },
+                {
+                  html: `<a href="/target-area/${warning.taCode}">${warning.taName}</a>`,
+                  attributes: { valign: 'center' },
+                  classes: 'center'
+                },
+                {
+                  text: warning.taCode,
+                  attributes: { valign: 'center' },
+                  classes: 'center'
+                },
+                {
+                  text: moment(warning.situationChanged).format(dateFormat),
+                  attributes: { valign: 'center' },
+                  classes: 'center'
+                },
+                {
+                  text: moment(warning.severityChanged).format(dateFormat),
+                  attributes: { valign: 'center' },
+                  classes: 'center'
+                }
+              ]
 
               subRows.push(subRow)
             }

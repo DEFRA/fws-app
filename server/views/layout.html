@@ -41,9 +41,11 @@
   <h1 class="govuk-heading-l">Flood Digital Management Console</h1>
   {% block body %}{% endblock %}
 
+  {% if not hideRefresh %}
   <div>
-      <a href="{{meta.url}}" class="govuk-button">Refresh</a>
-    </div>
+    <a href="{{meta.url}}" class="govuk-button">Refresh</a>
+  </div>
+  {% endif %}
   <div>For help and information please contact: <a href="mailto:wandlsupport@enviroment-agency.gov.uk">wandisupport@enviroment-agency.gov.uk</a></div>
 {% endblock %}
 

@@ -1,4 +1,5 @@
 const joi = require('joi')
+const boom = require('boom')
 const service = require('../services')
 const TargetAreaSearchView = require('../models/target-area-search-view')
 
@@ -19,8 +20,7 @@ module.exports = {
 
         return h.view('target-area-search', viewModel)
       } catch (err) {
-        console.error(err)
-        throw err
+        return boom.badRequest('Target Area search handler caught error', err)
       }
     },
     validate: {

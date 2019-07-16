@@ -4,7 +4,7 @@ const config = require('../config')
 const pkg = require('../../package.json')
 
 module.exports = {
-  plugin: require('vision'),
+  plugin: require('@hapi/vision'),
   options: {
     engines: {
       html: {

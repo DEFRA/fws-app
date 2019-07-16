@@ -1,29 +1,29 @@
 const joi = require('joi')
+const boom = require('boom')
 const service = require('../services')
 const TargetAreaView = require('../models/target-area-view')
 
 module.exports = {
   method: 'GET',
-  path: '/target-area/{id}',
+  path: '/target-area/{code}',
   options: {
     handler: async (request, h) => {
       try {
-        const { id } = request.params
-        const targetArea = await service.getTargetArea(id)
+        const { code } = request.params
+        const targetArea = await service.getTargetArea(code)
         const { warnings } = await service.getFloods()
-        const targetAreaWarnings = warnings.filter(w => w.attr.taCode === id)
-        const historicWarnings = targetAreaWarnings
+        const targetAreaWarning = warnings.find(w => w.attr.taCode === code)
+        const historicWarnings = await service.getHistoricFloods(code)
 
         return h.view('target-area', new TargetAreaView(targetArea,
-          targetAreaWarnings, historicWarnings))
+          targetAreaWarning, historicWarnings, { allowEdit: true }))
       } catch (err) {
-        console.error(err)
-        throw err
+        return boom.badRequest('Target area handler caught error', err)
       }
     },
     validate: {
       params: {
-        id: joi.string().required()
+        code: joi.string().required()
       }
     }
   }

@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+
+{% from "table/macro.njk" import govukTable %}
+{% from "macros/tabs.html" import tabs %}
+
+{% set bodyClasses = "internal" %}
+
+{% block head %}
+  <script>
+    function onSubmitForm (e) {
+      if (window.confirm('Are you sure you want to add/update the message?')) {
+        return true
+      } else {
+        e.preventDefault()
+      }
+    }
+  </script>>
+  {{super()}}
+{% endblock %}
+
+{% block body %}
+  <div class="govuk-body">
+    <div class="govuk-inset-text">
+      Generated on 
+      <time id="page-time">{{meta.longDateString}}</time>
+    </div>
+    <div class="govuk-tabs">
+      {{tabs('target-area')}}
+    
+      <section class="govuk-tabs__panel">
+        <span style="float: right">
+          <a href="/target-area" class="govuk-link">Search target areas</a>
+        </span>
+        <span class="govuk-caption-xl">{{targetArea.eaAreaName}}</span>
+        <h2 class="govuk-heading-l">{{targetArea.label}} ({{targetArea.fwdCode}})</h2>
+
+        <h2 class="govuk-heading-s">Current Warning</h2>
+        <form method="POST" onsubmit="onSubmitForm(event)">
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="severity">Severity</label>
+            <select class="govuk-select" id="severity" name="severity" required>
+              <option value="">Please select</option>
+              {% for option in options %}
+              <option value="{{option.value}}" {% if option.selected %}selected{% endif %}>{{option.text}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="situation">Situation</label>
+            <textarea class="govuk-textarea" id="situation" name="situation"
+              rows="10" maxLength="999" required>{{situation}}</textarea>
+          </div>
+          <button type="submit" class="govuk-button">Save</button>
+        </form>
+      </section>
+    </div>
+  </div>
+{% endblock %}

@@ -14,20 +14,23 @@ class TargetAreaSearchView {
     const head = [
       {
         text: 'Area Name',
-        classes: 'govuk-table__header govuk-!-width-one-quarter',
-        attributes: { valign: 'center' }
-      }, {
+        attributes: { valign: 'center' },
+        classes: 'govuk-table__header govuk-!-width-one-quarter'
+      },
+      {
         text: 'Target Area Name',
-        classes: 'govuk-table__header center',
-        attributes: { valign: 'center' }
-      }, {
+        attributes: { valign: 'center' },
+        classes: 'govuk-table__header center'
+      },
+      {
         text: 'Target Area Code',
-        classes: 'govuk-table__header center',
-        attributes: { valign: 'center' }
-      }, {
+        attributes: { valign: 'center' },
+        classes: 'govuk-table__header center'
+      },
+      {
         text: 'Severity',
-        classes: 'govuk-table__header center',
-        attributes: { valign: 'center' }
+        attributes: { valign: 'center' },
+        classes: 'govuk-table__header center'
       }
     ]
 
@@ -37,18 +40,21 @@ class TargetAreaSearchView {
         {
           html: `<a href='/area/${encodeURIComponent(ta.eaAreaName)}'>${ta.eaAreaName}</a>`,
           attributes: { valign: 'center' }
-        }, {
+        },
+        {
           html: `<a href='/target-area/${encodeURIComponent(ta.fwdCode)}'>${ta.label}</a>`,
-          classes: 'center',
-          attributes: { valign: 'center' }
-        }, {
+          attributes: { valign: 'center' },
+          classes: 'center'
+        },
+        {
           text: ta.fwdCode,
-          classes: 'center',
-          attributes: { valign: 'center' }
-        }, {
+          attributes: { valign: 'center' },
+          classes: 'center'
+        },
+        {
           text: targetAreaWarning ? targetAreaWarning.attr.severity : '',
-          classes: 'center',
-          attributes: { valign: 'center' }
+          attributes: { valign: 'center' },
+          classes: 'center'
         }
       ]
     })

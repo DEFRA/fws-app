@@ -1,3 +1,4 @@
+const boom = require('boom')
 const AreaView = require('../models/area-view')
 const service = require('../services')
 
@@ -12,8 +13,7 @@ module.exports = {
 
         return h.view('area', new AreaView(warnings, id))
       } catch (err) {
-        console.error(err)
-        throw err
+        return boom.badRequest('Area handler caught error', err)
       }
     }
   }

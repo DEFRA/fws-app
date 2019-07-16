@@ -22,10 +22,16 @@
         <h2 class="govuk-heading-l">{{targetArea.label}} ({{targetArea.fwdCode}})</h2>
 
         <h2 class="govuk-heading-s">Current Warning</h2>
-        {% if warningsTable %}
-        {{govukTable(warningsTable)}}
+        {% if warningTable %}
+        {{govukTable(warningTable)}}
+          {% if allowEdit %}
+            <a class="govuk-button" href="/target-area/{{targetArea.fwdCode}}/edit">Edit the current warning</a>
+          {% endif %}
         {% else %}
         <p>There are no warnings currently in force for {{targetArea.label}}</p>
+          {% if allowEdit %}
+            <a class="govuk-button" href="/target-area/{{targetArea.fwdCode}}/edit">Create a new warning</a>
+          {% endif %}
         {% endif %}
 
         <h2 class="govuk-heading-s">Historic Warnings</h2>

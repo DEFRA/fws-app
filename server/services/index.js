@@ -5,13 +5,14 @@ const targetAreas = require('../services/areas.json').items
 const grouped = groupBy(targetAreas, 'eaAreaName')
 const areas = Object.keys(grouped).sort().map(name => ({ name }))
 
-module.exports = {
-  getFloods () {
+const service = {
+  async getFloods () {
     return util.getJson(`${config.api}/fwis.json`, true)
   },
 
-  find (query, area) {
-    return util.getJson(`${config.api}/fwis.json`, true)
+  async getHistoricFloods (code) {
+    const { warnings } = await service.getFloods()
+    return warnings.filter(w => w.attr.taCode === code)
   },
 
   async getAllAreas () {
@@ -41,5 +42,11 @@ module.exports = {
 
   async getTargetArea (code) {
     return Promise.resolve(targetAreas.find(ta => ta.fwdCode === code))
+  },
+
+  async updateWarning (id, severity, situation) {
+    return Promise.resolve(true)
   }
 }
+
+module.exports = service
