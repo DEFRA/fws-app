@@ -1,4 +1,4 @@
-const util = require('../http')
+const http = require('../http')
 const config = require('../config')
 const { groupBy } = require('../helpers')
 const targetAreas = require('../services/areas.json').items
@@ -7,7 +7,7 @@ const areas = Object.keys(grouped).sort().map(name => ({ name }))
 
 const service = {
   async getFloods () {
-    return util.getJson(`${config.api}/fwis.json`, true)
+    return http.getJson(`${config.api}/fwis.json`, true)
   },
 
   async getHistoricFloods (code) {
@@ -44,8 +44,18 @@ const service = {
     return Promise.resolve(targetAreas.find(ta => ta.fwdCode === code))
   },
 
-  async updateWarning (id, severity, situation) {
-    return Promise.resolve(true)
+  async updateWarning (code, severity, situation) {
+    const approved = '12/10/2018 13:29'
+    const bodyXml = `
+      <?xml version="1.0" encoding="UTF-8"?>
+      <WarningMessage xmlns="http://www.environment-agency.gov.uk/XMLSchemas/EAFWD" approved="${approved}" requestId="" language="English">
+        <TargetAreaCode><![CDATA[${code}]]></TargetAreaCode>
+        <SeverityLevel>${severity}</SeverityLevel>
+        <InternetSituation><![CDATA[${situation}]]></InternetSituation>
+        <FWISGroupedTACodes />
+      </WarningMessage>
+      `
+    return http.postJson(`${config.api}/message`, { bodyXml }, true)
   }
 }
 

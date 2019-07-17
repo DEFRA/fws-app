@@ -8,6 +8,9 @@ async function createServer () {
   const server = hapi.server({
     port: config.port,
     routes: {
+      auth: {
+        mode: 'try'
+      },
       validate: {
         options: {
           abortEarly: false
@@ -16,7 +19,33 @@ async function createServer () {
     }
   })
 
-  // Register the plugins
+  // Register the auth plugins
+  await server.register(require('@hapi/bell'))
+  await server.register(require('@hapi/cookie'))
+
+  // Setup the authentication strategies
+  server.auth.strategy('azuread', 'bell', {
+    provider: 'azuread',
+    password: config.cookiePassword,
+    clientId: config.adClientId,
+    clientSecret: config.adClientSecret,
+    isSecure: config.isSecure,
+    forceHttps: config.forceHttps,
+    config: {
+      tenant: config.adTenant
+    }
+  })
+
+  server.auth.strategy('session', 'cookie', {
+    cookie: {
+      password: config.cookiePassword,
+      isSecure: config.isSecure
+    }
+  })
+
+  server.auth.default('session')
+
+  // Register the remaining plugins
   await server.register(require('@hapi/inert'))
   await server.register(require('./plugins/views'))
   await server.register(require('./plugins/router'))
@@ -32,6 +61,10 @@ async function createServer () {
     if (response.variety === 'view') {
       const ctx = response.source.context || {}
       const meta = ctx.meta || {}
+
+      // Set the auth object
+      // onto the top level context
+      ctx.auth = request.auth
 
       // Set some common context
       // variables under the `meta` namespace

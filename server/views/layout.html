@@ -28,7 +28,17 @@
       </a>
     </div>
     <span class="login-section">
-      <span class="divider">|</span> <a href="#">Login</a>
+      {% if auth.isAuthenticated %}
+      <span>
+        <b title="{{auth.credentials.profile.email}}">{{auth.credentials.profile.displayName}}</b>
+        <span class="divider">|</span>
+        <a href="/logout">Logout</a>
+        <!--  -->
+      </span>
+      <span></span>
+      {% else %}
+      <a href="/login">Login</a>
+      {% endif %}
     </span>
   </div>
 </header>

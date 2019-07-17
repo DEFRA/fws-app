@@ -15,8 +15,11 @@ module.exports = {
         const targetAreaWarning = warnings.find(w => w.attr.taCode === code)
         const historicWarnings = await service.getHistoricFloods(code)
 
+        const allowEdit = request.auth.isAuthenticated &&
+          request.auth.credentials.isAdmin
+
         return h.view('target-area', new TargetAreaView(targetArea,
-          targetAreaWarning, historicWarnings, { allowEdit: true }))
+          targetAreaWarning, historicWarnings, { allowEdit }))
       } catch (err) {
         return boom.badRequest('Target area handler caught error', err)
       }

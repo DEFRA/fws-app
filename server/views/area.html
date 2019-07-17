@@ -31,7 +31,11 @@
         {% endif %}
         
         <h2 class="govuk-heading-l">Area View</h2>
-        {% include "./partials/area.html" %}
+        {% if areaView.rows.length %}
+        {{ govukTable(areaView)}}
+        {% else %}
+          <p class="govuk-body">There are no warnings currently in force</p>
+        {% endif %}
       </section>
     </div>
   </div>

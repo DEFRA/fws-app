@@ -14,10 +14,20 @@ module.exports = {
           // processing the request
           const statusCode = response.output.statusCode
 
+          const model = {
+            hideRefresh: true
+          }
+
+          // In the event of 403
+          // return the `403` view
+          if (statusCode === 403) {
+            return h.view('403', model).code(200)
+          }
+
           // In the event of 404
           // return the `404` view
           if (statusCode === 404) {
-            return h.view('404').code(statusCode)
+            return h.view('404', model).code(200)
           }
 
           request.log('error', {
@@ -27,7 +37,7 @@ module.exports = {
           })
 
           // The return the `500` view
-          return h.view('500').code(statusCode)
+          return h.view('500', model).code(200)
         }
         return h.continue
       })

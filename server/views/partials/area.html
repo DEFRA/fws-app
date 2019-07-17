@@ -1,7 +1,0 @@
-{% from "table/macro.njk" import govukTable %}
-
-{% if areaView.rows.length %}
-  {{ govukTable(areaView)}}
-{% else %}
-  <p class="govuk-body">There are no warnings currently in force</p>
-{% endif %}

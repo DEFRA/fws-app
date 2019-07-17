@@ -19,6 +19,9 @@ module.exports = [{
         return boom.badRequest('Update warning caught error', err)
       }
     },
+    auth: {
+      scope: '+manage:warnings'
+    },
     validate: {
       params: {
         code: joi.string().required()
@@ -34,13 +37,16 @@ module.exports = [{
         const { code } = request.params
         const { severity, situation } = request.payload
 
-        await service.updateWarning(1, severity, situation)
+        await service.updateWarning(code, severity, situation)
 
         return h.redirect(`/target-area/${code}`)
       } catch (err) {
         console.error(err)
         throw err
       }
+    },
+    auth: {
+      scope: '+manage:warnings'
     },
     validate: {
       params: {

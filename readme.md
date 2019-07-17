@@ -5,10 +5,20 @@ This is the FWIS management tool
 
 # Environment variables
 
-| name     | description      | required | default |            valid            | notes |
-|----------|------------------|:--------:|---------|:---------------------------:|-------|
-| NODE_ENV | Node environment |    no    |         | development,test,production |       |
-| PORT     | Port number      |    no    | 3000    |                             |       |
+| name               | description      | required |        default        |       valid        | notes |
+|--------------------|------------------|:--------:|-----------------------|:------------------:|-------|
+| NODE_ENV           | Node environment |    no    | dev                   | dev,tst,prd        |       |
+| PORT               | Port number      |    no    | 3000                  |                    |       |
+| FWS_API_URL        | API url          |    yes   |                       |                    |       |
+| FWS_API_KEY        | API key          |    yes   |                       |                    |       |
+| FWS_APP_PROXY      | Proxy            |    no    |                       |                    |       |
+| AD_CLIENT_ID       | AD Client Id     |    yes   |                       |                    |       |
+| AD_CLIENT_SECRET   | AD Client Secret |    yes   |                       |                    |       |
+| AD_TENANT          | AD Tenant        |    yes   |                       |                    |       |
+| AD_COOKIE_PASSWORD | Cookie password  |    yes   |                       |                    |       |
+| IS_SECURE          | Secure cookie    |    no    | false                 |                    |       |
+| FORCE_HTTPS        | Force https      |    no    | false                 |                    |       |
+| HOME_PAGE          | Home page        |    no    | http://localhost:3000 |                    |       |
 
 # Prerequisites
 
