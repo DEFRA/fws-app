@@ -58,8 +58,8 @@ class TargetAreaView {
         classes: 'center'
       },
       {
-        html: `<small>${warning.situation}</small>`,
-        attributes: { valign: 'center' }
+        text: warning.situation,
+        attributes: { valign: 'center', style: 'font-size: smaller' }
       },
       {
         text: moment(warning.attr.severityChanged).format(dateFormat),

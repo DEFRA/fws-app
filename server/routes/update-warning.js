@@ -36,8 +36,9 @@ module.exports = [{
       try {
         const { code } = request.params
         const { severity, situation } = request.payload
+        const profile = request.auth.credentials.profile
 
-        await service.updateWarning(code, severity, situation)
+        await service.updateWarning(code, severity, situation, profile)
 
         return h.redirect(`/target-area/${code}`)
       } catch (err) {
@@ -53,7 +54,7 @@ module.exports = [{
         code: joi.string().required()
       },
       payload: {
-        severity: joi.string().required().valid('1', '2', '3', '4', '5'),
+        severity: joi.number().required().valid(1, 2, 3, 4),
         situation: joi.string().required().max(999)
       }
     }

@@ -1,3 +1,5 @@
+const { Builder } = require('xml2js')
+const moment = require('moment-timezone')
 const http = require('../http')
 const config = require('../config')
 const { groupBy } = require('../helpers')
@@ -44,8 +46,34 @@ const service = {
     return Promise.resolve(targetAreas.find(ta => ta.fwdCode === code))
   },
 
-  async updateWarning (code, severity, situation) {
-    const approved = '12/10/2018 13:29'
+  async updateWarning (code, severity, situation, profile) {
+    const approved = moment.tz('Europe/London').format('DD/MM/YYYY HH:mm')
+
+    // const builder = new Builder({
+    //   xmldec: {
+    //     version: '1.0',
+    //     encoding: 'UTF-8'
+    //   },
+    //   cdata: true
+    // })
+
+    // const root = {
+    //   WarningMessage: {
+    //     $: {
+    //       xmlns: 'http://www.environment-agency.gov.uk/XMLSchemas/EAFWD',
+    //       approved,
+    //       requestId: '',
+    //       language: 'English'
+    //     },
+    //     TargetAreaCode: code,
+    //     SeverityLevel: severity,
+    //     InternetSituation: situation,
+    //     FWISGroupedTACodes: {}
+    //   }
+    // }
+
+    // const bodyXml = builder.buildObject(root)
+
     const bodyXml = `
       <?xml version="1.0" encoding="UTF-8"?>
       <WarningMessage xmlns="http://www.environment-agency.gov.uk/XMLSchemas/EAFWD" approved="${approved}" requestId="" language="English">
@@ -55,7 +83,8 @@ const service = {
         <FWISGroupedTACodes />
       </WarningMessage>
       `
-    return http.postJson(`${config.api}/message`, { bodyXml }, true)
+
+    return http.postJson(`${config.api}/message`, { bodyXml, profile }, true)
   }
 }
 
