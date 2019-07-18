@@ -36,7 +36,8 @@ module.exports = [{
       try {
         const { code } = request.params
         const { severity, situation } = request.payload
-        const profile = request.auth.credentials.profile
+        const { id, email, displayName: name } = request.auth.credentials.profile
+        const profile = { id, email, name }
 
         await service.updateWarning(code, severity, situation, profile)
 

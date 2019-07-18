@@ -1,4 +1,3 @@
-const { Builder } = require('xml2js')
 const moment = require('moment-timezone')
 const http = require('../http')
 const config = require('../config')
@@ -48,31 +47,6 @@ const service = {
 
   async updateWarning (code, severity, situation, profile) {
     const approved = moment.tz('Europe/London').format('DD/MM/YYYY HH:mm')
-
-    // const builder = new Builder({
-    //   xmldec: {
-    //     version: '1.0',
-    //     encoding: 'UTF-8'
-    //   },
-    //   cdata: true
-    // })
-
-    // const root = {
-    //   WarningMessage: {
-    //     $: {
-    //       xmlns: 'http://www.environment-agency.gov.uk/XMLSchemas/EAFWD',
-    //       approved,
-    //       requestId: '',
-    //       language: 'English'
-    //     },
-    //     TargetAreaCode: code,
-    //     SeverityLevel: severity,
-    //     InternetSituation: situation,
-    //     FWISGroupedTACodes: {}
-    //   }
-    // }
-
-    // const bodyXml = builder.buildObject(root)
 
     const bodyXml = `
       <?xml version="1.0" encoding="UTF-8"?>
