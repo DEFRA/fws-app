@@ -11,14 +11,18 @@ module.exports = {
       try {
         const { query, area } = request.query
         const areas = await service.getAllAreas()
-        const targetAreas = await service.findTargetAreas(query, area)
-        const { warnings } = await service.getFloods()
-        const viewModel = new TargetAreaSearchView(targetAreas, warnings, areas, {
-          query,
-          area
-        })
+        const hasSearchParam = query !== undefined || area !== undefined
 
-        return h.view('target-area-search', viewModel)
+        if (hasSearchParam) {
+          const { warnings } = await service.getFloods()
+          const targetAreas = await service.findTargetAreas(query, area)
+
+          return h.view('target-area-search', new TargetAreaSearchView(
+            areas, targetAreas, warnings, query, area
+          ))
+        } else {
+          return h.view('target-area-search', new TargetAreaSearchView(areas))
+        }
       } catch (err) {
         return boom.badRequest('Target Area search handler caught error', err)
       }

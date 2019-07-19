@@ -21,8 +21,7 @@ const service = {
   },
 
   async findTargetAreas (query, area) {
-    const hasSearchParam = query !== undefined || area !== undefined
-    const result = hasSearchParam ? targetAreas.filter(a => {
+    const result = targetAreas.filter(a => {
       if (area) {
         if (a.eaAreaName !== area) {
           return false
@@ -36,7 +35,7 @@ const service = {
       }
 
       return true
-    }) : []
+    })
 
     return Promise.resolve(result)
   },
