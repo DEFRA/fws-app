@@ -18,6 +18,12 @@ module.exports = {
             hideRefresh: true
           }
 
+          // In the event of 401
+          // return the `401` view
+          if (statusCode === 401) {
+            return h.view('401', model).code(200)
+          }
+
           // In the event of 403
           // return the `403` view
           if (statusCode === 403) {
