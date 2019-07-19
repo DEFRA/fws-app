@@ -55,7 +55,7 @@ lab.experiment('Web test', () => {
       ]
     }
 
-    let fwisStub = sandbox.stub(service, 'get')
+    const fwisStub = sandbox.stub(service, 'get')
     fwisStub.returns(fwisJsonData)
 
     const options = {
@@ -69,7 +69,7 @@ lab.experiment('Web test', () => {
   })
 
   lab.test('3 - GET / route fails simulating service not available ', async () => {
-    let fwisStub = sandbox.stub(service, 'get')
+    const fwisStub = sandbox.stub(service, 'get')
     fwisStub.returns(null)
 
     const options = {
@@ -84,7 +84,7 @@ lab.experiment('Web test', () => {
   lab.test('4 - GET / route fails with empty warning data', async () => {
     const fwisJsonData = {}
 
-    let fwisStub = sandbox.stub(service, 'get')
+    const fwisStub = sandbox.stub(service, 'get')
     fwisStub.returns(fwisJsonData)
 
     const options = {
