@@ -7,7 +7,7 @@ This is the FWIS management tool
 
 | name               | description      | required |        default        |       valid        | notes |
 |--------------------|------------------|:--------:|-----------------------|:------------------:|-------|
-| NODE_ENV           | Node environment |    no    | dev                   | dev,tst,prd        |       |
+| FWS_ENV_NAME       | Environment name |    no    | dev                   | dev,tst,pre,prd    |       |
 | PORT               | Port number      |    no    | 3000                  |                    |       |
 | FWS_API_URL        | API url          |    yes   |                       |                    |       |
 | FWS_API_KEY        | API key          |    yes   |                       |                    |       |

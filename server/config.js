@@ -3,7 +3,7 @@ const joi = require('joi')
 // Define config schema
 const schema = {
   port: joi.number().default(3000),
-  env: joi.string().valid('dev', 'tst', 'prd').default('dev'),
+  env: joi.string().valid('dev', 'tst', 'pre', 'prd').default('dev'),
   api: joi.string().uri().required(),
   apiKey: joi.string().required(),
   proxy: joi.string().uri().allow(''),
@@ -19,7 +19,7 @@ const schema = {
 // Build config
 const config = {
   port: process.env.PORT,
-  env: process.env.NODE_ENV,
+  env: process.env.FWS_ENV_NAME,
   api: process.env.FWS_API_URL,
   apiKey: process.env.FWS_API_KEY,
   proxy: process.env.FWS_APP_PROXY,
