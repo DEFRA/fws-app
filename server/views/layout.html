@@ -7,12 +7,11 @@
 {% endblock %}
 
 {% block headIcons %}
-  <link rel="shortcut icon" href="{{ assetPath }}/images/unbranded.ico?0.18.3" type="image/x-icon" />
-  <link rel="mask-icon" href="{{ assetPath }}/images/gov.uk_logotype_crown.svg?0.18.3" color="#0b0c0c">
-  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ asset_path }}/images/apple-touch-icon-152x152.png?0.18.3">
-  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{{ asset_path }}/images/apple-touch-icon-120x120.png?0.18.3">
-  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="{{ asset_path }}/images/apple-touch-icon-76x76.png?0.18.3">
-  <link rel="apple-touch-icon-precomposed" href="{{ assetPath }}/images/apple-touch-icon-60x60.png?0.18.3">
+  <link rel="shortcut icon" href="{{ assetPath }}/images/icons/favicon.ico?0.18.3" type="image/x-icon" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ assetPath }}/images/icons/apple-icon-152x152.png?0.18.3">
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{{ assetPath }}/images/icons/apple-icon-120x120.png?0.18.3">
+  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="{{ assetPath }}/images/icons/apple-icon-76x76.png?0.18.3">
+  <link rel="apple-touch-icon-precomposed" href="{{ assetPath }}/images/icons/apple-icon-60x60.png?0.18.3">
 {% endblock %}
 
 {% block head %}
@@ -61,6 +60,4 @@
 
 {% block bodyEnd %}
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
-  <!-- <script src="{{ assetPath }}/all.js"></script>
-  <script>window.GOVUKFrontend.initAll()</script> -->
 {% endblock %}
