@@ -31,8 +31,8 @@
         <span style="float: right">
           <a href="/target-area" class="govuk-link">Search target areas</a>
         </span>
-        <span class="govuk-caption-xl">{{targetArea.eaAreaName}}</span>
-        <h2 class="govuk-heading-l">{{targetArea.label}} ({{targetArea.fwdCode}})</h2>
+        <span class="govuk-caption-xl">{{targetArea.owner_area}}</span>
+        <h2 class="govuk-heading-l">{{targetArea.label}} ({{targetArea.ta_code}})</h2>
 
         <h2 class="govuk-heading-s">Current Warning</h2>
         <form method="POST" onsubmit="onSubmitForm(event)">
@@ -50,7 +50,7 @@
             <textarea class="govuk-textarea" id="situation" name="situation"
               rows="10" maxLength="999" required>{{situation}}</textarea>
           </div>
-          <button type="submit" class="govuk-button">Save</button>
+          <button type="submit" class="govuk-button">Save and publish</button>
         </form>
       </section>
     </div>

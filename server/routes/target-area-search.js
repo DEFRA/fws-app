@@ -1,6 +1,6 @@
 const joi = require('joi')
 const boom = require('boom')
-const service = require('../services')
+const { getTargetAreaFilter } = require('../helpers')
 const TargetAreaSearchView = require('../models/target-area-search-view')
 
 module.exports = {
@@ -10,15 +10,21 @@ module.exports = {
     handler: async (request, h) => {
       try {
         const { query, area } = request.query
-        const areas = await service.getAllAreas()
-        const targetAreas = await service.findTargetAreas(query, area)
-        const { warnings } = await service.getFloods()
-        const viewModel = new TargetAreaSearchView(targetAreas, warnings, areas, {
-          query,
-          area
-        })
+        const { server } = request
+        const { areas, targetAreas } = await server.methods.flood.getAllAreas()
+        const hasSearchParam = query !== undefined || area !== undefined
 
-        return h.view('target-area-search', viewModel)
+        if (hasSearchParam) {
+          const { warnings } = await server.methods.flood.getFloods()
+          const filter = getTargetAreaFilter(query, area)
+          const filteredTargetAreas = targetAreas.filter(filter)
+
+          return h.view('target-area-search', new TargetAreaSearchView(
+            areas, filteredTargetAreas, warnings, query, area
+          ))
+        } else {
+          return h.view('target-area-search', new TargetAreaSearchView(areas))
+        }
       } catch (err) {
         return boom.badRequest('Target Area search handler caught error', err)
       }

@@ -23,14 +23,14 @@
       <section class="govuk-tabs__panel">
         {% if id %}
         <span style="float: right">
-          <a href="/area" class="govuk-link">Show All Areas</a>
+          <a href="/area" class="govuk-link">Show all areas</a>
         </span>
         <span class="govuk-caption-xl">
           {{id}}
         </span>
         {% endif %}
         
-        <h2 class="govuk-heading-l">Area View</h2>
+        <h2 class="govuk-heading-l">Area view</h2>
         {% if areaView.rows.length %}
         {{ govukTable(areaView)}}
         {% else %}

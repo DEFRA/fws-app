@@ -1,6 +1,5 @@
 const joi = require('joi')
 const boom = require('boom')
-const service = require('../services')
 const TargetAreaView = require('../models/target-area-view')
 
 module.exports = {
@@ -10,13 +9,21 @@ module.exports = {
     handler: async (request, h) => {
       try {
         const { code } = request.params
-        const targetArea = await service.getTargetArea(code)
-        const { warnings } = await service.getFloods()
-        const targetAreaWarning = warnings.find(w => w.attr.taCode === code)
-        const historicWarnings = await service.getHistoricFloods(code)
+        const { server, auth } = request
 
-        const allowEdit = request.auth.isAuthenticated &&
-          request.auth.credentials.isAdmin
+        const [
+          { targetAreas },
+          { warnings },
+          { warnings: historicWarnings }
+        ] = await Promise.all([
+          server.methods.flood.getAllAreas(),
+          server.methods.flood.getFloods(),
+          server.methods.flood.getHistoricFloods(code)
+        ])
+
+        const targetArea = targetAreas.find(ta => ta.ta_code === code)
+        const targetAreaWarning = warnings.find(w => w.attr.taCode === code)
+        const allowEdit = auth.isAuthenticated && auth.credentials.isAdmin
 
         return h.view('target-area', new TargetAreaView(targetArea,
           targetAreaWarning, historicWarnings, { allowEdit }))

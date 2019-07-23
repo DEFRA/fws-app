@@ -1,5 +1,5 @@
 const moment = require('moment-timezone')
-const { dateFormat } = require('../constants')
+const { dateFormat, severities } = require('../constants')
 
 class TargetAreaView {
   constructor (targetArea, warning, historicWarnings, { allowEdit }) {
@@ -29,24 +29,25 @@ class TargetAreaView {
         classes: 'govuk-table__header govuk-!-width-one-half'
       },
       {
-        text: 'Severity Changed',
+        text: 'Severity changed',
         attributes: { valign: 'center' },
         classes: 'govuk-table__header center'
       },
       {
-        text: 'Situation Changed',
+        text: 'Situation changed',
         attributes: { valign: 'center' },
         classes: 'govuk-table__header center'
       },
       {
-        text: 'Time Message Received',
+        text: 'Time message received',
         attributes: { valign: 'center' },
         classes: 'govuk-table__header center'
       }
     ]
 
     const warning = this.warning
-    const severityIconLocation = '/assets/images/' + warning.attr.severity.replace(/ /g, '') + '.png'
+    const severity = severities.find(s => s.value === warning.attr.severityValue)
+    const severityIconLocation = '/assets/images/' + severity.image
     const rows = [[
       {
         html: `<img src="${severityIconLocation}" class="flooding-icons" alt="Flooding Icon">`,
@@ -104,7 +105,8 @@ class TargetAreaView {
     ]
 
     const rows = this.historicWarnings.map(warning => {
-      const severityIconLocation = '/assets/images/' + warning.attr.severity.replace(/ /g, '') + '.png'
+      const severity = severities.find(s => s.value === warning.attr.severityValue)
+      const severityIconLocation = '/assets/images/' + severity.image
       return [
         {
           html: `<img src="${severityIconLocation}" class="flooding-icons" alt="Flooding Icon">`,

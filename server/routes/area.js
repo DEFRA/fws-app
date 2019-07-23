@@ -1,6 +1,5 @@
 const boom = require('boom')
 const AreaView = require('../models/area-view')
-const service = require('../services')
 
 module.exports = {
   method: 'GET',
@@ -9,7 +8,8 @@ module.exports = {
     handler: async (request, h) => {
       try {
         const { id } = request.params
-        const { warnings } = await service.getFloods()
+        const { server } = request
+        const { warnings } = await server.methods.flood.getFloods()
 
         return h.view('area', new AreaView(warnings, id))
       } catch (err) {

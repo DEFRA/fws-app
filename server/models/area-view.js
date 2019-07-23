@@ -30,22 +30,22 @@ class AreaView {
           attributes: { valign: 'center' }
         },
         {
-          text: 'Target Area Name',
+          text: 'Target area name',
           classes: 'govuk-table__header center',
           attributes: { valign: 'center' }
         },
         {
-          text: 'Target Area Code',
+          text: 'Target area code',
           classes: 'govuk-table__header center',
           attributes: { valign: 'center' }
         },
         {
-          text: 'Situation Changed',
+          text: 'Situation changed',
           classes: 'govuk-table__header center',
           attributes: { valign: 'center' }
         },
         {
-          text: 'Severity Changed',
+          text: 'Severity changed',
           classes: 'govuk-table__header center',
           attributes: { valign: 'center' }
         }

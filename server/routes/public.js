@@ -1,17 +1,9 @@
 module.exports = [{
   method: 'GET',
-  path: '/robots.txt',
+  path: '/favicon.ico',
   options: {
     handler: {
-      file: 'server/public/static/robots.txt'
-    }
-  }
-}, {
-  method: 'GET',
-  path: '/assets/all.js',
-  options: {
-    handler: {
-      file: 'node_modules/govuk-frontend/all.js'
+      file: 'server/public/static/images/icons/favicon.ico'
     }
   }
 }, {
@@ -22,8 +14,7 @@ module.exports = [{
       directory: {
         path: [
           'server/public/static',
-          'server/public/build',
-          'node_modules/govuk-frontend/assets'
+          'server/public/build'
         ]
       }
     }
