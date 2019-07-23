@@ -1,26 +1,26 @@
 const severities = [
   {
     value: '1',
-    name: 'Flood Alert',
-    pluralisedName: 'Flood Alerts',
+    name: 'Flood alert',
+    pluralisedName: 'Flood alerts',
     image: 'FloodAlert.png',
     isActive: true
   }, {
     value: '2',
-    name: 'Flood Warning',
-    pluralisedName: 'Flood Warnings',
+    name: 'Flood warning',
+    pluralisedName: 'Flood warnings',
     image: 'FloodWarning.png',
     isActive: true
   }, {
     value: '3',
-    name: 'Severe Flood Warning',
-    pluralisedName: 'Severe Flood Warnings',
+    name: 'Severe flood warning',
+    pluralisedName: 'Severe flood warnings',
     image: 'SevereFloodWarning.png',
     isActive: true
   }, {
     value: '4',
-    name: 'Warning no Longer in Force',
-    pluralisedName: 'Warnings no Longer in Force',
+    name: 'Warning no longer in force',
+    pluralisedName: 'Warnings no longer in force',
     image: 'WarningsNoLongerInForce.png',
     isActive: false
   }

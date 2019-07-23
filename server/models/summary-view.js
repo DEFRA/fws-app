@@ -21,11 +21,11 @@ class SummaryView {
     // Head
     const head = [
       {
-        text: 'Environment Agency Area'
+        text: 'Environment agency area'
       },
       ...severityHeaders,
       {
-        text: 'Area Total',
+        text: 'Area total',
         classes: 'center'
       }
     ]
@@ -61,7 +61,7 @@ class SummaryView {
 
     rows.push([
       {
-        text: 'Severity Total',
+        text: 'Severity total',
         classes: 'govuk-table__header'
       },
       ...severityTotals,

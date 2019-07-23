@@ -29,17 +29,17 @@ class TargetAreaView {
         classes: 'govuk-table__header govuk-!-width-one-half'
       },
       {
-        text: 'Severity Changed',
+        text: 'Severity changed',
         attributes: { valign: 'center' },
         classes: 'govuk-table__header center'
       },
       {
-        text: 'Situation Changed',
+        text: 'Situation changed',
         attributes: { valign: 'center' },
         classes: 'govuk-table__header center'
       },
       {
-        text: 'Time Message Received',
+        text: 'Time message received',
         attributes: { valign: 'center' },
         classes: 'govuk-table__header center'
       }

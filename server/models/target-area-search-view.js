@@ -18,12 +18,12 @@ class TargetAreaSearchView {
         classes: 'govuk-table__header govuk-!-width-one-quarter'
       },
       {
-        text: 'Target Area Name',
+        text: 'Target area name',
         attributes: { valign: 'center' },
         classes: 'govuk-table__header center'
       },
       {
-        text: 'Target Area Code',
+        text: 'Target area code',
         attributes: { valign: 'center' },
         classes: 'govuk-table__header center'
       },

@@ -1,7 +1,7 @@
 const joi = require('joi')
 const boom = require('boom')
-const TargetAreaSearchView = require('../models/target-area-search-view')
 const { getTargetAreaFilter } = require('../helpers')
+const TargetAreaSearchView = require('../models/target-area-search-view')
 
 module.exports = {
   method: 'GET',
