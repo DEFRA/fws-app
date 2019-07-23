@@ -1,7 +1,7 @@
 const moment = require('moment-timezone')
 const http = require('../http')
 const config = require('../config')
-const { groupBy } = require('../helpers')
+const { groupBy, sortByMultiple } = require('../helpers')
 
 const service = {
   async getFloods () {
@@ -13,7 +13,10 @@ const service = {
   },
 
   async getAllAreas () {
-    const targetAreas = await http.getJson(`${config.api}/target-areas.json`, true)
+    let targetAreas = await http.getJson(`${config.api}/target-areas.json`, true)
+    const sorter = sortByMultiple('owner_area', 'ta_name')
+    targetAreas = targetAreas.sort(sorter)
+
     const grouped = groupBy(targetAreas, 'owner_area')
     const areas = Object.keys(grouped).sort().map(name => ({ name }))
     return { areas, targetAreas }

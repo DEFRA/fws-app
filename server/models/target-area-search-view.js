@@ -34,8 +34,24 @@ class TargetAreaSearchView {
       }
     ]
 
-    const rows = this.targetAreas.map(ta => {
-      const targetAreaWarning = this.warnings.find(w => w.attr.taCode === ta.ta_code)
+    const warnings = this.warnings
+    const sorter = (a, b) => {
+      const warningA = warnings.find(w => w.attr.taCode === a.ta_code)
+      const warningB = warnings.find(w => w.attr.taCode === b.ta_code)
+
+      if (warningA) {
+        return warningB ? 0 : -1
+      } else if (warningB) {
+        return 1
+      } else {
+        return 0
+      }
+    }
+
+    const targetAreas = this.targetAreas.sort(sorter)
+
+    const rows = targetAreas.map(ta => {
+      const targetAreaWarning = warnings.find(w => w.attr.taCode === ta.ta_code)
       return [
         {
           html: `<a href='/area/${encodeURIComponent(ta.owner_area)}'>${ta.owner_area}</a>`,
