@@ -5,4 +5,22 @@ function groupBy (arr, key) {
   }, {})
 }
 
-module.exports = { groupBy }
+function getTargetAreaFilter (query, area) {
+  return ta => {
+    if (area) {
+      if (ta.owner_area !== area) {
+        return false
+      }
+    }
+
+    if (query) {
+      if (!ta.ta_name.includes(query) && !ta.ta_code.includes(query)) {
+        return false
+      }
+    }
+
+    return true
+  }
+}
+
+module.exports = { groupBy, getTargetAreaFilter }

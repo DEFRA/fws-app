@@ -1,6 +1,8 @@
 const hapi = require('@hapi/hapi')
+const CatboxObject = require('@hapi/catbox-object')
 const moment = require('moment-timezone')
 const config = require('./config')
+const registerServerMethods = require('./services/methods')
 const { dateFormat, longDateFormat } = require('./constants')
 
 async function createServer () {
@@ -16,7 +18,15 @@ async function createServer () {
           abortEarly: false
         }
       }
-    }
+    },
+    cache: [
+      {
+        name: 'object_cache',
+        provider: {
+          constructor: CatboxObject
+        }
+      }
+    ]
   })
 
   // Register the auth plugins
@@ -78,6 +88,8 @@ async function createServer () {
     }
     return h.continue
   })
+
+  registerServerMethods(server)
 
   return server
 }

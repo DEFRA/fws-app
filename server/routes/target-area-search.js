@@ -1,7 +1,7 @@
 const joi = require('joi')
 const boom = require('boom')
-const service = require('../services')
 const TargetAreaSearchView = require('../models/target-area-search-view')
+const { getTargetAreaFilter } = require('../helpers')
 
 module.exports = {
   method: 'GET',
@@ -10,15 +10,17 @@ module.exports = {
     handler: async (request, h) => {
       try {
         const { query, area } = request.query
-        const areas = await service.getAllAreas()
+        const { server } = request
+        const { areas, targetAreas } = await server.methods.flood.getAllAreas()
         const hasSearchParam = query !== undefined || area !== undefined
 
         if (hasSearchParam) {
-          const { warnings } = await service.getFloods()
-          const targetAreas = await service.findTargetAreas(query, area)
+          const { warnings } = await server.methods.flood.getFloods()
+          const filter = getTargetAreaFilter(query, area)
+          const filteredTargetAreas = targetAreas.filter(filter)
 
           return h.view('target-area-search', new TargetAreaSearchView(
-            areas, targetAreas, warnings, query, area
+            areas, filteredTargetAreas, warnings, query, area
           ))
         } else {
           return h.view('target-area-search', new TargetAreaSearchView(areas))

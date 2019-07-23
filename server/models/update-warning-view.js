@@ -5,10 +5,11 @@ class UpdateWarningView {
     this.targetArea = targetArea
     this.warning = warning
 
-    const isFloodAlertArea = targetArea.fwdCode.charAt(4).toLowerCase() !== 'w'
+    const isFloodAlertArea = targetArea.ta_code.charAt(4).toLowerCase() !== 'w'
 
     // For Alert Areas, only show "Flood Alert" and "WNLIF"
-    // For Warning Areas, only show "Severe Flood Warning", "Flood Warning" and "WNLIF"
+    // For Warning Areas, only show "Severe Flood Warning",
+    // "Flood Warning" and "WNLIF"
     const categorySeverities = isFloodAlertArea
       ? [severities[0], severities[3]]
       : [severities[1], severities[2], severities[3]]

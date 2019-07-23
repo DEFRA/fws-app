@@ -18,19 +18,19 @@
         <span style="float: right">
           <a href="/target-area" class="govuk-link">Search target areas</a>
         </span>
-        <span class="govuk-caption-xl">{{targetArea.eaAreaName}}</span>
-        <h2 class="govuk-heading-l">{{targetArea.label}} ({{targetArea.fwdCode}})</h2>
+        <span class="govuk-caption-xl">{{targetArea.owner_area}}</span>
+        <h2 class="govuk-heading-l">{{targetArea.ta_name}} ({{targetArea.ta_code}})</h2>
 
         <h2 class="govuk-heading-s">Current Warning</h2>
         {% if warningTable %}
         {{govukTable(warningTable)}}
           {% if allowEdit %}
-            <a class="govuk-button" href="/target-area/{{targetArea.fwdCode}}/edit">Edit the current warning</a>
+            <a class="govuk-button" href="/target-area/{{targetArea.ta_code}}/edit">Edit the current warning</a>
           {% endif %}
         {% else %}
-        <p>There are no warnings currently in force for {{targetArea.label}}</p>
+        <p>There are no warnings currently in force for {{targetArea.ta_name}}</p>
           {% if allowEdit %}
-            <a class="govuk-button" href="/target-area/{{targetArea.fwdCode}}/edit">Create a new warning</a>
+            <a class="govuk-button" href="/target-area/{{targetArea.ta_code}}/edit">Create a new warning</a>
           {% endif %}
         {% endif %}
 
@@ -38,7 +38,7 @@
         {% if historicWarningsTable %}
         {{govukTable(historicWarningsTable)}}
         {% else %}
-        <p>No historic messages available for {{targetArea.label}}</p>
+        <p>No historic messages available for {{targetArea.ta_name}}</p>
         {% endif %}
       </section>
     </div>

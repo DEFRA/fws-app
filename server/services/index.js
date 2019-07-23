@@ -2,9 +2,6 @@ const moment = require('moment-timezone')
 const http = require('../http')
 const config = require('../config')
 const { groupBy } = require('../helpers')
-const targetAreas = require('../services/areas.json').items
-const grouped = groupBy(targetAreas, 'eaAreaName')
-const areas = Object.keys(grouped).sort().map(name => ({ name }))
 
 const service = {
   async getFloods () {
@@ -12,36 +9,14 @@ const service = {
   },
 
   async getHistoricFloods (code) {
-    const { warnings } = await service.getFloods()
-    return warnings.filter(w => w.attr.taCode === code)
+    return http.getJson(`${config.api}/historical-messages/${code}`, true)
   },
 
   async getAllAreas () {
-    return Promise.resolve(areas)
-  },
-
-  async findTargetAreas (query, area) {
-    const result = targetAreas.filter(a => {
-      if (area) {
-        if (a.eaAreaName !== area) {
-          return false
-        }
-      }
-
-      if (query) {
-        if (!a.label.includes(query) && !a.fwdCode.includes(query)) {
-          return false
-        }
-      }
-
-      return true
-    })
-
-    return Promise.resolve(result)
-  },
-
-  async getTargetArea (code) {
-    return Promise.resolve(targetAreas.find(ta => ta.fwdCode === code))
+    const targetAreas = await http.getJson(`${config.api}/target-areas.json`, true)
+    const grouped = groupBy(targetAreas, 'owner_area')
+    const areas = Object.keys(grouped).sort().map(name => ({ name }))
+    return { areas, targetAreas }
   },
 
   async updateWarning (code, severity, situation, profile) {

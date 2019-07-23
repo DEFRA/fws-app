@@ -1,6 +1,5 @@
 const joi = require('joi')
 const boom = require('boom')
-const service = require('../services')
 const UpdateWarningView = require('../models/update-warning-view')
 
 module.exports = [{
@@ -10,8 +9,17 @@ module.exports = [{
     handler: async (request, h) => {
       try {
         const { code } = request.params
-        const targetArea = await service.getTargetArea(code)
-        const { warnings } = await service.getFloods()
+        const { server } = request
+
+        const [
+          { targetAreas },
+          { warnings }
+        ] = await Promise.all([
+          server.methods.flood.getAllAreas(),
+          server.methods.flood.getFloods()
+        ])
+
+        const targetArea = targetAreas.find(ta => ta.ta_code === code)
         const targetAreaWarning = warnings.find(w => w.attr.taCode === code)
 
         return h.view('update-warning', new UpdateWarningView(targetArea, targetAreaWarning))
@@ -35,11 +43,19 @@ module.exports = [{
     handler: async (request, h) => {
       try {
         const { code } = request.params
+        const { server } = request
         const { severity, situation } = request.payload
         const { id, email, displayName: name } = request.auth.credentials.profile
         const profile = { id, email, name }
+        const flood = server.methods.flood
 
-        await service.updateWarning(code, severity, situation, profile)
+        await flood.updateWarning(code, severity, situation, profile)
+
+        // Clear caches
+        await Promise.all([
+          flood.getFloods.cache.drop(),
+          flood.getHistoricFloods.cache.drop(code)
+        ])
 
         return h.redirect(`/target-area/${code}`)
       } catch (err) {

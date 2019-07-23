@@ -23,7 +23,8 @@ const severities = [
     pluralisedName: 'Warnings no Longer in Force',
     image: 'WarningsNoLongerInForce.png',
     isActive: false
-  }]
+  }
+]
 
 module.exports = {
   dateFormat: 'DD/MM/YYYY h:mma',
