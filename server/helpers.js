@@ -1,3 +1,6 @@
+const moment = require('moment-timezone')
+const { dateFormat } = require('./constants')
+
 function groupBy (arr, key) {
   return arr.reduce(function (acc, curr) {
     (acc[curr[key]] = acc[curr[key]] || []).push(curr)
@@ -53,4 +56,14 @@ function getTargetAreaFilter (query, area) {
   }
 }
 
-module.exports = { groupBy, getTargetAreaFilter, sortBy, sortByMultiple }
+function formatUTCDate (str) {
+  return moment.utc(str).tz('Europe/London').format(dateFormat)
+}
+
+module.exports = {
+  groupBy,
+  getTargetAreaFilter,
+  sortBy,
+  sortByMultiple,
+  formatUTCDate
+}

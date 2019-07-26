@@ -1,6 +1,5 @@
-const moment = require('moment-timezone')
-const { dateFormat, severities } = require('../constants')
-const { groupBy } = require('../helpers')
+const { severities } = require('../constants')
+const { groupBy, formatUTCDate } = require('../helpers')
 
 class AreaView {
   constructor (warnings, id) {
@@ -84,7 +83,7 @@ class AreaView {
           subRows.push(subRow)
         } else {
           const warnings = areaGrouped[severity.value].sort((a, b) => {
-            return moment(b.situationChanged) - moment(a.situationChanged)
+            return new Date(b.situationChanged) - new Date(a.situationChanged)
           })
 
           warnings.forEach((warning, index) => {
@@ -116,12 +115,12 @@ class AreaView {
                   classes: 'center'
                 },
                 {
-                  text: moment(warning.situationChanged).format(dateFormat),
+                  text: formatUTCDate(warning.situationChanged),
                   attributes: { valign: 'center' },
                   classes: 'center'
                 },
                 {
-                  text: moment(warning.severityChanged).format(dateFormat),
+                  text: formatUTCDate(warning.severityChanged),
                   attributes: { valign: 'center' },
                   classes: 'center'
                 }]
@@ -149,12 +148,12 @@ class AreaView {
                   classes: 'center'
                 },
                 {
-                  text: moment(warning.situationChanged).format(dateFormat),
+                  text: formatUTCDate(warning.situationChanged),
                   attributes: { valign: 'center' },
                   classes: 'center'
                 },
                 {
-                  text: moment(warning.severityChanged).format(dateFormat),
+                  text: formatUTCDate(warning.severityChanged),
                   attributes: { valign: 'center' },
                   classes: 'center'
                 }

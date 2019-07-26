@@ -1,5 +1,5 @@
-const moment = require('moment-timezone')
-const { dateFormat, severities } = require('../constants')
+const { severities } = require('../constants')
+const { formatUTCDate } = require('../helpers')
 
 class TargetAreaView {
   constructor (targetArea, warning, historicWarnings, { allowEdit }) {
@@ -63,17 +63,17 @@ class TargetAreaView {
         attributes: { valign: 'center', style: 'font-size: smaller' }
       },
       {
-        text: moment(warning.attr.severityChanged).format(dateFormat),
+        text: formatUTCDate(warning.attr.severityChanged),
         attributes: { valign: 'center' },
         classes: 'govuk-body-s center'
       },
       {
-        text: moment(warning.attr.situationChanged).format(dateFormat),
+        text: formatUTCDate(warning.attr.situationChanged),
         attributes: { valign: 'center' },
         classes: 'govuk-body-s center'
       },
       {
-        text: moment(warning.attr.timeMessageReceived).format(dateFormat),
+        text: formatUTCDate(warning.attr.timeMessageReceived),
         attributes: { valign: 'center' },
         classes: 'govuk-body-s center'
       }
@@ -122,7 +122,7 @@ class TargetAreaView {
           attributes: { valign: 'center' }
         },
         {
-          text: moment(warning.attr.timeMessageReceived).format(dateFormat),
+          text: formatUTCDate(warning.attr.timeMessageReceived),
           attributes: { valign: 'center' },
           classes: 'govuk-body-s center'
         }
