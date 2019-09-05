@@ -1,13 +1,15 @@
 const config = require('./config')
 const HttpsProxyAgent = require('https-proxy-agent')
 
+const timeout = 20 * 1000
+
 const wreck = require('@hapi/wreck').defaults({
-  timeout: 10000
+  timeout: timeout
 })
 let wreckExt
 if (config.proxy) {
   wreckExt = require('@hapi/wreck').defaults({
-    timeout: 20000, // TODO: this needs to be reduced at some point
+    timeout: timeout,
     agent: new HttpsProxyAgent(config.proxy)
   })
 }
