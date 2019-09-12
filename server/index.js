@@ -61,10 +61,10 @@ async function createServer () {
   await server.register(require('./plugins/router'))
   await server.register(require('./plugins/error-pages'))
 
-  if (config.isDev) {
-    await server.register(require('blipp'))
-    await server.register(require('./plugins/logging'))
-  }
+  // if (config.isDev) {
+  await server.register(require('blipp'))
+  await server.register(require('./plugins/logging'))
+  // }
 
   server.ext('onPostHandler', (request, h) => {
     const response = request.response
