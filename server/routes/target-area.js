@@ -6,6 +6,15 @@ module.exports = {
   method: 'GET',
   path: '/target-area/{code}',
   options: {
+    ext: {
+      onPreAuth: {
+        method: (request, h) => {
+          // Set login redirect cookie
+          h.state('login-redirect', request.path)
+          return h.continue
+        }
+      }
+    },
     handler: async (request, h) => {
       try {
         const { code } = request.params

@@ -5,6 +5,15 @@ module.exports = {
   method: 'GET',
   path: '/',
   options: {
+    ext: {
+      onPreAuth: {
+        method: (request, h) => {
+          // Set login redirect cookie
+          h.state('login-redirect', request.path)
+          return h.continue
+        }
+      }
+    },
     handler: async (request, h) => {
       try {
         const { server } = request

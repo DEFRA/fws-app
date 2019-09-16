@@ -33,7 +33,8 @@ module.exports = [{
         profile
       })
 
-      return h.redirect('/')
+      // redirect to last location from cookie
+      return h.redirect(request.state['login-redirect'] || '/')
     }
   }
 }, {
