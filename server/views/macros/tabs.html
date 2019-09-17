@@ -1,13 +1,13 @@
 {% macro tabs(selected='summary') %}
 <ul class="govuk-tabs__list">
-  <li class="govuk-tabs__list-item">
-    <a class="govuk-tabs__tab {% if selected === 'summary' %}govuk-tabs__tab--selected{% endif %}" href="/">Summary</a>
+  <li class="govuk-tabs__list-item  {% if selected === 'summary' %}govuk-tabs__list-item--selected{% endif %}">
+    <a class="govuk-tabs__tab" href="/">Summary</a>
   </li>
-  <li class="govuk-tabs__list-item">
-    <a class="govuk-tabs__tab {% if selected === 'area' %}govuk-tabs__tab--selected{% endif %}" href="/area">Area view</a>
+  <li class="govuk-tabs__list-item {% if selected === 'area' %}govuk-tabs__list-item--selected{% endif %}">
+    <a class="govuk-tabs__tab" href="/area">Area view</a>
   </li>
-  <li class="govuk-tabs__list-item">
-    <a class="govuk-tabs__tab {% if selected === 'target-area' %}govuk-tabs__tab--selected{% endif %}" href="/target-area">Search</a>
+  <li class="govuk-tabs__list-item {% if selected === 'target-area' %}govuk-tabs__list-item--selected{% endif %}">
+    <a class="govuk-tabs__tab" href="/target-area">Search</a>
   </li>
 </ul>
 {% endmacro %}

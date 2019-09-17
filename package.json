@@ -16,7 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@hapi/bell": "11.0.0",
+    "@hapi/bell": "^10.1.1",
     "@hapi/boom": "7.4.3",
     "@hapi/catbox-object": "^1.0.1",
     "@hapi/cookie": "10.1.2",

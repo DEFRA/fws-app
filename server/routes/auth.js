@@ -5,7 +5,7 @@ module.exports = [{
   method: 'GET',
   path: '/login',
   options: {
-    auth: 'azure',
+    auth: 'azuread',
     handler: (request, h) => {
       if (!request.auth.isAuthenticated) {
         const message = request.auth.error && request.auth.error.message

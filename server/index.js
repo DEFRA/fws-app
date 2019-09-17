@@ -34,8 +34,8 @@ async function createServer () {
   await server.register(require('@hapi/cookie'))
 
   // Setup the authentication strategies
-  server.auth.strategy('azure', 'bell', {
-    provider: 'azure',
+  server.auth.strategy('azuread', 'bell', {
+    provider: 'azuread',
     password: config.cookiePassword,
     clientId: config.adClientId,
     clientSecret: config.adClientSecret,
