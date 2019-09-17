@@ -34,7 +34,8 @@ lab.experiment('Web test', () => {
       warnings: [
         {
           situation: ' Flood Alert ',
-          attr: { taId: 5765,
+          attr: {
+            taId: 5765,
             taCode: '013WATDEE',
             taName: 'Dee Estuary from Parkgate to Chester',
             taDescription: 'Areas at risk include Parkgate, Neston and Puddington, continuing to Blacon and Saltney, Chester',
