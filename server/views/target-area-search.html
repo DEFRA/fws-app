@@ -49,8 +49,13 @@
           </form>
 
           {% if showTargetAreaTable %}
-          {{ govukTable(targetAreaView)}}
+            {{ govukTable(targetAreaView)}}
           {% endif %}
+
+          {% if query and not showTargetAreaTable %}
+            No results found
+          {% endif %}
+          
         </section>
       </div>
   </div>
