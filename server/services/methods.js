@@ -5,25 +5,27 @@ const {
   updateWarning
 } = require('.')
 
+// Note that generate timeouts are set as 30 seconds as the backend is served by lambda which can take a while to warm up if not already warm
+
 function registerServerMethods (server) {
   server.method('flood.getFloods', getFloods, {
     cache: {
-      expiresIn: 2 * 60 * 1000, // 2 mins
-      generateTimeout: 6 * 1000 // 10 secs
+      expiresIn: 1 * 60 * 1000, // 1 minute
+      generateTimeout: 30 * 1000 // 30 secs
     }
   })
 
   server.method('flood.getHistoricFloods', getHistoricFloods, {
     cache: {
       expiresIn: 10 * 60 * 1000, // 10 mins
-      generateTimeout: 10 * 1000 // 10 secs
+      generateTimeout: 30 * 1000 // 30 secs
     }
   })
 
   server.method('flood.getAllAreas', getAllAreas, {
     cache: {
-      expiresAt: '17:00', // 5pm local time
-      generateTimeout: 10 * 1000 // 10 seconds
+      expiresIn: 60 * 60 * 1000, // 1 hour
+      generateTimeout: 30 * 1000 // 30 seconds
     }
   })
 

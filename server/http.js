@@ -1,7 +1,8 @@
 const config = require('./config')
 const HttpsProxyAgent = require('https-proxy-agent')
 
-const timeout = 20 * 1000
+// Timeout is high to accomodate the use of lambda backend functions
+const timeout = 30 * 1000
 
 const wreck = require('@hapi/wreck').defaults({
   timeout: timeout
