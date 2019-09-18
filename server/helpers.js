@@ -47,7 +47,8 @@ function getTargetAreaFilter (query, area) {
     }
 
     if (query) {
-      if (!ta.ta_name.includes(query) && !ta.ta_code.includes(query)) {
+      if (!ta.ta_name.toLowerCase().includes(query.toLowerCase()) &&
+      !ta.ta_code.toLowerCase().includes(query.toLowerCase())) {
         return false
       }
     }
