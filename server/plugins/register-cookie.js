@@ -11,7 +11,7 @@ exports.plugin = {
       path: '/',
       isSameSite: false,
       isHttpOnly: false,
-      encoding: 'none',
+      encoding: 'base64',
       clearInvalid: true,
       strictHeader: true
     })
