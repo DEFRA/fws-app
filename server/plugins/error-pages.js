@@ -38,8 +38,8 @@ module.exports = {
 
           request.log('error', {
             statusCode: statusCode,
-            data: response.data,
-            message: response.message
+            message: response.message,
+            stack: response.data ? response.data.stack : response.stack
           })
 
           // The return the `500` view

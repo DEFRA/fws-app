@@ -1,25 +1,27 @@
+const config = require('../config')
+
 module.exports = {
-  plugin: require('good'),
+  plugin: require('@hapi/good'),
   options: {
     ops: {
-      interval: 1000
+      interval: 60000
     },
     reporters: {
       console: [
         {
-          module: 'good-squeeze',
+          module: '@hapi/good-squeeze',
           name: 'Squeeze',
           args: [
             {
-              log: '*',
-              error: '*',
-              response: '*',
-              request: '*'
+              log: config.isProd ? 'error' : '*',
+              error: config.isProd ? 'error' : '*',
+              response: config.isProd ? 'error' : '*',
+              request: config.isProd ? 'error' : '*'
             }
           ]
         },
         {
-          module: 'good-console'
+          module: '@hapi/good-console'
         },
         'stdout'
       ]

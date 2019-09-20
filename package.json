@@ -16,10 +16,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@hapi/bell": "^11.1.0",
+    "@hapi/bell": "11.1.0",
     "@hapi/boom": "7.4.7",
-    "@hapi/catbox-object": "^1.0.1",
+    "@hapi/catbox-object": "1.0.1",
     "@hapi/cookie": "10.1.2",
+    "@hapi/good": "8.2.2",
+    "@hapi/good-console": "8.1.2",
+    "@hapi/good-squeeze": "5.2.1",
     "@hapi/hapi": "18.4.0",
     "@hapi/inert": "5.2.2",
     "@hapi/joi": "16.1.2",
@@ -32,14 +35,11 @@
     "sinon": "7.4.2"
   },
   "devDependencies": {
-    "@hapi/code": "^6.0.0",
-    "@hapi/lab": "^20.2.2",
+    "@hapi/code": "6.0.0",
+    "@hapi/lab": "20.2.2",
     "blipp": "4.0.1",
     "codeclimate-test-reporter": "0.5.1",
-    "good": "8.1.2",
-    "good-console": "8.0.0",
-    "good-squeeze": "5.1.0",
     "node-sass": "4.12.0",
-    "standard": "^14.3.1"
+    "standard": "14.3.1"
   }
 }
