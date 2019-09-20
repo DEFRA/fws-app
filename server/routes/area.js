@@ -1,4 +1,4 @@
-const boom = require('boom')
+const boom = require('@hapi/boom')
 const AreaView = require('../models/area-view')
 
 module.exports = {

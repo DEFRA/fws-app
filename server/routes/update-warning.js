@@ -1,5 +1,5 @@
-const joi = require('joi')
-const boom = require('boom')
+const Joi = require('@hapi/joi')
+const boom = require('@hapi/boom')
 const UpdateWarningView = require('../models/update-warning-view')
 
 module.exports = [{
@@ -41,9 +41,9 @@ module.exports = [{
       scope: '+manage:warnings'
     },
     validate: {
-      params: {
-        code: joi.string().required()
-      }
+      params: Joi.object({
+        code: Joi.string().required()
+      })
     }
   }
 }, {
@@ -78,13 +78,13 @@ module.exports = [{
       scope: '+manage:warnings'
     },
     validate: {
-      params: {
-        code: joi.string().required()
-      },
-      payload: {
-        severity: joi.number().required().valid(1, 2, 3, 4),
-        situation: joi.string().required().max(999)
-      }
+      params: Joi.object({
+        code: Joi.string().required()
+      }),
+      payload: Joi.object({
+        severity: Joi.number().required().valid(1, 2, 3, 4),
+        situation: Joi.string().required().max(999)
+      })
     }
   }
 }]

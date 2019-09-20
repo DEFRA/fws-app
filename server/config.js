@@ -1,20 +1,20 @@
-const joi = require('joi')
+const Joi = require('@hapi/joi')
 
 // Define config schema
-const schema = {
-  port: joi.number().default(3000),
-  env: joi.string().valid('dev', 'tst', 'pre', 'prd').default('dev'),
-  api: joi.string().uri().required(),
-  apiKey: joi.string().required(),
-  proxy: joi.string().uri().allow(''),
-  adClientId: joi.string().required(),
-  adClientSecret: joi.string().required(),
-  adTenant: joi.string().required(),
-  cookiePassword: joi.string().required(),
-  isSecure: joi.boolean().default(false),
-  forceHttps: joi.boolean().default(false),
-  homePage: joi.string().default('http://localhost:3000')
-}
+const schema = Joi.object({
+  port: Joi.number().default(3000),
+  env: Joi.string().valid('dev', 'tst', 'pre', 'prd').default('dev'),
+  api: Joi.string().uri().required(),
+  apiKey: Joi.string().required(),
+  proxy: Joi.string().uri().allow(''),
+  adClientId: Joi.string().required(),
+  adClientSecret: Joi.string().required(),
+  adTenant: Joi.string().required(),
+  cookiePassword: Joi.string().required(),
+  isSecure: Joi.boolean().default(false),
+  forceHttps: Joi.boolean().default(false),
+  homePage: Joi.string().default('http://localhost:3000')
+})
 
 // Build config
 const config = {
@@ -33,7 +33,7 @@ const config = {
 }
 
 // Validate config
-const result = joi.validate(config, schema, {
+const result = schema.validate(config, {
   abortEarly: false
 })
 
@@ -42,7 +42,7 @@ if (result.error) {
   throw new Error(`The server config is invalid. ${result.error.message}`)
 }
 
-// Use the joi validated value
+// Use the Joi validated value
 const value = result.value
 
 // Add some helper props

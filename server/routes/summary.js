@@ -1,4 +1,4 @@
-const boom = require('boom')
+const boom = require('@hapi/boom')
 const SummaryView = require('../models/summary-view')
 
 module.exports = {

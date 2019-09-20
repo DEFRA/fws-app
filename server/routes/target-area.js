@@ -1,5 +1,5 @@
-const joi = require('joi')
-const boom = require('boom')
+const Joi = require('@hapi/joi')
+const boom = require('@hapi/boom')
 const TargetAreaView = require('../models/target-area-view')
 
 module.exports = {
@@ -41,9 +41,9 @@ module.exports = {
       }
     },
     validate: {
-      params: {
-        code: joi.string().required()
-      }
+      params: Joi.object({
+        code: Joi.string().required()
+      })
     }
   }
 }
