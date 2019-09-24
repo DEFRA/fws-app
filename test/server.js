@@ -28,7 +28,6 @@ module.exports = {
     console.log('Creating server')
     setMocks()
     server = await composeServer()
-    const floods = await server.methods.flood.getFloods()
     return server
   },
   stop: () => {
