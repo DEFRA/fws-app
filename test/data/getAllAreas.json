@@ -1,0 +1,104 @@
+{
+    "areas": [
+        {
+            "name": "Cumbria and Lancashire"
+        },
+        {
+            "name": "Devon, Cornwall and the Isles of Scilly"
+        },
+        {
+            "name": "East Anglia"
+        },
+        {
+            "name": "East Midlands"
+        },
+        {
+            "name": "Greater Manchester, Merseyside and Cheshire"
+        },
+        {
+            "name": "Hertfordshire and North London"
+        },
+        {
+            "name": "Kent, South London and East Sussex"
+        },
+        {
+            "name": "Lincolnshire and Northamptonshire"
+        },
+        {
+            "name": "North East"
+        },
+        {
+            "name": "Solent and South Downs"
+        },
+        {
+            "name": "Thames"
+        },
+        {
+            "name": "Wessex"
+        },
+        {
+            "name": "West Midlands"
+        },
+        {
+            "name": "Yorkshire"
+        }
+    ],
+    "targetAreas": [
+        {
+            "ta_id": 31698,
+            "ta_code": "011FWFNC1D",
+            "ta_name": "Appleby, Holme and Chapel Street and Cherry Row",
+            "ta_description": "Properties in Holme Street, parts of Chapel Street and Cherry Row areas of Appleby liable to flooding from other sources",
+            "ta_category": "Flood Warning",
+            "owner_area": "Cumbria and Lancashire"
+        },
+        {
+            "ta_id": 31624,
+            "ta_code": "012FWFL42A",
+            "ta_name": "Burrow Beck at Lancaster, affecting properties on Canterbury Ave close to Burrow Beck",
+            "ta_description": "Properties on Canterbury Ave close to Burrow Beck.",
+            "ta_category": "Flood Warning",
+            "owner_area": "Cumbria and Lancashire"
+        },
+        {
+            "ta_id": 31564,
+            "ta_code": "012FWFL42B",
+            "ta_name": "Burrow Beck at Lancaster, bordering the river from Canterbury Ave to Scotforth Rd",
+            "ta_description": "Properties on Lentworth Dr, Whinfell Dr, Beechwood Gdns, off Cranwell Ave, Hodder Place, Cork Rd, Canterbury Ave.",
+            "ta_category": "Flood Warning",
+            "owner_area": "Cumbria and Lancashire"
+        },
+        {
+            "ta_id": 31781,
+            "ta_code": "011WACN5",
+            "ta_name": "Coast at Barrow in Furness",
+            "ta_description": "Coastline at Barrow in Furness",
+            "ta_category": "Flood Alert",
+            "owner_area": "Cumbria and Lancashire"
+        },
+        {
+            "ta_id": 31777,
+            "ta_code": "011WACN4",
+            "ta_name": "Coast at Duddon estuary",
+            "ta_description": "Duddon estuary including Haverigg, Millom Marsh, Foxfield, Sandside and Dunnerholme",
+            "ta_category": "Flood Alert",
+            "owner_area": "Cumbria and Lancashire"
+        },
+        {
+            "ta_id": 31592,
+            "ta_code": "012WACLS",
+            "ta_name": "Coast at Lytham St Annes",
+            "ta_description": "Lytham, Lytham Green, Saltcotes, Lytham Moss, Lower Ballam and Warton",
+            "ta_category": "Flood Alert",
+            "owner_area": "Cumbria and Lancashire"
+        },
+        {
+            "ta_id": 31775,
+            "ta_code": "011WACN6",
+            "ta_name": "Coast at North Morecambe Bay",
+            "ta_description": "Coast at North Morecambe Bay from Roosebeck to Carnforth including low lying areas around Ulverston, Greenodd, Haverthwaite, Flookburgh, Grange-over-Sands, Levens, Milnthorpe, Sandside, Arnside and Silverdale",
+            "ta_category": "Flood Alert",
+            "owner_area": "Cumbria and Lancashire"
+        }
+    ]
+}

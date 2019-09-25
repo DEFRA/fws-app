@@ -5,7 +5,7 @@ const config = require('./config')
 const registerServerMethods = require('./services/methods')
 const { dateFormat, longDateFormat } = require('./constants')
 
-async function createServer () {
+async function createServer (test = false) {
   // Create the hapi server
   const server = hapi.server({
     port: config.port,
@@ -61,8 +61,10 @@ async function createServer () {
   await server.register(require('./plugins/router'))
   await server.register(require('./plugins/error-pages'))
   await server.register(require('./plugins/register-cookie'))
-  await server.register(require('./plugins/logging'))
-  await server.register(require('blipp'))
+  if (!test) {
+    await server.register(require('./plugins/logging'))
+    await server.register(require('blipp'))
+  }
 
   server.ext('onPostHandler', (request, h) => {
     const response = request.response

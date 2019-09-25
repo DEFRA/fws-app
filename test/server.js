@@ -13,8 +13,8 @@ const setMocks = () => {
   mocks.updateWarning = mock.replace(services, 'updateWarning', mock.makePromise(null, data.updateWarning))
 }
 
-const setErrorMocks = () => {
-  console.log('Error mocking server')
+const setErrorMocks = async () => {
+  console.log('Mocking server with errors')
   mocks.getFloods = mock.replace(services, 'getFloods', mock.makePromise(new Error('Failed to get floods')))
   mocks.getHistoricFloods = mock.replace(services, 'getHistoricFloods', mock.makePromise(new Error('Failed to get historic floods')))
   mocks.getAllAreas = mock.replace(services, 'getAllAreas', mock.makePromise(new Error('Failed to get all areas')))
@@ -24,15 +24,14 @@ const setErrorMocks = () => {
 let server
 
 module.exports = {
-  start: async () => {
+  start: async (err = false) => {
     console.log('Creating server')
-    setMocks()
-    server = await composeServer()
+    err ? setErrorMocks() : setMocks()
+    server = await composeServer(true)
     return server
   },
   stop: () => {
     console.log('Stopping server')
     return server.stop()
-  },
-  setErrorMocks: setErrorMocks
+  }
 }

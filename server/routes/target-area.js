@@ -34,6 +34,10 @@ module.exports = {
         const targetAreaWarning = warnings.find(w => w.attr.taCode === code)
         const allowEdit = auth.isAuthenticated && auth.credentials.isAdmin
 
+        if (!targetArea) {
+          return boom.notFound('No target area found')
+        }
+
         return h.view('target-area', new TargetAreaView(targetArea,
           targetAreaWarning, historicWarnings, { allowEdit }))
       } catch (err) {
