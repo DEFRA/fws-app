@@ -89,6 +89,48 @@ lab.experiment(('All basic routes'), () => {
       'Coast at Duddon estuary'
     ]
   }, {
+    url: '/target-area?query=&area=Cumbria+and+Lancashire',
+    code: 200,
+    text: [
+      'Coast at Duddon estuary'
+    ]
+  }, {
+    url: '/target-area?query=coast&area=Cumbria+and+Lancashire',
+    code: 200,
+    text: [
+      'Coast at Duddon estuary'
+    ]
+  }, {
+    url: '/target-area?query=sdfdsfsdfsdf&area=',
+    code: 200,
+    text: [
+      'No results found'
+    ]
+  }, {
+    url: '/target-area?query=coast&area=Cumbria+and+Lancashire',
+    code: 200,
+    text: [
+      'Coast at Duddon estuary'
+    ]
+  }, {
+    url: '/target-area?query=coast&area=East+Anglia',
+    code: 200,
+    text: [
+      'No results found'
+    ]
+  }, {
+    url: '/target-area?query=&area=East+Anglia',
+    code: 200,
+    text: [
+      'No results found'
+    ]
+  }, {
+    url: '/target-area?query=011FWFNC1D&area=',
+    code: 200,
+    text: [
+      'Appleby, Holme and Chapel Street and Cherry Row'
+    ]
+  }, {
     url: '/target-area/011FWFNC1D',
     code: 200,
     text: [

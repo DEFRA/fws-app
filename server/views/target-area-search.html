@@ -52,7 +52,7 @@
             {{ govukTable(targetAreaView)}}
           {% endif %}
 
-          {% if query and not showTargetAreaTable %}
+          {% if (query or area) and not showTargetAreaTable %}
             No results found
           {% endif %}
           

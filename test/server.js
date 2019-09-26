@@ -25,7 +25,7 @@ let server
 
 module.exports = {
   start: async (err = false) => {
-    console.log('Creating server')
+    console.log('Starting server')
     err ? setErrorMocks() : setMocks()
     server = await composeServer(true)
     await server.initialize()
