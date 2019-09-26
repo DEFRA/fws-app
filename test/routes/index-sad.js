@@ -42,16 +42,39 @@ lab.experiment(('All basic routes'), () => {
     code: 401, // denied
     text: ['']
   }, {
+    url: '/target-area/011FWFNC1D/edit',
+    code: 500,
+    text: [''],
+    auth: {
+      strategy: 'azure-legacy',
+      credentials: {
+        scope: ['manage:warnings'],
+        isAdmin: true
+      }
+    }
+  }, {
     method: 'POST',
     url: '/target-area/011FWFNC1D/edit',
     code: 401 // denied
+  }, {
+    method: 'POST',
+    url: '/target-area/011FWFNC1D/edit',
+    code: 500,
+    auth: {
+      strategy: 'azure-legacy',
+      credentials: {
+        scope: ['manage:warnings'],
+        isAdmin: true
+      }
+    }
   }]
 
   urls.forEach(item => {
     lab.test(`Sad route: ${item.url} returns ${item.code}`, async () => {
       const response = await server.inject({
         method: item.method || 'GET',
-        url: item.url
+        url: item.url,
+        auth: item.auth
       })
       Code.expect(response.statusCode).to.equal(item.code)
       if (item.text && item.text.length > 0) {

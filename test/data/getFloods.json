@@ -1099,6 +1099,46 @@
                 "severityValue": "2",
                 "severity": "Flood Warning"
             }
+        },
+        {
+            "situation": "FWIS management console test data",
+            "attr": {
+                "taId": 34951,
+                "taCode": "012WACLS",
+                "taName": "Coast at Lytham St Annes",
+                "taDescription": "Properties in Slaithwaite including Manchester Road and Bridge Street",
+                "quickDial": "304045",
+                "version": "7",
+                "taCategory": "Flood Alert",
+                "ownerArea": "Yorkshire",
+                "createdDate": "2017-12-19T00:00:00.000Z",
+                "lastModifiedDate": "2018-02-21T00:00:00.000Z",
+                "situationChanged": "2019-09-20T09:52:00.000Z",
+                "severityChanged": "2019-09-20T09:52:00.000Z",
+                "timeMessageReceived": "2019-09-20T09:52:29.169Z",
+                "severityValue": "1",
+                "severity": "Flood Alert"
+            }
+        },
+        {
+            "situation": "FWIS management console test data",
+            "attr": {
+                "taId": 34951,
+                "taCode": "011WACN6",
+                "taName": "Coast at North Morecambe Bay",
+                "taDescription": "Properties in Slaithwaite including Manchester Road and Bridge Street",
+                "quickDial": "304045",
+                "version": "7",
+                "taCategory": "Flood Alert",
+                "ownerArea": "Yorkshire",
+                "createdDate": "2017-12-19T00:00:00.000Z",
+                "lastModifiedDate": "2018-02-21T00:00:00.000Z",
+                "situationChanged": "2019-09-20T09:52:00.000Z",
+                "severityChanged": "2019-09-20T09:52:00.000Z",
+                "timeMessageReceived": "2019-09-20T09:52:29.169Z",
+                "severityValue": "1",
+                "severity": "Flood Alert"
+            }
         }
     ]
 }

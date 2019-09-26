@@ -13,6 +13,23 @@ lab.experiment(('All basic routes'), () => {
     composeServer.stop()
   })
 
+  // Each test config:
+  /*
+  {
+    url: '',
+    code: 200,
+    auth: {
+      strategy: 'azure-legacy',
+      credentials: {
+        scope: ''
+      }
+    },
+    text: [
+      'test'
+    ]
+  }
+  */
+
   const urls = [{
     url: '/',
     code: 200,
@@ -40,12 +57,50 @@ lab.experiment(('All basic routes'), () => {
       'Search</h2>'
     ]
   }, {
+    url: '/target-area?query=appleby&area=',
+    code: 200,
+    text: [
+      'Appleby, Holme and Chapel Street and Cherry Row'
+    ]
+  }, {
+    url: '/target-area?query=coast&area=',
+    code: 200,
+    text: [
+      'Coast at Duddon estuary'
+    ]
+  }, {
     url: '/target-area/011FWFNC1D',
     code: 200,
     text: [
       'Appleby, Holme and Chapel Street and Cherry Row (011FWFNC1D)</h2>',
-      '<p>There are no warnings currently in force for Appleby, Holme and Chapel Street and Cherry Row</p>'
+      '<p>There are no warnings currently in force for Appleby, Holme and Chapel Street and Cherry Row</p>',
+      'Login'
     ]
+  }, {
+    url: '/target-area/011WACN6',
+    code: 200,
+    text: [
+      'Coast at North Morecambe Bay'
+    ]
+  }, {
+    url: '/target-area/011WACN6',
+    code: 200,
+    text: [
+      'Coast at North Morecambe Bay',
+      'Edit the current warning',
+      'Smith, John',
+      'Logout'
+    ],
+    auth: {
+      strategy: 'azure-legacy',
+      credentials: {
+        scope: ['manage:warnings'],
+        isAdmin: true,
+        profile: {
+          displayName: 'Smith, John'
+        }
+      }
+    }
   }, {
     url: '/target-area/sdfdsf',
     code: 404,
@@ -56,13 +111,119 @@ lab.experiment(('All basic routes'), () => {
   }, {
     url: '/logout',
     code: 302
+  }, {
+    url: '/target-area/011FWFNC1D/edit',
+    auth: {
+      strategy: 'azure-legacy',
+      credentials: {
+        scope: ['']
+      }
+    },
+    code: 403
+  }, {
+    url: '/target-area/011FWFNC1D/edit',
+    auth: {
+      strategy: 'azure-legacy',
+      credentials: {
+        scope: ['manage:warnings'],
+        isAdmin: true
+      }
+    },
+    code: 200,
+    text: [
+      'Cumbria and Lancashire',
+      'Appleby, Holme and Chapel Street and Cherry Row (011FWFNC1D)'
+    ]
+  }, {
+    url: '/target-area/011WACN5/edit',
+    auth: {
+      strategy: 'azure-legacy',
+      credentials: {
+        scope: ['manage:warnings'],
+        isAdmin: true,
+        profile: {
+          displayName: 'Smith, John'
+        }
+      }
+    },
+    code: 200,
+    text: [
+      'Cumbria and Lancashire',
+      'Coast at Barrow in Furness (011WACN5)',
+      'Smith, John'
+    ]
+  }, {
+    url: '/target-area/011WACN6/edit',
+    auth: {
+      strategy: 'azure-legacy',
+      credentials: {
+        scope: ['manage:warnings'],
+        isAdmin: true
+      }
+    },
+    code: 200,
+    text: [
+      'Cumbria and Lancashire',
+      'Coast at North Morecambe Bay (011WACN6)'
+    ]
+  }, {
+    url: '/login',
+    auth: {
+      strategy: 'azure-legacy',
+      credentials: {
+        profile: {
+          displayName: 'Smith, John',
+          email: 'john.smith@defra.net',
+          raw: {
+            roles: '["FWISAdmin"]'
+          }
+        }
+      }
+    },
+    code: 302
+  }, {
+    url: '/login',
+    auth: {
+      strategy: 'azure-legacy',
+      credentials: {
+        profile: {
+          displayName: 'Smith, John',
+          email: 'john.smith@defra.net',
+          raw: {}
+        }
+      }
+    },
+    code: 302
+  }, {
+    method: 'POST',
+    url: '/target-area/011FWFNC1D/edit',
+    code: 200,
+    payload: {
+      severity: 1,
+      situation: 'test situation'
+    },
+    auth: {
+      strategy: 'azure-legacy',
+      credentials: {
+        scope: ['manage:warnings'],
+        isAdmin: true,
+        profile: {
+          id: 'test',
+          displayName: 'Smith, John',
+          email: 'john.smith@defra.net',
+          raw: {}
+        }
+      }
+    }
   }]
 
   urls.forEach(item => {
     lab.test(`Happy route: ${item.url} returns ${item.code}`, async () => {
       const response = await server.inject({
-        method: 'GET',
-        url: item.url
+        method: item.method || 'GET',
+        url: item.url,
+        auth: item.auth,
+        payload: item.payload
       })
       Code.expect(response.statusCode).to.equal(item.code)
       if (item.text && item.text.length > 0) {
