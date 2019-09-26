@@ -60,11 +60,20 @@ lab.experiment(('All basic routes'), () => {
     method: 'POST',
     url: '/target-area/011FWFNC1D/edit',
     code: 500,
+    payload: {
+      severity: 1,
+      situation: 'test situation'
+    },
     auth: {
       strategy: 'azure-legacy',
       credentials: {
         scope: ['manage:warnings'],
-        isAdmin: true
+        isAdmin: true,
+        profile: {
+          id: 'test',
+          displayName: 'Smith, John',
+          email: 'john.smith@defra.net'
+        }
       }
     }
   }]
@@ -74,7 +83,8 @@ lab.experiment(('All basic routes'), () => {
       const response = await server.inject({
         method: item.method || 'GET',
         url: item.url,
-        auth: item.auth
+        auth: item.auth,
+        payload: item.payload
       })
       Code.expect(response.statusCode).to.equal(item.code)
       if (item.text && item.text.length > 0) {

@@ -30,6 +30,26 @@ lab.experiment(('All basic routes'), () => {
   }
   */
 
+  const preLoginCredentials = {
+    profile: {
+      displayName: 'Smith, John',
+      email: 'john.smith@defra.net',
+      raw: {
+        roles: '["FWISAdmin"]'
+      }
+    }
+  }
+
+  const postLoginCredentials = {
+    scope: ['manage:warnings'],
+    isAdmin: true,
+    profile: {
+      id: 'test',
+      displayName: 'Smith, John',
+      email: 'john.smith@defra.net'
+    }
+  }
+
   const urls = [{
     url: '/',
     code: 200,
@@ -93,13 +113,7 @@ lab.experiment(('All basic routes'), () => {
     ],
     auth: {
       strategy: 'azure-legacy',
-      credentials: {
-        scope: ['manage:warnings'],
-        isAdmin: true,
-        profile: {
-          displayName: 'Smith, John'
-        }
-      }
+      credentials: postLoginCredentials
     }
   }, {
     url: '/target-area/sdfdsf',
@@ -124,10 +138,7 @@ lab.experiment(('All basic routes'), () => {
     url: '/target-area/011FWFNC1D/edit',
     auth: {
       strategy: 'azure-legacy',
-      credentials: {
-        scope: ['manage:warnings'],
-        isAdmin: true
-      }
+      credentials: postLoginCredentials
     },
     code: 200,
     text: [
@@ -138,13 +149,7 @@ lab.experiment(('All basic routes'), () => {
     url: '/target-area/011WACN5/edit',
     auth: {
       strategy: 'azure-legacy',
-      credentials: {
-        scope: ['manage:warnings'],
-        isAdmin: true,
-        profile: {
-          displayName: 'Smith, John'
-        }
-      }
+      credentials: postLoginCredentials
     },
     code: 200,
     text: [
@@ -156,10 +161,7 @@ lab.experiment(('All basic routes'), () => {
     url: '/target-area/011WACN6/edit',
     auth: {
       strategy: 'azure-legacy',
-      credentials: {
-        scope: ['manage:warnings'],
-        isAdmin: true
-      }
+      credentials: postLoginCredentials
     },
     code: 200,
     text: [
@@ -170,15 +172,7 @@ lab.experiment(('All basic routes'), () => {
     url: '/login',
     auth: {
       strategy: 'azure-legacy',
-      credentials: {
-        profile: {
-          displayName: 'Smith, John',
-          email: 'john.smith@defra.net',
-          raw: {
-            roles: '["FWISAdmin"]'
-          }
-        }
-      }
+      credentials: preLoginCredentials
     },
     code: 302
   }, {
@@ -197,23 +191,14 @@ lab.experiment(('All basic routes'), () => {
   }, {
     method: 'POST',
     url: '/target-area/011FWFNC1D/edit',
-    code: 200,
+    code: 302,
     payload: {
       severity: 1,
       situation: 'test situation'
     },
     auth: {
       strategy: 'azure-legacy',
-      credentials: {
-        scope: ['manage:warnings'],
-        isAdmin: true,
-        profile: {
-          id: 'test',
-          displayName: 'Smith, John',
-          email: 'john.smith@defra.net',
-          raw: {}
-        }
-      }
+      credentials: postLoginCredentials
     }
   }]
 

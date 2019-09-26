@@ -10,7 +10,7 @@ const setMocks = () => {
   mocks.getFloods = mock.replace(services, 'getFloods', mock.makePromise(null, data.getFloods))
   mocks.getHistoricFloods = mock.replace(services, 'getHistoricFloods', mock.makePromise(null, data.getHistoricFloods))
   mocks.getAllAreas = mock.replace(services, 'getAllAreas', mock.makePromise(null, data.getAllAreas))
-  mocks.updateWarning = mock.replace(services, 'updateWarning', mock.makePromise(null, data.updateWarning))
+  mocks.updateWarning = mock.replace(services, 'updateWarning', mock.makePromise())
 }
 
 const setErrorMocks = async () => {
@@ -28,6 +28,7 @@ module.exports = {
     console.log('Creating server')
     err ? setErrorMocks() : setMocks()
     server = await composeServer(true)
+    await server.initialize()
     return server
   },
   stop: () => {
