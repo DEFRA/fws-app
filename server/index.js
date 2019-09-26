@@ -60,7 +60,6 @@ async function createServer (test = false) {
   await server.register(require('./plugins/views'))
   await server.register(require('./plugins/router'))
   await server.register(require('./plugins/error-pages'))
-  await server.register(require('./plugins/register-cookie'))
   if (!test) {
     await server.register(require('./plugins/logging'))
     await server.register(require('blipp'))

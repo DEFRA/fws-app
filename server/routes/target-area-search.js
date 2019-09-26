@@ -7,15 +7,6 @@ module.exports = {
   method: 'GET',
   path: '/target-area',
   options: {
-    ext: {
-      onPreAuth: {
-        method: (request, h) => {
-          // Set login redirect cookie
-          h.state('login-redirect', request.path + request.url.search)
-          return h.continue
-        }
-      }
-    },
     handler: async (request, h) => {
       try {
         const { query, area } = request.query
@@ -27,11 +18,12 @@ module.exports = {
           const { warnings } = await server.methods.flood.getFloods()
           const filter = getTargetAreaFilter(query, area)
           const filteredTargetAreas = targetAreas.filter(filter)
-
-          return h.view('target-area-search', new TargetAreaSearchView(
-            areas, filteredTargetAreas, warnings, query, area
-          ))
+          const targetAreaSearchView = new TargetAreaSearchView(areas, filteredTargetAreas, warnings, query, area)
+          targetAreaSearchView.redirectTo = request.path + request.url.search
+          return h.view('target-area-search', targetAreaSearchView)
         } else {
+          const targetAreaSearchView = new TargetAreaSearchView(areas)
+          targetAreaSearchView.redirectTo = request.path + request.url.search
           return h.view('target-area-search', new TargetAreaSearchView(areas))
         }
       } catch (err) {

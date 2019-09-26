@@ -6,15 +6,6 @@ module.exports = [{
   method: 'GET',
   path: '/target-area/{code}/edit',
   options: {
-    ext: {
-      onPreAuth: {
-        method: (request, h) => {
-          // Set login redirect cookie
-          h.state('login-redirect', request.path)
-          return h.continue
-        }
-      }
-    },
     handler: async (request, h) => {
       try {
         const { code } = request.params
@@ -30,8 +21,10 @@ module.exports = [{
 
         const targetArea = targetAreas.find(ta => ta.ta_code === code)
         const targetAreaWarning = warnings.find(w => w.attr.taCode === code)
+        const updateWarningView = new UpdateWarningView(targetArea, targetAreaWarning)
+        updateWarningView.redirectTo = request.path
 
-        return h.view('update-warning', new UpdateWarningView(targetArea, targetAreaWarning))
+        return h.view('update-warning', updateWarningView)
       } catch (err) {
         return boom.badRequest('Update warning caught error', err)
       }
@@ -69,8 +62,7 @@ module.exports = [{
 
         return h.redirect(`/target-area/${code}`)
       } catch (err) {
-        console.error(err)
-        throw err
+        return boom.badRequest('Failed to update warning', err)
       }
     },
     auth: {

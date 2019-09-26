@@ -5,22 +5,16 @@ module.exports = {
   method: 'GET',
   path: '/area/{id?}',
   options: {
-    ext: {
-      onPreAuth: {
-        method: (request, h) => {
-          // Set login redirect cookie
-          h.state('login-redirect', request.path)
-          return h.continue
-        }
-      }
-    },
     handler: async (request, h) => {
       try {
         const { id } = request.params
         const { server } = request
         const { warnings } = await server.methods.flood.getFloods()
+        const areaView = new AreaView(warnings, id)
 
-        return h.view('area', new AreaView(warnings, id))
+        areaView.redirectTo = request.path
+
+        return h.view('area', areaView)
       } catch (err) {
         return boom.badRequest('Area handler caught error', err)
       }

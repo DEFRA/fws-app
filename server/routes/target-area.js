@@ -6,15 +6,6 @@ module.exports = {
   method: 'GET',
   path: '/target-area/{code}',
   options: {
-    ext: {
-      onPreAuth: {
-        method: (request, h) => {
-          // Set login redirect cookie
-          h.state('login-redirect', request.path)
-          return h.continue
-        }
-      }
-    },
     handler: async (request, h) => {
       try {
         const { code } = request.params
@@ -38,8 +29,10 @@ module.exports = {
           return boom.notFound('No target area found')
         }
 
-        return h.view('target-area', new TargetAreaView(targetArea,
-          targetAreaWarning, historicWarnings, { allowEdit }))
+        const targetAreaView = new TargetAreaView(targetArea, targetAreaWarning, historicWarnings, { allowEdit })
+        targetAreaView.redirectTo = request.path
+
+        return h.view('target-area', targetAreaView)
       } catch (err) {
         return boom.badRequest('Target area handler caught error', err)
       }

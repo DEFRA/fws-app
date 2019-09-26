@@ -5,21 +5,13 @@ module.exports = {
   method: 'GET',
   path: '/',
   options: {
-    ext: {
-      onPreAuth: {
-        method: (request, h) => {
-          // Set login redirect cookie
-          h.state('login-redirect', request.path)
-          return h.continue
-        }
-      }
-    },
     handler: async (request, h) => {
       try {
         const { server } = request
         const { warnings } = await server.methods.flood.getFloods()
-
-        return h.view('summary', new SummaryView(warnings))
+        const summaryView = new SummaryView(warnings)
+        summaryView.redirectTo = request.path
+        return h.view('summary', summaryView)
       } catch (err) {
         return boom.badRequest('Summary handler caught error', err)
       }
