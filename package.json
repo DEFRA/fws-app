@@ -1,8 +1,11 @@
 {
   "name": "fws-app",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "FWS Web App",
   "main": "index.js",
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "start": "pm2 start index.js --name fws-app -i 0",
     "stop": "pm2 kill",
