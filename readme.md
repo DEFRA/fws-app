@@ -1,4 +1,4 @@
-[![Build Status](https://www.travis-ci.com/DEFRA/fws-app.svg?token=gaJqX8fxhoSAADGJKMvM&branch=master)](https://www.travis-ci.com/DEFRA/fws-app)
+[![Build Status](https://www.travis-ci.com/DEFRA/fws-app.svg?token=gaJqX8fxhoSAADGJKMvM&branch=master)](https://www.travis-ci.com/DEFRA/fws-app)[![Maintainability](https://api.codeclimate.com/v1/badges/ecaa39b7ca248c7ede24/maintainability)](https://codeclimate.com/github/DEFRA/fws-app/maintainability)[![Test Coverage](https://api.codeclimate.com/v1/badges/ecaa39b7ca248c7ede24/test_coverage)](https://codeclimate.com/github/DEFRA/fws-app/test_coverage)
 
 # fws-app
 This is the FWIS management tool
