@@ -1,0 +1,802 @@
+[
+  {
+    "ta_id": 31512,
+    "ta_code": "012FWFL3C",
+    "ta_name": "River Wyre at Ratten Row",
+    "ta_description": "Area adjacent to and north of the River Wyre at Ratten Row.",
+    "ta_category": "Flood Warning",
+    "owner_area": "Cumbria and Lancashire"
+  },
+  {
+    "ta_id": 31536,
+    "ta_code": "012FWFL24A",
+    "ta_name": "River Darwen at Higher Walton, around Higher Walton Rd, Darwen St and Higher Walton Mills",
+    "ta_description": "Properties on Higher Walton Road backing onto the River Darwen, businesses and properties close to Cann Bridge in Darwen Street, and businesses based in Higher Walton Mills.",
+    "ta_category": "Flood Warning",
+    "owner_area": "Cumbria and Lancashire"
+  },
+  {
+    "ta_id": 31543,
+    "ta_code": "012FWCTL25A",
+    "ta_name": "Merseyside coastline at Hightown",
+    "ta_description": "Altcar, Bridge Cottage and The Shanty",
+    "ta_category": "Flood Warning",
+    "owner_area": "Cumbria and Lancashire"
+  },
+  {
+    "ta_id": 31566,
+    "ta_code": "012FWFY4A",
+    "ta_name": "Hellifield Beck at Hellifield, around Park Place, Park Crescent, and Main Road",
+    "ta_description": "Properties in Park Place, Park Crescent, and Main Road close to the railway line",
+    "ta_category": "Flood Warning",
+    "owner_area": "Cumbria and Lancashire"
+  },
+  {
+    "ta_id": 31588,
+    "ta_code": "012WATLE",
+    "ta_name": "Lune Estuary",
+    "ta_description": "Aldcliffe Marsh, Heaton Marsh, Marsh, Greyhound Bridge, Skerton Bridge, Newton, Overton, Middleton, Glasson and Thurnham Moss",
+    "ta_category": "Flood Alert",
+    "owner_area": "Cumbria and Lancashire"
+  },
+  {
+    "ta_id": 31617,
+    "ta_code": "012FWFL45B",
+    "ta_name": "Colne Water at Cotton Tree, bordering Cotton Tree Lane",
+    "ta_description": "Properties on Cotton Tree Lane",
+    "ta_category": "Flood Warning",
+    "owner_area": "Cumbria and Lancashire"
+  },
+  {
+    "ta_id": 31672,
+    "ta_code": "011FWFNC34",
+    "ta_name": "Windermere (Lake Levels)",
+    "ta_description": "Areas at flood risk from high water levels on the shores of Windermere.",
+    "ta_category": "Flood Warning",
+    "owner_area": "Cumbria and Lancashire"
+  },
+  {
+    "ta_id": 31697,
+    "ta_code": "011FWFNC20",
+    "ta_name": "River Kent at Sedgwick",
+    "ta_description": "Low lying roads, agricultural land and isolated properties adjacent to the River Kent at Sedgewick, Force Lane, Wilson Place, Gate House and Caravan Site",
+    "ta_category": "Flood Warning",
+    "owner_area": "Cumbria and Lancashire"
+  },
+  {
+    "ta_id": 31720,
+    "ta_code": "012FWCTL04A",
+    "ta_name": "Lancashire coastline at Heysham",
+    "ta_description": "North Wharf, Fish Quay, South Quay and West Quay",
+    "ta_category": "Flood Warning",
+    "owner_area": "Cumbria and Lancashire"
+  },
+  {
+    "ta_id": 31771,
+    "ta_code": "011FWFNC3ST",
+    "ta_name": "River Eden at Stainton",
+    "ta_description": "Low lying roads, agricultural land and residential properties adjacent to the River Eden at Stainton",
+    "ta_category": "Flood Warning",
+    "owner_area": "Cumbria and Lancashire"
+  },
+  {
+    "ta_id": 31781,
+    "ta_code": "011WACN5",
+    "ta_name": "Coast at Barrow in Furness",
+    "ta_description": "Coastline at Barrow in Furness",
+    "ta_category": "Flood Alert",
+    "owner_area": "Cumbria and Lancashire"
+  },
+  {
+    "ta_id": 31800,
+    "ta_code": "114FWF1D2BA00",
+    "ta_name": "Bodmin Town Leat from Bodmin Skate Park to Church Square",
+    "ta_description": "Bodmin Town Leat from Bodmin Skate Park to Church Square including Priory Football Field, Priory Park, the adjacent Car Park and parts of Church Square",
+    "ta_category": "Flood Warning",
+    "owner_area": "Devon, Cornwall and the Isles of Scilly"
+  },
+  {
+    "ta_id": 31859,
+    "ta_code": "114WACT1T2BA00",
+    "ta_name": "North Cornwall Coast from Chapel Porth to The Rumps excluding the tidal River Camel",
+    "ta_description": "Chapel Porth to The Rumps including Trevellas, Perranporth, Newquay, Mawgan Porth, Porth and Polzeath,  excluding the tidal River Camel",
+    "ta_category": "Flood Alert",
+    "owner_area": "Devon, Cornwall and the Isles of Scilly"
+  },
+  {
+    "ta_id": 31882,
+    "ta_code": "114FWF1I1BA00",
+    "ta_name": "River Tamar At Calstock",
+    "ta_description": "River Tamar At Calstock and Lower Kelly",
+    "ta_category": "Flood Warning",
+    "owner_area": "Devon, Cornwall and the Isles of Scilly"
+  },
+  {
+    "ta_id": 31914,
+    "ta_code": "113WABTW10",
+    "ta_name": "Lower Exe Area",
+    "ta_description": "The Lower River Exe from Tiverton to Exeter, including Bickleigh and Stoke Canon areas.",
+    "ta_category": "Flood Alert",
+    "owner_area": "Devon, Cornwall and the Isles of Scilly"
+  },
+  {
+    "ta_id": 31932,
+    "ta_code": "034WAF434",
+    "ta_name": "River Meden in Nottinghamshire",
+    "ta_description": "River Meden in Nottinghamshire",
+    "ta_category": "Flood Alert",
+    "owner_area": "East Midlands"
+  },
+  {
+    "ta_id": 32044,
+    "ta_code": "054FWFNF5B",
+    "ta_name": "The River Wensum, through Norwich",
+    "ta_description": "The River Wensum, through Norwich",
+    "ta_category": "Flood Warning",
+    "owner_area": "East Anglia"
+  },
+  {
+    "ta_id": 31963,
+    "ta_code": "113FWFEXE04",
+    "ta_name": "River Exe at Bolham",
+    "ta_description": "low lying properties and roads in Bolham, including the A396, The Otters, Beeley Orchard, Hartnoll Hotel and Bolham Primary School\r\n",
+    "ta_category": "Flood Warning",
+    "owner_area": "Devon, Cornwall and the Isles of Scilly"
+  },
+  {
+    "ta_id": 32013,
+    "ta_code": "031FWTSE700",
+    "ta_name": "Purton on the Severn Estuary",
+    "ta_description": "Purton on the Severn Estuary",
+    "ta_category": "Flood Warning",
+    "owner_area": "West Midlands"
+  },
+  {
+    "ta_id": 32052,
+    "ta_code": "054FWFSF4A",
+    "ta_name": "The River Deben, from Debenham to Cretingham",
+    "ta_description": "The River Deben, from Debenham to Cretingham",
+    "ta_category": "Flood Warning",
+    "owner_area": "East Anglia"
+  },
+  {
+    "ta_id": 32123,
+    "ta_code": "051FWCDV4B12a",
+    "ta_name": "Walton on the Naze",
+    "ta_description": "Walton on the Naze, from Walton Hall marshes to the Martello Caravan Park",
+    "ta_category": "Flood Warning",
+    "owner_area": "East Anglia"
+  },
+  {
+    "ta_id": 32143,
+    "ta_code": "054FWCDV4A4",
+    "ta_name": "Woodbridge and Melton",
+    "ta_description": "Woodbridge and Melton",
+    "ta_category": "Flood Warning",
+    "owner_area": "East Anglia"
+  },
+  {
+    "ta_id": 32153,
+    "ta_code": "054FWFNF1C",
+    "ta_name": "The River Stiffkey from Little Walsingham, to and including Warham",
+    "ta_description": "The River Stiffkey from Little Walsingham, to Warham, including Great Walsingham and Wighton",
+    "ta_category": "Flood Warning",
+    "owner_area": "East Anglia"
+  },
+  {
+    "ta_id": 32177,
+    "ta_code": "054FWCDV3B6",
+    "ta_name": "Kessingland Beach to Potters Bridge and Easton Broad",
+    "ta_description": "Kessingland Beach to Potters Bridge and Easton Broad, including Benacre Broad and Covehithe Broad",
+    "ta_category": "Flood Warning",
+    "owner_area": "East Anglia"
+  },
+  {
+    "ta_id": 32200,
+    "ta_code": "052FWFMOODELL",
+    "ta_name": "River Great Ouse at Odell",
+    "ta_description": "Horsefair Lane and Mill Lane in Odell\r\n",
+    "ta_category": "Flood Warning",
+    "owner_area": "East Anglia"
+  },
+  {
+    "ta_id": 32209,
+    "ta_code": "052FWFUONBH",
+    "ta_name": "River Great Ouse at New Bradwell and Haversham",
+    "ta_description": "Newport Road and Wooton Court in New Bradwell, Haversham Road and Haversham Mill in Haversham",
+    "ta_category": "Flood Warning",
+    "owner_area": "East Anglia"
+  },
+  {
+    "ta_id": 32236,
+    "ta_code": "052FWFGO5ST1A",
+    "ta_name": "Low lying areas close to the River Great Ouse at St Ives",
+    "ta_description": "London Road and Enderbys Wharf in St Ives\r\n",
+    "ta_category": "Flood Warning",
+    "owner_area": "East Anglia"
+  },
+  {
+    "ta_id": 32253,
+    "ta_code": "052FWFLCMW",
+    "ta_name": "River Cam at Milton and Waterbeach",
+    "ta_description": "Fen Road in Milton, Church End House and Clayhithe Road in Horningsea, Whitmore Way, Station Road, Adams Court, Lode Avenue, Burgess Road, Burgess Drove, Bannold Road and Bannold Drove in Waterbeach",
+    "ta_category": "Flood Warning",
+    "owner_area": "East Anglia"
+  },
+  {
+    "ta_id": 32282,
+    "ta_code": "052WATCSTHUN",
+    "ta_name": "Hunstanton coast in Norfolk",
+    "ta_description": "Hunstanton seafront",
+    "ta_category": "Flood Alert",
+    "owner_area": "East Anglia"
+  },
+  {
+    "ta_id": 32346,
+    "ta_code": "052WAFSUTTONGLT",
+    "ta_name": "Sutton Gault Causeway in Cambridgeshire",
+    "ta_description": "The Causeway at Sutton Gault",
+    "ta_category": "Flood Alert",
+    "owner_area": "East Anglia"
+  },
+  {
+    "ta_id": 32391,
+    "ta_code": "034FWFRYBLYTH",
+    "ta_name": "River Ryton at Blyth",
+    "ta_description": "River Ryton at Blyth including Brecks Wood, Ash Holt and Redbridge House",
+    "ta_category": "Flood Warning",
+    "owner_area": "East Midlands"
+  },
+  {
+    "ta_id": 32462,
+    "ta_code": "034FWFAMAMBERGT",
+    "ta_name": "River Amber at Ambergate",
+    "ta_description": "River Amber at Ambergate and Bullbridge",
+    "ta_category": "Flood Warning",
+    "owner_area": "East Midlands"
+  },
+  {
+    "ta_id": 32529,
+    "ta_code": "034FWFSORATSOAR",
+    "ta_name": "River Soar at Ratcliffe on Soar",
+    "ta_description": "River Soar at Ratcliffe on Soar including areas near the railway at Kingston on Soar",
+    "ta_category": "Flood Warning",
+    "owner_area": "East Midlands"
+  },
+  {
+    "ta_id": 32554,
+    "ta_code": "034FWFTRHOVNGHM",
+    "ta_name": "River Trent at Hoveringham",
+    "ta_description": "River Trent at Hoveringham including farms around the Causeway Dyke",
+    "ta_category": "Flood Warning",
+    "owner_area": "East Midlands"
+  },
+  {
+    "ta_id": 32565,
+    "ta_code": "034FWFTRCOLWICK",
+    "ta_name": "River Trent at Colwick and Netherfield",
+    "ta_description": "River Trent at Colwick and Netherfield, including Colwick Industrial Estate and Colwick Vale",
+    "ta_category": "Flood Warning",
+    "owner_area": "East Midlands"
+  },
+  {
+    "ta_id": 32573,
+    "ta_code": "034FWFTRBRTNFAB",
+    "ta_name": "River Trent at Barton in Fabis",
+    "ta_description": "River Trent at Barton in Fabis",
+    "ta_category": "Flood Warning",
+    "owner_area": "East Midlands"
+  },
+  {
+    "ta_id": 32591,
+    "ta_code": "013FWFGM28",
+    "ta_name": "Lilford Park Brook at Lilford",
+    "ta_description": "Areas at risk include properties on and around The Avenue to Peregrine Drive and adjacent roads. This includes properties on and around Riversmeade, Elmridge, Platt Fold Road, Sevenoaks, Greenways, South Court, Linnet Drive, Redpol Avenue",
+    "ta_category": "Flood Warning",
+    "owner_area": "Greater Manchester, Merseyside and Cheshire"
+  },
+  {
+    "ta_id": 32605,
+    "ta_code": "013WATDEE",
+    "ta_name": "Dee Estuary from Parkgate to Chester",
+    "ta_description": "Areas at risk include Parkgate, Neston and Puddington, continuing to Blacon and Saltney, Chester",
+    "ta_category": "Flood Alert",
+    "owner_area": "Greater Manchester, Merseyside and Cheshire"
+  },
+  {
+    "ta_id": 32636,
+    "ta_code": "013FWFCH25",
+    "ta_name": "River Weaver at Weaver Way",
+    "ta_description": "Areas at risk include London Road, Watling Street, Dane Street, High Street, Witton Street and Weaver Way.",
+    "ta_category": "Flood Warning",
+    "owner_area": "Greater Manchester, Merseyside and Cheshire"
+  },
+  {
+    "ta_id": 32657,
+    "ta_code": "013FWFGM12",
+    "ta_name": "Cringle Brook at Fallowfield",
+    "ta_description": "Properties in locations on and around Mauldeth Road in South Manchester. Including locations between Old Moat Park and Ladybarn Lane and Edgeworth Drive",
+    "ta_category": "Flood Warning",
+    "owner_area": "Greater Manchester, Merseyside and Cheshire"
+  },
+  {
+    "ta_id": 32713,
+    "ta_code": "062FWF53PymmesB",
+    "ta_name": "Pymmes Brook from Bowes Park to Edmonton",
+    "ta_description": "The Pymmes Brook from Bowes Park to Edmonton",
+    "ta_category": "Flood Warning",
+    "owner_area": "Hertfordshire and North London"
+  },
+  {
+    "ta_id": 32722,
+    "ta_code": "013FWFGM80",
+    "ta_name": "River Beal at Shaw from Jubilee to Dunwood",
+    "ta_description": "Areas affected include Dunwood Park Court, Milnrow Road, and parts of Small Brook and Newtown",
+    "ta_category": "Flood Warning",
+    "owner_area": "Greater Manchester, Merseyside and Cheshire"
+  },
+  {
+    "ta_id": 32751,
+    "ta_code": "013WAFLM",
+    "ta_name": "Lower River Mersey including Warrington, Runcorn and Lymm areas",
+    "ta_description": "The Lower River Mersey catchment includes the Fishington, Bradley, Sow, Keckwick and Lumb Brooks and their tributaries",
+    "ta_category": "Flood Alert",
+    "owner_area": "Greater Manchester, Merseyside and Cheshire"
+  },
+  {
+    "ta_id": 32782,
+    "ta_code": "062FWF53Nazeing",
+    "ta_name": "Nazeing Brook at Lower Nazeing",
+    "ta_description": "The Nazeing Brook at Lower Nazeing",
+    "ta_category": "Flood Warning",
+    "owner_area": "Hertfordshire and North London"
+  },
+  {
+    "ta_id": 32869,
+    "ta_code": "062FWF28Boxmoor",
+    "ta_name": "River Bulbourne at Boxmoor",
+    "ta_description": "The River Bulbourne at Boxmoor, Hemel Hempstead",
+    "ta_category": "Flood Warning",
+    "owner_area": "Hertfordshire and North London"
+  },
+  {
+    "ta_id": 32955,
+    "ta_code": "064FWF8Hadlow",
+    "ta_name": "Hadlow and Golden Green",
+    "ta_description": "Bourne at Hadlow and Golden Green",
+    "ta_category": "Flood Warning",
+    "owner_area": "Kent, South London and East Sussex"
+  },
+  {
+    "ta_id": 32972,
+    "ta_code": "064FWF6Fordwich",
+    "ta_name": "Fordwich and Sturry",
+    "ta_description": "The Great Stour at Fordwich and Sturry",
+    "ta_category": "Flood Warning",
+    "owner_area": "Kent, South London and East Sussex"
+  },
+  {
+    "ta_id": 33082,
+    "ta_code": "064FWF43Chnbrook",
+    "ta_name": "River Quaggy at Chinbrook, Mottingham and Eltham",
+    "ta_description": "River Quaggy at Chinbrook, Mottingham and Eltham, London Boroughs of Bromley, Lewisham and Greenwich",
+    "ta_category": "Flood Warning",
+    "owner_area": "Kent, South London and East Sussex"
+  },
+  {
+    "ta_id": 32314,
+    "ta_code": "052WAFGRANTA",
+    "ta_name": "River Granta in Essex and Cambridgeshire",
+    "ta_description": "River Granta from Linton to Babraham",
+    "ta_category": "Flood Alert",
+    "owner_area": "East Anglia"
+  },
+  {
+    "ta_id": 33166,
+    "ta_code": "053WAT601TLCa",
+    "ta_name": "Tidal flooding of areas near the Lincolnshire coastline",
+    "ta_description": "Tidal flooding of areas near the Lincolnshire coastline from Tetney Haven to Gibraltar Point",
+    "ta_category": "Flood Alert",
+    "owner_area": "Lincolnshire and Northamptonshire"
+  },
+  {
+    "ta_id": 33200,
+    "ta_code": "055FWFPUNE05",
+    "ta_name": "River Nene and tributaries in Northampton, including low-lying areas adjacent to the river",
+    "ta_description": "River Nene and tributaries in Northampton, including low-lying areas adjacent to the river",
+    "ta_category": "Flood Warning",
+    "owner_area": "Lincolnshire and Northamptonshire"
+  },
+  {
+    "ta_id": 33222,
+    "ta_code": "053FWFPLWI11",
+    "ta_name": "Heighington Beck in Heighington",
+    "ta_description": "Areas near Heighington Beck including the High Street, Beck Lane, Park Lane and Hawthorne Close",
+    "ta_category": "Flood Warning",
+    "owner_area": "Lincolnshire and Northamptonshire"
+  },
+  {
+    "ta_id": 33277,
+    "ta_code": "053FWTLINC3A",
+    "ta_name": "Area near to the sea defences in Mablethorpe",
+    "ta_description": "Area near to the sea defences in Mablethorpe",
+    "ta_category": "Flood Warning",
+    "owner_area": "Lincolnshire and Northamptonshire"
+  },
+  {
+    "ta_id": 33306,
+    "ta_code": "053FWTBOS2A",
+    "ta_name": "Tidal flooding in the North and east of Boston and surrounding areas",
+    "ta_description": "Tidal flooding to the North and East of the Tidal Witham in Boston and surrounding areas, including Fishtoft",
+    "ta_category": "Flood Warning",
+    "owner_area": "Lincolnshire and Northamptonshire"
+  },
+  {
+    "ta_id": 32389,
+    "ta_code": "034FWFRYSHELLY",
+    "ta_name": "River Ryton at Worksop, Shelley Street",
+    "ta_description": "River Ryton at Worksop around the Shelley Street area",
+    "ta_category": "Flood Warning",
+    "owner_area": "East Midlands"
+  },
+  {
+    "ta_id": 33341,
+    "ta_code": "121FWF229",
+    "ta_name": "River Gaunless at South Church",
+    "ta_description": "Properties on Ash Green Way, Main Street and St Andrews Road and streets adjacent to them.",
+    "ta_category": "Flood Warning",
+    "owner_area": "North East"
+  },
+  {
+    "ta_id": 33361,
+    "ta_code": "121WAF912",
+    "ta_name": "Rivers Derwent, Team, Don and estuarine tributaries",
+    "ta_description": "Rivers Derwent, Team, Don, their tributaries and south bank tributaries of the Tyne Estuary",
+    "ta_category": "Flood Alert",
+    "owner_area": "North East"
+  },
+  {
+    "ta_id": 33425,
+    "ta_code": "121FWC526",
+    "ta_name": "North Sea at Holy Island",
+    "ta_description": "Properties including Herring House, St. Oswalds and Athol Brose.",
+    "ta_category": "Flood Warning",
+    "owner_area": "North East"
+  },
+  {
+    "ta_id": 33490,
+    "ta_code": "065WAC405",
+    "ta_name": "Tidal areas of Littlehampton Rope Walk",
+    "ta_description": "Rope Walk, Ferry and Bridge Road on the west banks of the lower tidal River Arun at Littlehampton",
+    "ta_category": "Flood Alert",
+    "owner_area": "Solent and South Downs"
+  },
+  {
+    "ta_id": 33560,
+    "ta_code": "065WAF216",
+    "ta_name": "Simeon Street Rec Ground, Ryde",
+    "ta_description": "Monktonmead Brook at Rink Road, Marymead Close, West Hill Road, Simeon Street and The Strand",
+    "ta_category": "Flood Alert",
+    "owner_area": "Solent and South Downs"
+  },
+  {
+    "ta_id": 33613,
+    "ta_code": "065WAF122",
+    "ta_name": "Lower Itchen",
+    "ta_description": "River Itchen and tributaries from Otterbourne to Woodmill",
+    "ta_category": "Flood Alert",
+    "owner_area": "Solent and South Downs"
+  },
+  {
+    "ta_id": 32426,
+    "ta_code": "031FWFWY0C",
+    "ta_name": "River Wye at Hampton Bishop",
+    "ta_description": "River Wye at Hampton Bishop",
+    "ta_category": "Flood Warning",
+    "owner_area": "West Midlands"
+  },
+  {
+    "ta_id": 33683,
+    "ta_code": "065FWC8303",
+    "ta_name": "Bembridge",
+    "ta_description": "Coastal areas at Bembridge",
+    "ta_category": "Flood Warning",
+    "owner_area": "Solent and South Downs"
+  },
+  {
+    "ta_id": 33686,
+    "ta_code": "065FWC8001",
+    "ta_name": "Yarmouth, Isle of Wight",
+    "ta_description": "Coastal areas at Yarmouth, Isle of Wight",
+    "ta_category": "Flood Warning",
+    "owner_area": "Solent and South Downs"
+  },
+  {
+    "ta_id": 33783,
+    "ta_code": "061FWF10Rackend",
+    "ta_name": "River Windrush at Rack End and Standlake including Northmoor and Newbridge",
+    "ta_description": "River Windrush at Rack End and Standlake including Northmoor and Newbridge",
+    "ta_category": "Flood Warning",
+    "owner_area": "Thames"
+  },
+  {
+    "ta_id": 33787,
+    "ta_code": "061FWF12Moreton",
+    "ta_name": "River Evenlode at Moreton in Marsh",
+    "ta_description": "River Evenlode at Moreton in Marsh",
+    "ta_category": "Flood Warning",
+    "owner_area": "Thames"
+  },
+  {
+    "ta_id": 33814,
+    "ta_code": "061FAG23Mdnhead",
+    "ta_name": "Groundwater flooding in East Maidenhead",
+    "ta_description": "Areas at risk of groundwater flooding in East Maidenhead",
+    "ta_category": "Flood Alert",
+    "owner_area": "Thames"
+  },
+  {
+    "ta_id": 33850,
+    "ta_code": "061FWF23EwlmBens",
+    "ta_name": "Ewelme Stream at Ewelme and Benson",
+    "ta_description": "Ewelme Stream at Ewelme and Benson",
+    "ta_category": "Flood Warning",
+    "owner_area": "Thames"
+  },
+  {
+    "ta_id": 33877,
+    "ta_code": "061FWF21Theale",
+    "ta_name": "Sulham Brook for Theale",
+    "ta_description": "Sulham Brook for Theale",
+    "ta_category": "Flood Warning",
+    "owner_area": "Thames"
+  },
+  {
+    "ta_id": 33883,
+    "ta_code": "061FWF22LowerOg",
+    "ta_name": "River Og at Southend and Ogbourne St. Andrew",
+    "ta_description": "River Og at Southend and Ogbourne St. Andrew",
+    "ta_category": "Flood Warning",
+    "owner_area": "Thames"
+  },
+  {
+    "ta_id": 33594,
+    "ta_code": "065WAF102",
+    "ta_name": "River Anton",
+    "ta_description": "River Anton from Charlton to Fullerton including Andover",
+    "ta_category": "Flood Alert",
+    "owner_area": "Solent and South Downs"
+  },
+  {
+    "ta_id": 33940,
+    "ta_code": "061FWF24OldBasng",
+    "ta_name": "River Loddon at Old Basing",
+    "ta_description": "River Loddon at Old Basing including Wildmore, Hampshire",
+    "ta_category": "Flood Warning",
+    "owner_area": "Thames"
+  },
+  {
+    "ta_id": 33947,
+    "ta_code": "061FWF30Woking",
+    "ta_name": "Hoe Stream at Woking",
+    "ta_description": "Hoe Stream at Woking including Mayford, Surrey",
+    "ta_category": "Flood Warning",
+    "owner_area": "Thames"
+  },
+  {
+    "ta_id": 33976,
+    "ta_code": "061WAF29Chertsey",
+    "ta_name": "Chertsey Bourne",
+    "ta_description": "Chertsey Bourne including Virginia Water, Thorpe Green and Chertsey and the Moat at Thorpe",
+    "ta_category": "Flood Alert",
+    "owner_area": "Thames"
+  },
+  {
+    "ta_id": 34033,
+    "ta_code": "111FWGSWDTEF3",
+    "ta_name": "Groundwater flooding in the South Wiltshire Downs - The Teffont",
+    "ta_description": "Groundwater flooding for Teffont and Teffont Evis",
+    "ta_category": "Flood Warning",
+    "owner_area": "Wessex"
+  },
+  {
+    "ta_id": 34102,
+    "ta_code": "112FWFBFR10B",
+    "ta_name": "Bristol Frome at Chipping Sodbury and Yate, Grace Close, Bennetts Court, Station Road and Oak Close",
+    "ta_description": "Grace Close in Chipping Sodbury and Bennetts Court, Station Road and Oak Close in Yate",
+    "ta_category": "Flood Warning",
+    "owner_area": "Wessex"
+  },
+  {
+    "ta_id": 34120,
+    "ta_code": "112FWFBRU10A",
+    "ta_name": "River Brue (upper) from Bruton Dam to Lovington",
+    "ta_description": "Gants Mill, Cole, Ansford Bridge and Alford",
+    "ta_category": "Flood Warning",
+    "owner_area": "Wessex"
+  },
+  {
+    "ta_id": 34123,
+    "ta_code": "112FWFBRI10B",
+    "ta_name": "Brislington Brook, low lying properties set back from the river",
+    "ta_description": "Airport Road, Hither Bath Bridge, Lanes End, West Town Lane Primary School playing fields, Homemead Drive, Callington Road, Kenneth Road, the railway line at St Annes and Chapel Way",
+    "ta_category": "Flood Warning",
+    "owner_area": "Wessex"
+  },
+  {
+    "ta_id": 34154,
+    "ta_code": "111FWFCALE002",
+    "ta_name": "River Cale at Wincanton",
+    "ta_description": "Southgate Road, Bennetts Field Trading Estate, Hopkins Court, Shatterwell Villas, The Batch, Mill Street, Carmel Villas and parts of the A371 and A303",
+    "ta_category": "Flood Warning",
+    "owner_area": "Wessex"
+  },
+  {
+    "ta_id": 34184,
+    "ta_code": "111FWFAVOL611",
+    "ta_name": "Lower Avon at The Bridges and Stubbings Meadow in Ringwood",
+    "ta_description": "The Bridges, Little Thatch, Watermead, Capberton, Three Bridges and Old Bridge Cottage, West Street, Avon Edge and Stubbings Meadow Caravan Park in Ringwood",
+    "ta_category": "Flood Warning",
+    "owner_area": "Wessex"
+  },
+  {
+    "ta_id": 34217,
+    "ta_code": "111FWGBOU2",
+    "ta_name": "Groundwater flooding in the Bourne Valley from North Tidworth to the A303",
+    "ta_description": "Groundwater flooding for the Bourne Valley including North Tidworth, Tidworth and Shipton Bellinger areas",
+    "ta_category": "Flood Warning",
+    "owner_area": "Wessex"
+  },
+  {
+    "ta_id": 34254,
+    "ta_code": "112FWTUPH01",
+    "ta_name": "Somerset coast at Uphill, Slimeridge Farm and the Boat Yard areas",
+    "ta_description": "Coastline at Uphill including Slimeridge Farm Caravan Park area and the Boat Yard",
+    "ta_category": "Flood Warning",
+    "owner_area": "Wessex"
+  },
+  {
+    "ta_id": 34311,
+    "ta_code": "112FWFYEO30B",
+    "ta_name": "River Yeo at Yeovilton",
+    "ta_description": "Weir Lane, Pyle Lane and Bineham Lane",
+    "ta_category": "Flood Warning",
+    "owner_area": "Wessex"
+  },
+  {
+    "ta_id": 34312,
+    "ta_code": "112FWFYEO30A",
+    "ta_name": "River Yeo from Limington to Langport",
+    "ta_description": "Downstream of Weir Bridge near Limington to Langport including Hainbury Farm, farms around the A303, Long Load, Withmoor Drove, Crouds Lane, Upton Bridge Farm, Pibsbury, Huish Episcopi, Portland Road, Courtfield and Huish Farm area near Langport",
+    "ta_category": "Flood Warning",
+    "owner_area": "Wessex"
+  },
+  {
+    "ta_id": 34313,
+    "ta_code": "112FWFYEO20B",
+    "ta_name": "River Yeo at Mudford",
+    "ta_description": "Mudford Bridge, Parsonage Farm and properties on Main Street",
+    "ta_category": "Flood Warning",
+    "owner_area": "Wessex"
+  },
+  {
+    "ta_id": 34361,
+    "ta_code": "112FWTBLU01",
+    "ta_name": "Somerset coast at Blue Anchor, seafront properties",
+    "ta_description": "Coastline between Sea Lane End and Blue Anchor Hotel including Blue Anchor Chalets, The Smugglers Hotel and other low lying properties on the seafront",
+    "ta_category": "Flood Warning",
+    "owner_area": "Wessex"
+  },
+  {
+    "ta_id": 34366,
+    "ta_code": "033FWF3KINVER",
+    "ta_name": "River Stour at Kinver",
+    "ta_description": "River Stour at Kinver",
+    "ta_category": "Flood Warning",
+    "owner_area": "West Midlands"
+  },
+  {
+    "ta_id": 34392,
+    "ta_code": "033FWF3SARE002",
+    "ta_name": "Saredon Brook at Standeford near Coven",
+    "ta_description": "Saredon Brook at Standeford near Coven",
+    "ta_category": "Flood Warning",
+    "owner_area": "West Midlands"
+  },
+  {
+    "ta_id": 34396,
+    "ta_code": "033FWF3RISE001",
+    "ta_name": "Rising Brook, Stafford",
+    "ta_description": "Rising Brook, Stafford",
+    "ta_category": "Flood Warning",
+    "owner_area": "West Midlands"
+  },
+  {
+    "ta_id": 34469,
+    "ta_code": "033FWF3TEAN005",
+    "ta_name": "River Tean at Adderley",
+    "ta_description": "River Tean at Adderley",
+    "ta_category": "Flood Warning",
+    "owner_area": "West Midlands"
+  },
+  {
+    "ta_id": 34495,
+    "ta_code": "033WAF310",
+    "ta_name": "Stone Trent",
+    "ta_description": "Low-lying land and roads between Darlaston and Great Haywood",
+    "ta_category": "Flood Alert",
+    "owner_area": "West Midlands"
+  },
+  {
+    "ta_id": 34559,
+    "ta_code": "031FWFSE460",
+    "ta_name": "Kempsey Village",
+    "ta_description": "Kempsey Village",
+    "ta_category": "Flood Warning",
+    "owner_area": "West Midlands"
+  },
+  {
+    "ta_id": 34572,
+    "ta_code": "031FWFSE330",
+    "ta_name": "River Severn at Upper Arley",
+    "ta_description": "River Severn at Upper Arley",
+    "ta_category": "Flood Warning",
+    "owner_area": "West Midlands"
+  },
+  {
+    "ta_id": 34611,
+    "ta_code": "031FWFBA20",
+    "ta_name": "Barbourne Brook at Barbourne",
+    "ta_description": "Barbourne Brook at Barbourne",
+    "ta_category": "Flood Warning",
+    "owner_area": "West Midlands"
+  },
+  {
+    "ta_id": 34613,
+    "ta_code": "031FWFAV80",
+    "ta_name": "River Avon at Twyning",
+    "ta_description": "River Avon at Twyning",
+    "ta_category": "Flood Warning",
+    "owner_area": "West Midlands"
+  },
+  {
+    "ta_id": 34657,
+    "ta_code": "033FWF3ANKR004",
+    "ta_name": "River Anker at Leather Mill",
+    "ta_description": "River Anker at Leather Mill including properties on Leathermill Lane",
+    "ta_category": "Flood Warning",
+    "owner_area": "West Midlands"
+  },
+  {
+    "ta_id": 34730,
+    "ta_code": "031WAF118",
+    "ta_name": "River Frome in Herefordshire",
+    "ta_description": "River Frome in Herefordshire",
+    "ta_category": "Flood Alert",
+    "owner_area": "West Midlands"
+  },
+  {
+    "ta_id": 34770,
+    "ta_code": "122FWF738",
+    "ta_name": "Holgate Beck at York",
+    "ta_description": "Hamilton Drive and the Hob Moor area in Holgate",
+    "ta_category": "Flood Warning",
+    "owner_area": "Yorkshire"
+  },
+  {
+    "ta_id": 34841,
+    "ta_code": "122FWF526",
+    "ta_name": "Town Beck at Addingham",
+    "ta_description": "Properties between Wharfe Park and Main Street extending to Town Head Mill",
+    "ta_category": "Flood Warning",
+    "owner_area": "Yorkshire"
+  },
+  {
+    "ta_id": 34876,
+    "ta_code": "122FWF724",
+    "ta_name": "River Ouse at Naburn",
+    "ta_description": "Homes and businesses in Naburn along Main Street, Front Street , York Road and some properties on Vicarage Lane\r\n",
+    "ta_category": "Flood Warning",
+    "owner_area": "Yorkshire"
+  }
+]

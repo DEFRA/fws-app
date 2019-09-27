@@ -29,10 +29,7 @@ module.exports = {
           return boom.notFound('No target area found')
         }
 
-        const targetAreaView = new TargetAreaView(targetArea, targetAreaWarning, historicWarnings, { allowEdit })
-        targetAreaView.redirectTo = request.path
-
-        return h.view('target-area', targetAreaView)
+        return h.view('target-area', new TargetAreaView(targetArea, targetAreaWarning, historicWarnings, { allowEdit }))
       } catch (err) {
         return boom.badRequest('Target area handler caught error', err)
       }

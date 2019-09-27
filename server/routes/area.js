@@ -10,11 +10,7 @@ module.exports = {
         const { id } = request.params
         const { server } = request
         const { warnings } = await server.methods.flood.getFloods()
-        const areaView = new AreaView(warnings, id)
-
-        areaView.redirectTo = request.path
-
-        return h.view('area', areaView)
+        return h.view('area', new AreaView(warnings, id))
       } catch (err) {
         return boom.badRequest('Area handler caught error', err)
       }

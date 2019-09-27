@@ -21,10 +21,8 @@ module.exports = [{
 
         const targetArea = targetAreas.find(ta => ta.ta_code === code)
         const targetAreaWarning = warnings.find(w => w.attr.taCode === code)
-        const updateWarningView = new UpdateWarningView(targetArea, targetAreaWarning)
-        updateWarningView.redirectTo = request.path
 
-        return h.view('update-warning', updateWarningView)
+        return h.view('update-warning', new UpdateWarningView(targetArea, targetAreaWarning))
       } catch (err) {
         return boom.badRequest('Update warning caught error', err)
       }

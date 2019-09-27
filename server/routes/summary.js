@@ -9,9 +9,7 @@ module.exports = {
       try {
         const { server } = request
         const { warnings } = await server.methods.flood.getFloods()
-        const summaryView = new SummaryView(warnings)
-        summaryView.redirectTo = request.path
-        return h.view('summary', summaryView)
+        return h.view('summary', new SummaryView(warnings))
       } catch (err) {
         return boom.badRequest('Summary handler caught error', err)
       }

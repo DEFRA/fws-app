@@ -5,7 +5,7 @@ const config = require('./config')
 const registerServerMethods = require('./services/methods')
 const { dateFormat, longDateFormat } = require('./constants')
 
-async function createServer (test = false) {
+async function createServer () {
   // Create the hapi server
   const server = hapi.server({
     port: config.port,
@@ -60,10 +60,8 @@ async function createServer (test = false) {
   await server.register(require('./plugins/views'))
   await server.register(require('./plugins/router'))
   await server.register(require('./plugins/error-pages'))
-  if (!test) {
-    await server.register(require('./plugins/logging'))
-    await server.register(require('blipp'))
-  }
+  await server.register(require('./plugins/logging'))
+  await server.register(require('blipp'))
 
   server.ext('onPostHandler', (request, h) => {
     const response = request.response
@@ -78,6 +76,7 @@ async function createServer (test = false) {
       // Set some common context
       // variables under the `meta` namespace
       meta.url = request.url.href
+      meta.redirectTo = encodeURIComponent(request.path + (request.url.search ? request.url.search : ''))
       meta.timestamp = new Date()
       meta.dateString = moment.tz('Europe/London').format(dateFormat)
       meta.longDateString = moment.tz('Europe/London').format(longDateFormat)

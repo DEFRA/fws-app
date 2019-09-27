@@ -2,7 +2,7 @@ const composeServer = require('../server')
 const services = require('../server/services')
 
 const mock = require('./mock')
-const mocks = require('./mocks')
+const mocks = {}
 const data = require('./data')
 
 const setMocks = () => {
@@ -21,18 +21,25 @@ const setErrorMocks = async () => {
   mocks.updateWarning = mock.replace(services, 'updateWarning', mock.makePromise(new Error('Failed to update warning')))
 }
 
+const clearMocks = () => {
+  Object.keys(mocks).forEach((key) => {
+    mocks[key].revert()
+  })
+}
+
 let server
 
 module.exports = {
   start: async (err = false) => {
     console.log('Starting server')
     err ? setErrorMocks() : setMocks()
-    server = await composeServer(true)
+    server = await composeServer()
     await server.initialize()
     return server
   },
   stop: () => {
     console.log('Stopping server')
+    clearMocks()
     return server.stop()
   }
 }
