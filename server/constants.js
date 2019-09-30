@@ -1,9 +1,9 @@
 const severities = [
   {
-    value: '1',
-    name: 'Flood alert',
-    pluralisedName: 'Flood alerts',
-    image: 'FloodAlert.png',
+    value: '3',
+    name: 'Severe flood warning',
+    pluralisedName: 'Severe flood warnings',
+    image: 'SevereFloodWarning.png',
     isActive: true
   }, {
     value: '2',
@@ -12,10 +12,10 @@ const severities = [
     image: 'FloodWarning.png',
     isActive: true
   }, {
-    value: '3',
-    name: 'Severe flood warning',
-    pluralisedName: 'Severe flood warnings',
-    image: 'SevereFloodWarning.png',
+    value: '1',
+    name: 'Flood alert',
+    pluralisedName: 'Flood alerts',
+    image: 'FloodAlert.png',
     isActive: true
   }, {
     value: '4',
