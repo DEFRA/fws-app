@@ -14,6 +14,10 @@ class UpdateWarningView {
       ? severities.filter(obj => { return obj.value === '1' || obj.value === '4' })
       : severities.filter(obj => { return obj.value === '2' || obj.value === '3' || obj.value === '4' })
 
+    categorySeverities.sort((a, b) => {
+      return parseInt(a.value, 10) - parseInt(b.value, 10)
+    })
+
     this.options = categorySeverities.map(severity => {
       const value = severity.value
       const text = severity.name

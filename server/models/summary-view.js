@@ -19,7 +19,7 @@ class SummaryView {
         value: severity.value
       }
     }).sort((a, b) => {
-      return severityOrderBy.indexOf(a.value) > severityOrderBy.indexOf(b.value)
+      return severityOrderBy.indexOf(a.value) - severityOrderBy.indexOf(b.value)
     })
 
     // Head
