@@ -11,11 +11,15 @@ class SummaryView {
     const warnings = this.warnings.map(w => w.attr)
     const grouped = groupBy(warnings, 'ownerArea')
 
+    const severityOrderBy = ['3', '2', '1', '4']
     const severityHeaders = severities.map(severity => {
       return {
         text: severity.pluralisedName,
-        classes: 'center'
+        classes: 'center',
+        value: severity.value
       }
+    }).sort((a, b) => {
+      return severityOrderBy.indexOf(a.value) > severityOrderBy.indexOf(b.value)
     })
 
     // Head
@@ -32,7 +36,7 @@ class SummaryView {
 
     // Rows
     const rows = Object.keys(grouped).sort().map(area => {
-      const severityValues = severities.map(severity => {
+      const severityValues = severityHeaders.map(severity => {
         return {
           text: grouped[area].filter(w => w.severityValue === severity.value).length,
           classes: 'center'
@@ -52,7 +56,7 @@ class SummaryView {
     })
 
     // Totals
-    const severityTotals = severities.map(severity => {
+    const severityTotals = severityHeaders.map(severity => {
       return {
         text: warnings.filter(warning => warning.severityValue === severity.value).length,
         classes: 'govuk-table__header center'

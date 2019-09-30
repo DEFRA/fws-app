@@ -212,7 +212,20 @@ lab.experiment(('All basic routes'), () => {
     code: 200,
     text: [
       'Cumbria and Lancashire',
-      'Coast at North Morecambe Bay (011WACN6)'
+      'Coast at North Morecambe Bay (011WACN6)',
+      '<select class="govuk-select" id="severity" name="severity" required>\n              <option value="">Please select</option>\n              \n              <option value="1" selected>Flood alert</option>\n              \n              <option value="4" >Warning no longer in force</option>\n              \n            </select>'
+    ]
+  }, {
+    url: '/target-area/011FWFNC1D/edit',
+    auth: {
+      strategy: 'azure-legacy',
+      credentials: postLoginCredentials
+    },
+    code: 200,
+    text: [
+      'Cumbria and Lancashire',
+      'Appleby, Holme and Chapel Street and Cherry Row (011FWFNC1D)',
+      '<select class="govuk-select" id="severity" name="severity" required>\n              <option value="">Please select</option>\n              \n              <option value="2" >Flood warning</option>\n              \n              <option value="3" >Severe flood warning</option>\n              \n              <option value="4" >Warning no longer in force</option>\n              \n            </select>'
     ]
   }, {
     url: '/login',

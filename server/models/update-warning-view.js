@@ -11,8 +11,8 @@ class UpdateWarningView {
     // For Warning Areas, only show "Severe Flood Warning",
     // "Flood Warning" and "WNLIF"
     const categorySeverities = isFloodAlertArea
-      ? [severities[0], severities[3]]
-      : [severities[1], severities[2], severities[3]]
+      ? severities.filter(obj => { return obj.value === '1' || obj.value === '4' })
+      : severities.filter(obj => { return obj.value === '2' || obj.value === '3' || obj.value === '4' })
 
     this.options = categorySeverities.map(severity => {
       const value = severity.value
