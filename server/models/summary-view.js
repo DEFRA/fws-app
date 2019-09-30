@@ -63,6 +63,11 @@ class SummaryView {
       }
     })
 
+    let total = 0
+    severityTotals.forEach(st => {
+      total = total + st.text
+    })
+
     rows.push([
       {
         text: 'Severity total',
@@ -70,7 +75,8 @@ class SummaryView {
       },
       ...severityTotals,
       {
-        text: ''
+        text: total,
+        classes: 'govuk-table__header center'
       }
     ])
 
