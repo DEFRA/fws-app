@@ -24,7 +24,7 @@ lab.experiment(('All basic routes'), () => {
   }, {
     url: '/area/Cumbria%20and%20Lancashire',
     code: 500,
-    text: ['<h1 class="govuk-heading-xl">Sorry, there is a problem with the service</h1>'],
+    text: ['<h1 class="govuk-heading-xl">Sorry, there is a problem with the service</h1>']
   }, {
     url: '/target-area',
     code: 500,

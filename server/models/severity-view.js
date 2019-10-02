@@ -24,7 +24,7 @@ class SeverityView {
         attributes: { valign: 'center' }
       },
       {
-        text: 'Owner Area',
+        text: 'Owner area',
         classes: 'govuk-table__header center',
         attributes: { valign: 'center' }
       },
