@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "macros/tabs.html" import tabs %}
+
+{% set bodyClasses = "internal" %}
+
+{% block head %}
+  <meta http-equiv="refresh" content="60">
+  {{super()}}
+{% endblock %}
+
+{% block body %}
+  <div class="govuk-body">
+    <div class="govuk-inset-text">
+      Generated on
+      <time id="page-time">{{meta.longDateString}}</time>
+      <small>(page will update every minute)</small>
+    </div>
+
+    <div class="govuk-tabs">
+      {{tabs('severity-view')}}
+      <section class="govuk-tabs__panel">
+     
+        <h2 class="govuk-heading-l">Severity view</h2>
+        {% if severityTable %}
+        {{ govukTable(severityTable)}}
+        {% else %}
+          <p class="govuk-body">Sorry the severity report is currently unavailable</p>
+        {% endif %}
+      </section>
+    </div>
+  </div>
+{% endblock %}

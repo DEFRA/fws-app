@@ -5,7 +5,8 @@ const routes = [].concat(
   require('../routes/target-area'),
   require('../routes/target-area-search'),
   require('../routes/update-warning'),
-  require('../routes/public')
+  require('../routes/public'),
+  require('../routes/severity-view')
 )
 
 module.exports = {

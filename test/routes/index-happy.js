@@ -259,6 +259,12 @@ lab.experiment(('All basic routes'), () => {
       strategy: 'azure-legacy',
       credentials: postLoginCredentials
     }
+  }, {
+    url: '/severity-view',
+    code: 200,
+    text: [
+      'Severity view</h2>'
+    ]
   }]
 
   urls.forEach(item => {

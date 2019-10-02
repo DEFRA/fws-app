@@ -9,18 +9,21 @@ function groupBy (arr, key) {
 }
 
 function sortBy (property) {
-  // let sortOrder = 1
+  let sortOrder = 1
 
-  // Sort inverter (asc/des), commenting out as not yet implemented front end
-  // if (property[0] === '-') {
-  //   sortOrder = -1
-  //   property = property.substr(1)
-  // }
+  // Sort inverter (asc/des)
+  if (property[0] === '-') {
+    sortOrder = -1
+    property = property.substr(1)
+  }
 
   return function (a, b) {
     /* Works with strings and numbers */
-    const result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0
-    return result // * sortOrder
+    const result = (a[property] < b[property])
+      ? -1
+      : (a[property] > b[property]) ? 1 : 0
+
+    return result * sortOrder
   }
 }
 

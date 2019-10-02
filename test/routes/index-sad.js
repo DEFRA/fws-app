@@ -34,6 +34,10 @@ lab.experiment(('All basic routes'), () => {
     code: 500,
     text: ['<h1 class="govuk-heading-xl">Sorry, there is a problem with the service</h1>']
   }, {
+    url: '/severity-view',
+    code: 500,
+    text: ['<h1 class="govuk-heading-xl">Sorry, there is a problem with the service</h1>']
+  }, {
     url: '/sdgfdfsgds',
     code: 404,
     text: ['Page not found']
