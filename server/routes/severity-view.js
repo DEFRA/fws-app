@@ -11,7 +11,7 @@ module.exports = {
         const { warnings } = await server.methods.flood.getFloods()
         return h.view('severity-view', new SeverityView(warnings))
       } catch (err) {
-        return boom.badRequest('Summary handler caught error', err)
+        return boom.badRequest('Severity view handler caught error', err)
       }
     }
   }
