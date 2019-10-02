@@ -1,10 +1,9 @@
 const { severities } = require('../constants')
-const { sortBy, formatUTCDate } = require('../helpers')
+const { formatUTCDate, sortByMultiple } = require('../helpers')
 
 class SeverityView {
-  constructor (warnings, id) {
-    this.warnings = warnings.filter(w => id ? w.attr.ownerArea === id : true)
-    this.id = id
+  constructor (warnings) {
+    this.warnings = warnings
     this.severityTable = this.getSeverityTable()
   }
 
@@ -12,7 +11,7 @@ class SeverityView {
     const warnings = this.warnings.map(w => w.attr)
 
     const rows = []
-    // Create static table headers
+
     const headRow = [
       {
         text: 'Severity',
@@ -30,7 +29,7 @@ class SeverityView {
         attributes: { valign: 'center' }
       },
       {
-        text: 'TaName',
+        text: 'Target area name',
         classes: 'govuk-table__header center',
         attributes: { valign: 'center' }
       },
@@ -47,19 +46,30 @@ class SeverityView {
     ]
     rows.push(headRow)
 
-    // Set severity row order from sever to not inforce
     const severityRowOrder = ['3', '2', '1', '4']
 
-    // Filter Warnings by severity name then sort the filtered array by ownerArea
     severityRowOrder.forEach(severity => {
       const severityName = severities.find(s => s.value === severity).name
       const severityWarnings = warnings
         .filter(w => w.severityValue === severity)
-        .sort(sortBy('ownerArea'))
+        .map(w => {
+          w.situationChanged = new Date(w.situationChanged).getTime()
+          return w
+        })
+        .sort(sortByMultiple('ownerArea', '-situationChanged'))
 
       const count = severityWarnings.length
 
-      // If count is 0 show severity name with a count of 0 and all other fields blank
+      function isSameAsPreviousArea (index) {
+        return severityWarnings[index].ownerArea !==
+          severityWarnings[index - 1].ownerArea
+      }
+
+      function isSameAsNextArea (index) {
+        return severityWarnings[index].ownerArea ===
+          severityWarnings[index + 1].ownerArea
+      }
+
       if (count === 0) {
         rows.push([
           {
@@ -75,38 +85,43 @@ class SeverityView {
         ])
       } else {
         severityWarnings.forEach((warning, index) => {
-          // Count isLastWarning, needed for Classes below
           const isLastWarning = severityWarnings.length === index + 1
 
-          // Classes enabled if index > 0 and isnt last row remove boarder else show
           rows.push([
             {
               html: index === 0 ? `<strong>${severityName}</strong>` : '',
               attributes: { valign: 'center' },
-              classes: index > 0 && !isLastWarning ? 'center noborder' : 'center'
+              classes: !isLastWarning
+                ? 'center noborder'
+                : 'center'
             },
             {
               text: index === 0 ? count : '',
               attributes: { valign: 'center' },
-              classes: index > 0 && !isLastWarning ? 'center noborder' : 'center'
+              classes: !isLastWarning
+                ? 'center noborder'
+                : 'center'
             },
             {
-              text: warning.ownerArea,
-              attributes: { valign: 'center' },
-              classes: 'center'
+              text: index === 0 || isSameAsPreviousArea(index)
+                ? warning.ownerArea
+                : '',
+              classes: !isLastWarning && isSameAsNextArea(index)
+                ? 'center noborder'
+                : 'center'
             },
             {
-              html: warning.taName,
-              attributes: { valign: 'center' },
-              classes: 'center'
-            },
-            {
-              text: formatUTCDate(warning.situationChanged),
+              html: `<a href="/target-area/${warning.taCode}">${warning.taName}</a>`,
               attributes: { valign: 'center' },
               classes: 'center'
             },
             {
               text: formatUTCDate(warning.severityChanged),
+              attributes: { valign: 'center' },
+              classes: 'center'
+            },
+            {
+              text: formatUTCDate(warning.situationChanged),
               attributes: { valign: 'center' },
               classes: 'center'
             }
