@@ -54,7 +54,7 @@ class TargetAreaView {
         attributes: { valign: 'center' }
       },
       {
-        text: warning.attr.severity,
+        text: severity.name,
         attributes: { valign: 'center' },
         classes: 'center'
       },
@@ -113,7 +113,7 @@ class TargetAreaView {
           attributes: { valign: 'center' }
         },
         {
-          text: warning.attr.severity,
+          text: severity.name,
           classes: 'center',
           attributes: { valign: 'center' }
         },
