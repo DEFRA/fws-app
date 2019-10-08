@@ -131,7 +131,8 @@ class TargetAreaView {
 
     return {
       head,
-      rows
+      rows,
+      classes: 'historic-warnings collapsed'
     }
   }
 }

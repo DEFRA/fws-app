@@ -215,3 +215,22 @@
   position: relative;
   background-repeat: no-repeat;
 }
+
+
+// Page specific CSS styles
+
+// Target area page
+.historic-warnings.collapsed {
+  tbody {
+    tr:nth-child(n+7) {
+     display: none;
+    }
+  }
+}
+
+.govuk-button.toggle {
+  display: block;
+  text-align: center;
+  margin-left: auto;
+  position: relative;
+}
