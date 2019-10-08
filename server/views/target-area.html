@@ -36,11 +36,34 @@
 
         <h2 class="govuk-heading-s">Historic Warnings</h2>
         {% if historicWarningsTable %}
+          {% if historicWarningsTable.rows.length > 6 %}
+            <button id='toggle' class="govuk-button toggle">Show all Historic Warnings</button>
+          {% endif %}
         {{govukTable(historicWarningsTable)}}
         {% else %}
-        <p>No historic messages available for {{targetArea.ta_name}}</p>
+          <p>No historic messages available for {{targetArea.ta_name}}</p>
         {% endif %}
       </section>
     </div>
   </div>
+{% endblock %}
+
+{% block bodyEnd %}
+  <script>
+    var toggleButton = document.getElementById('toggle')
+
+    function toggle () {
+      var table = document.querySelector('.historic-warnings')
+      table.classList.toggle('collapsed')
+
+    toggleButton.innerText = table.classList.contains('collapsed')
+        ? 'Show all Historic Warnings'
+        : table.classList.contains('historic-warnings')
+        ? 'Show last 6 Historic Warnings'
+        : 'Show all Historic Warnings'
+
+    }
+   
+    toggleButton.addEventListener('click', toggle, false)
+  </script>
 {% endblock %}
