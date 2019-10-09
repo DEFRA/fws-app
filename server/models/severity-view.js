@@ -29,7 +29,7 @@ class SeverityView {
         attributes: { valign: 'center' }
       },
       {
-        text: 'Target area name',
+        text: 'Warning area name',
         classes: 'govuk-table__header center',
         attributes: { valign: 'center' }
       },

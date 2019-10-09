@@ -29,12 +29,12 @@ class AreaView {
           attributes: { valign: 'center' }
         },
         {
-          text: 'Target area name',
+          text: 'Warning area name',
           classes: 'govuk-table__header center',
           attributes: { valign: 'center' }
         },
         {
-          text: 'Target area code',
+          text: 'Warning area code',
           classes: 'govuk-table__header center',
           attributes: { valign: 'center' }
         },
