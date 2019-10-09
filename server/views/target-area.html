@@ -34,12 +34,15 @@
           {% endif %}
         {% endif %}
 
-        <h2 class="govuk-heading-s">Historic Warnings</h2>
+       
+      <h2 class="govuk-heading-s">Historic Warnings</h2>
         {% if historicWarningsTable %}
           {% if historicWarningsTable.rows.length > 6 %}
-            <button id='toggle' class="govuk-button toggle">Show all Historic Warnings</button>
+            <a id="toggle">Show all Historic Warnings</a>
           {% endif %}
-        {{govukTable(historicWarningsTable)}}
+          <div class="govuk-!-margin-top-2">
+            {{govukTable(historicWarningsTable)}}
+          </div>
         {% else %}
           <p>No historic messages available for {{targetArea.ta_name}}</p>
         {% endif %}
@@ -59,9 +62,8 @@
     toggleButton.innerText = table.classList.contains('collapsed')
         ? 'Show all Historic Warnings'
         : table.classList.contains('historic-warnings')
-        ? 'Show last 6 Historic Warnings'
+        ? 'Show last six Historic Warnings'
         : 'Show all Historic Warnings'
-
     }
    
     toggleButton.addEventListener('click', toggle, false)

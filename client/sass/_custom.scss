@@ -228,9 +228,12 @@
   }
 }
 
-.govuk-button.toggle {
-  display: block;
-  text-align: center;
-  margin-left: auto;
-  position: relative;
+#toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: arial, sans-serif;
+  color: #069;
+  text-decoration: underline;
+  cursor: pointer;
 }
