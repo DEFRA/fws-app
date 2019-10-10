@@ -34,7 +34,7 @@ class AreaView {
           attributes: { valign: 'center' }
         },
         {
-          text: 'Warning area code',
+          text: 'Target area code',
           classes: 'govuk-table__header center',
           attributes: { valign: 'center' }
         },

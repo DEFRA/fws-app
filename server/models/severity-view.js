@@ -16,7 +16,7 @@ class SeverityView {
       {
         text: 'Severity',
         classes: 'govuk-table__header center',
-        attributes: { valign: 'center' }
+        attributes: { valign: 'center', colspan: 2 }
       },
       {
         text: 'Total',
@@ -34,12 +34,12 @@ class SeverityView {
         attributes: { valign: 'center' }
       },
       {
-        text: 'Severity changed',
+        text: 'Situation changed',
         classes: 'govuk-table__header center',
         attributes: { valign: 'center' }
       },
       {
-        text: 'Situation changed',
+        text: 'Severity changed',
         classes: 'govuk-table__header center',
         attributes: { valign: 'center' }
       }
@@ -81,22 +81,37 @@ class SeverityView {
             text: count,
             attributes: { valign: 'center' },
             classes: 'center'
-          }, {}, {}, {}, {}
+          }, {}, {}, {}, {}, {}
         ])
       } else {
         severityWarnings.forEach((warning, index) => {
           const isLastWarning = severityWarnings.length === index + 1
+          const severity = severities.find(s => s.value === warning.severityValue)
+          const severityIconLocation = '/assets/images/' + severity.image
 
           rows.push([
             {
-              html: index === 0 ? `<strong>${severityName}</strong>` : '',
+              html: index === 0
+                ? `<img src="${severityIconLocation}" class="flooding-icons" alt="Flooding Icon">`
+                : '',
               attributes: { valign: 'center' },
               classes: !isLastWarning
                 ? 'center noborder'
                 : 'center'
             },
             {
-              text: index === 0 ? count : '',
+              html: index === 0
+                ? `<strong>${severityName}</strong>`
+                : '',
+              attributes: { valign: 'center' },
+              classes: !isLastWarning
+                ? 'center noborder'
+                : 'center'
+            },
+            {
+              text: index === 0
+                ? count
+                : '',
               attributes: { valign: 'center' },
               classes: !isLastWarning
                 ? 'center noborder'
@@ -116,12 +131,12 @@ class SeverityView {
               classes: 'center'
             },
             {
-              text: formatUTCDate(warning.severityChanged),
+              text: formatUTCDate(warning.situationChanged),
               attributes: { valign: 'center' },
               classes: 'center'
             },
             {
-              text: formatUTCDate(warning.situationChanged),
+              text: formatUTCDate(warning.severityChanged),
               attributes: { valign: 'center' },
               classes: 'center'
             }
