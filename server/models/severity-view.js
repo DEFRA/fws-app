@@ -34,12 +34,12 @@ class SeverityView {
         attributes: { valign: 'center' }
       },
       {
-        text: 'Severity changed',
+        text: 'Situation changed',
         classes: 'govuk-table__header center',
         attributes: { valign: 'center' }
       },
       {
-        text: 'Situation changed',
+        text: 'Severity changed',
         classes: 'govuk-table__header center',
         attributes: { valign: 'center' }
       }
@@ -81,7 +81,7 @@ class SeverityView {
             text: count,
             attributes: { valign: 'center' },
             classes: 'center'
-          }, {}, {}, {}, {}
+          }, {}, {}, {}, {}, {}
         ])
       } else {
         severityWarnings.forEach((warning, index) => {
@@ -131,12 +131,12 @@ class SeverityView {
               classes: 'center'
             },
             {
-              text: formatUTCDate(warning.severityChanged),
+              text: formatUTCDate(warning.situationChanged),
               attributes: { valign: 'center' },
               classes: 'center'
             },
             {
-              text: formatUTCDate(warning.situationChanged),
+              text: formatUTCDate(warning.severityChanged),
               attributes: { valign: 'center' },
               classes: 'center'
             }
