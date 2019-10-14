@@ -50,6 +50,9 @@ class SeverityView {
 
     severityRowOrder.forEach(severity => {
       const severityName = severities.find(s => s.value === severity).name
+      const image = severities.find(s => s.value === severity).image
+      const imageLocation = '/assets/images/' + image
+
       const severityWarnings = warnings
         .filter(w => w.severityValue === severity)
         .map(w => {
@@ -72,6 +75,10 @@ class SeverityView {
 
       if (count === 0) {
         rows.push([
+          {
+            html: `<img src="${imageLocation}" class="flooding-icons" alt="Flooding Icon">`,
+            attributes: { valign: 'center' }
+          },
           {
             html: `<strong>${severityName}</strong>`,
             attributes: { valign: 'center' },
