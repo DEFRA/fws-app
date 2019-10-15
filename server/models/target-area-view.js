@@ -39,9 +39,14 @@ class TargetAreaView {
         classes: 'govuk-table__header center'
       },
       {
-        text: 'Time message received',
+        text: 'Time of change',
         attributes: { valign: 'center' },
         classes: 'govuk-table__header center'
+      },
+      {
+        text: 'Source',
+        classes: 'govuk-table__header center',
+        attributes: { valign: 'center' }
       }
     ]
 
@@ -76,6 +81,11 @@ class TargetAreaView {
         text: formatUTCDate(warning.attr.timeMessageReceived),
         attributes: { valign: 'center' },
         classes: 'govuk-body-s center'
+      },
+      {
+        text: warning.attr.createdByName || 'FWS',
+        attributes: { valign: 'center' },
+        classes: 'govuk-body-s center'
       }
     ]]
 
@@ -98,7 +108,12 @@ class TargetAreaView {
         attributes: { valign: 'center' }
       },
       {
-        text: 'Time Message Received',
+        text: 'Time of change',
+        classes: 'govuk-table__header center',
+        attributes: { valign: 'center' }
+      },
+      {
+        text: 'Source',
         classes: 'govuk-table__header center',
         attributes: { valign: 'center' }
       }
@@ -123,6 +138,11 @@ class TargetAreaView {
         },
         {
           text: formatUTCDate(warning.attr.timeMessageReceived),
+          attributes: { valign: 'center' },
+          classes: 'govuk-body-s center'
+        },
+        {
+          text: warning.attr.createdByName || 'FWS',
           attributes: { valign: 'center' },
           classes: 'govuk-body-s center'
         }
