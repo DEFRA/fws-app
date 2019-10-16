@@ -73,7 +73,7 @@ module.exports = [{
       }),
       payload: Joi.object({
         severity: Joi.number().required().valid(1, 2, 3, 4),
-        situation: Joi.string().required().max(999)
+        situation: Joi.string().required().max(990)
       })
     }
   }
