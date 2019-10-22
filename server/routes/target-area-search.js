@@ -1,4 +1,4 @@
-const Joi = require('@hapi/joi')
+const joi = require('@hapi/joi')
 const boom = require('@hapi/boom')
 const { getTargetAreaFilter } = require('../helpers')
 const TargetAreaSearchView = require('../models/target-area-search-view')
@@ -27,9 +27,9 @@ module.exports = {
       }
     },
     validate: {
-      query: Joi.object({
-        query: Joi.string().allow(''),
-        area: Joi.string().allow('')
+      query: joi.object({
+        query: joi.string().allow(''),
+        area: joi.string().allow('')
       })
     }
   }
