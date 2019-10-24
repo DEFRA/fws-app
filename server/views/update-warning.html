@@ -7,7 +7,23 @@
 
 {% block head %}
   <script>
+    var situation = '{{situation}}'
+    var severity = '{{severity}}'
+
     function onSubmitForm (e) {
+      var newSeverity = document.getElementById('severity').value
+      var newSituation = document.getElementById('situation').value
+
+      if (newSeverity.length > 990) {
+        window.alert('Situation field length cannot exceed 990 characters')
+        return e.preventDefault()
+      }
+
+      if (newSeverity !== severity && situation === newSituation) {
+        window.alert('Situation must be updated when severity is updated')
+        return e.preventDefault()
+      }
+
       if (window.confirm('Are you sure you want to add/update the message?')) {
         document.getElementById('submit').disabled = true
         return true

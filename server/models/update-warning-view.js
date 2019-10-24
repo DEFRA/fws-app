@@ -4,6 +4,7 @@ class UpdateWarningView {
   constructor (targetArea, warning) {
     this.targetArea = targetArea
     this.warning = warning
+    this.severity = warning && warning.attr ? warning.attr.severityValue : undefined
 
     const isFloodAlertArea = targetArea.ta_code.charAt(4).toLowerCase() !== 'w'
 
