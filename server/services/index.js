@@ -8,6 +8,10 @@ const service = {
     return http.getJson(`${config.api}/fwis.json`, true)
   },
 
+  async getFloodsPlus () {
+    return http.getJson(`${config.api}/fwis-plus.json`, true)
+  },
+
   async getHistoricFloods (code) {
     return http.getJson(`${config.api}/historical-messages/${code}`, true)
   },

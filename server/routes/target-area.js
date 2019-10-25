@@ -17,7 +17,7 @@ module.exports = {
           { warnings: historicWarnings }
         ] = await Promise.all([
           server.methods.flood.getAllAreas(),
-          server.methods.flood.getFloods(),
+          server.methods.flood.getFloodsPlus(),
           server.methods.flood.getHistoricFloods(code)
         ])
 

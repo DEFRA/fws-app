@@ -25,6 +25,12 @@ lab.experiment('Services', () => {
     Code.expect(floods.warnings.length).to.equal(57)
   })
 
+  lab.test('Services: getFloodsPlus', async () => {
+    mocks.getJson = mock.replace(http, 'getJson', mock.makePromise(null, data.getFloodsPlus))
+    const floods = await services.getFloodsPlus()
+    Code.expect(floods.warnings.length).to.equal(57)
+  })
+
   lab.test('Services: getHistoricFloods', async () => {
     mocks.getJson = mock.replace(http, 'getJson', mock.makePromise(null, data.getHistoricFloods))
     const historicFloods = await services.getHistoricFloods()
