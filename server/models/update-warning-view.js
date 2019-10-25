@@ -1,9 +1,11 @@
 const { severities } = require('../constants')
 
 class UpdateWarningView {
-  constructor (targetArea, warning) {
+  constructor (targetArea, warning, errorMessage, situationUpdate) {
     this.targetArea = targetArea
     this.warning = warning
+    this.situationUpdate = situationUpdate
+    this.errorMessage = errorMessage
     this.severity = warning && warning.attr ? warning.attr.severityValue : undefined
 
     const isFloodAlertArea = targetArea.ta_code.charAt(4).toLowerCase() !== 'w'
@@ -27,11 +29,13 @@ class UpdateWarningView {
         : false
 
       return {
-        value, selected, text
+        value, selected, text, errorMessage
       }
     })
 
-    this.situation = warning && warning.situation
+    if (situationUpdate) {
+      this.situation = situationUpdate
+    } else { this.situation = warning && warning.situation }
     this.hideRefresh = true
   }
 }

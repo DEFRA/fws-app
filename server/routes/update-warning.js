@@ -75,7 +75,31 @@ module.exports = [{
       payload: joi.object({
         severity: joi.number().required().valid(1, 2, 3, 4),
         situation: joi.string().required().replace(/(\r\n|\n|\r)/g, '').max(990)
-      })
+      }),
+      failAction: async (request, h, err) => {
+        const { code } = request.params
+        const { server } = request
+
+        const [
+          { targetAreas },
+          { warnings }
+        ] = await Promise.all([
+          server.methods.flood.getAllAreas(),
+          server.methods.flood.getFloods()
+        ])
+
+        const targetArea = targetAreas.find(ta => ta.ta_code === code)
+        const targetAreaWarning = warnings.find(w => w.attr.taCode === code)
+        const situationUpdate = request.payload.situation
+        const errorMessage = 'Situation must be 990 characters or fewer'
+
+        return h.view('update-warning', new UpdateWarningView(
+          targetArea,
+          targetAreaWarning,
+          errorMessage,
+          situationUpdate), {
+        }).takeover()
+      }
     }
   }
 }]
