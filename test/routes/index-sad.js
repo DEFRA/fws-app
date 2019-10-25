@@ -80,6 +80,26 @@ lab.experiment(('All basic routes'), () => {
         }
       }
     }
+  }, {
+    method: 'POST',
+    url: '/target-area/011FWFNC1D/edit',
+    code: 403,
+    payload: {
+      severity: 3,
+      situation: 'test situation'
+    },
+    auth: {
+      strategy: 'azure-legacy',
+      credentials: {
+        scope: ['manage:warnings'],
+        isAdmin: true,
+        profile: {
+          id: 'test',
+          displayName: 'Smith, John',
+          email: 'john.smith@defra.net'
+        }
+      }
+    }
   }]
 
   urls.forEach(item => {
