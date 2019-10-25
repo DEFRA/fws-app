@@ -62,11 +62,20 @@
               {% endfor %}
             </select>
           </div>
+          {% if errorMessage %}
+          <div class="govuk-form-group govuk-form-group--error">
+            <label class="govuk-label" for="situation">Situation</label>
+              <span id="situation-error" class="govuk-error-message">
+                <span class="govuk-visually-hidden">Error:</span> {{errorMessage}}
+              </span>
+            <textarea class="govuk-textarea govuk-textarea--error" id="situation" name="situation" rows="10" aria-describedby="more-detail-hint more-detail-error">{{situation}}</textarea>
+          </div>
+          {% else %}
           <div class="govuk-form-group">
             <label class="govuk-label" for="situation">Situation</label>
-            <textarea class="govuk-textarea" id="situation" name="situation"
-              rows="10" maxLength="990" required>{{situation}}</textarea>
+            <textarea class="govuk-textarea" id="situation" name="situation" rows="10" aria-describedby="more-detail-hint">{{situation}}</textarea>
           </div>
+          {% endif %}
           <button id="submit" type="submit" class="govuk-button" data-prevent-double-click="true" data-module="govuk-button">Save and publish</button>
           <a class="govuk-button" href="/target-area/{{targetArea.ta_code}}">Cancel</a>
         </form>
