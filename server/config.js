@@ -13,7 +13,10 @@ const schema = Joi.object({
   cookiePassword: Joi.string().required(),
   isSecure: Joi.boolean().default(false),
   forceHttps: Joi.boolean().default(false),
-  homePage: Joi.string().default('http://localhost:3000')
+  homePage: Joi.string().default('http://localhost:3000'),
+  localCache: Joi.boolean().default(true),
+  redisHost: Joi.string().allow(''),
+  redisPort: Joi.number().allow('')
 })
 
 // Build config
@@ -29,7 +32,10 @@ const config = {
   cookiePassword: process.env.AD_COOKIE_PASSWORD,
   isSecure: process.env.IS_SECURE,
   forceHttps: process.env.FORCE_HTTPS,
-  homePage: process.env.HOME_PAGE
+  homePage: process.env.HOME_PAGE,
+  localCache: process.env.LOCAL_CACHE,
+  redisHost: process.env.REDIS_HOST,
+  redisPort: process.env.REDIS_PORT
 }
 
 // Validate config

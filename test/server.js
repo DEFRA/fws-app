@@ -1,3 +1,6 @@
+// Force tests to use server object cache
+process.env.LOCAL_CACHE = true
+
 const composeServer = require('../server')
 const services = require('../server/services')
 
