@@ -19,6 +19,9 @@ This is the FWIS management tool
 | IS_SECURE          | Secure cookie    |    no    | false                 |                    |       |
 | FORCE_HTTPS        | Force https      |    no    | false                 |                    |       |
 | HOME_PAGE          | Home page        |    no    | http://localhost:3000 |                    |       |
+| LOCAL_CACHE        | Force local cachi|    no    | true                  |                    |       |
+| REDIS_HOST         |                  |    no    |                       |                    |       |
+| REDIS_PORT         |                  |    no    |                       |                    |       |
 
 # Prerequisites
 

@@ -1,9 +1,22 @@
 const hapi = require('@hapi/hapi')
-const CatboxObject = require('@hapi/catbox-object')
+const CatboxRedis = require('@hapi/catbox-redis')
 const moment = require('moment-timezone')
 const config = require('./config')
 const registerServerMethods = require('./services/methods')
 const { dateFormat, longDateFormat } = require('./constants')
+let cache
+if (!config.localCache) {
+  cache = [{
+    name: 'redis_cache',
+    provider: {
+      constructor: CatboxRedis,
+      options: {
+        host: config.redisHost,
+        port: config.redisPort
+      }
+    }
+  }]
+}
 
 async function createServer () {
   // Create the hapi server
@@ -19,14 +32,7 @@ async function createServer () {
         }
       }
     },
-    cache: [
-      {
-        name: 'object_cache',
-        provider: {
-          constructor: CatboxObject
-        }
-      }
-    ]
+    cache: cache
   })
 
   // Register the auth plugins

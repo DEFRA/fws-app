@@ -21,7 +21,7 @@
   "dependencies": {
     "@hapi/bell": "11.1.0",
     "@hapi/boom": "7.4.7",
-    "@hapi/catbox-object": "1.0.1",
+    "@hapi/catbox-redis": "5.0.5",
     "@hapi/cookie": "10.1.2",
     "@hapi/good": "8.2.2",
     "@hapi/good-console": "8.1.2",
