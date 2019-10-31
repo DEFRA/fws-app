@@ -14,6 +14,7 @@ function registerServerMethods (server) {
 
   server.method('flood.getFloodsPlus', services.getFloodsPlus, {
     cache: {
+      cache: config.localCache ? '' : 'redis_cache',
       expiresIn: 1 * 60 * 1000, // 1 minute
       generateTimeout: 30 * 1000 // 30 secs
     }
