@@ -16,7 +16,7 @@ module.exports = [{
           { warnings }
         ] = await Promise.all([
           server.methods.flood.getAllAreas(),
-          server.methods.flood.getFloods()
+          server.methods.flood.getFloodsPlus()
         ])
 
         const targetArea = targetAreas.find(ta => ta.ta_code === code)
@@ -54,7 +54,7 @@ module.exports = [{
 
         // Clear caches
         await Promise.all([
-          flood.getFloods.cache.drop(),
+          flood.getFloodsPlus.cache.drop(),
           flood.getHistoricFloods.cache.drop(code)
         ])
 
