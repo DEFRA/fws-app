@@ -3,7 +3,7 @@ const Joi = require('@hapi/joi')
 // Define config schema
 const schema = Joi.object({
   port: Joi.number().default(3000),
-  env: Joi.string().valid('dev', 'tst', 'pre', 'prd').default('dev'),
+  env: Joi.string().valid('dev', 'tst', 'pre', 'prd', 'tra').default('dev'),
   api: Joi.string().uri().required(),
   apiKey: Joi.string().required(),
   proxy: Joi.string().uri().allow(''),
