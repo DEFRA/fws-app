@@ -1,10 +1,14 @@
 const { severities } = require('../constants')
 
 class UpdateWarningView {
-  constructor (targetArea, warning) {
+  constructor (targetArea, warning, err, situationUpdate) {
     this.targetArea = targetArea
     this.warning = warning
+    this.situationUpdate = situationUpdate
+    this.err = err
     this.severity = warning && warning.attr ? warning.attr.severityValue : undefined
+    this.situation = warning && warning.situation
+    this.situationTextArea = this.populateTextArea()
 
     const isFloodAlertArea = targetArea.ta_code.charAt(4).toLowerCase() !== 'w'
 
@@ -27,12 +31,30 @@ class UpdateWarningView {
         : false
 
       return {
-        value, selected, text
+        value, selected, text, err
       }
     })
-
-    this.situation = warning && warning.situation
     this.hideRefresh = true
+  }
+
+  populateTextArea () {
+    const textAreaContents = this.situationUpdate
+      ? this.situationUpdate
+      : this.situation
+    const textArea = {
+      name: 'situation',
+      id: 'situation',
+      label: {
+        text: 'Situation'
+      },
+      value: textAreaContents,
+      rows: 10
+    }
+
+    if (this.err) {
+      textArea.errorMessage = { text: 'Situation must be 990 characters or fewer' }
+    }
+    return textArea
   }
 }
 
