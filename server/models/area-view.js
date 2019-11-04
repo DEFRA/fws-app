@@ -55,12 +55,15 @@ class AreaView {
 
       const areaGrouped = groupBy(grouped[area], 'severityValue')
 
+      let areaCount = 0
+
       severityRowOrder.forEach(severityRow => {
         const severity = severities.find(s => s.value === severityRow)
         const severityIconLocation = '/assets/images/' + severity.image
         const count = areaGrouped[severity.value]
           ? Object.keys(areaGrouped[severity.value]).length
           : 0
+        areaCount += count
 
         if (!count) {
           const subRow = [
@@ -164,6 +167,23 @@ class AreaView {
           })
         }
       })
+
+      // Add an area total row at the end of the area (FLO-330)
+      subRows.push([
+        {},
+        {
+          html: '<strong>Area total</strong>'
+        },
+        {
+          html: `<strong>${areaCount}</strong>`,
+          attributes: { valign: 'center' },
+          classes: 'center'
+        },
+        {},
+        {},
+        {},
+        {}
+      ])
 
       return subRows
     })
