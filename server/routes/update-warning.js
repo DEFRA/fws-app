@@ -54,6 +54,7 @@ module.exports = [{
 
         // Clear caches
         await Promise.all([
+          flood.getFloods.cache.drop(),
           flood.getFloodsPlus.cache.drop(),
           flood.getHistoricFloods.cache.drop(code)
         ])
