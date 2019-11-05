@@ -11,18 +11,7 @@ module.exports = [{
         const { code } = request.params
         const { server } = request
 
-        const [
-          { targetAreas },
-          { warnings }
-        ] = await Promise.all([
-          server.methods.flood.getAllAreas(),
-          server.methods.flood.getFloodsPlus()
-        ])
-
-        const targetArea = targetAreas.find(ta => ta.ta_code === code)
-        const targetAreaWarning = warnings.find(w => w.attr.taCode === code)
-
-        return h.view('update-warning', new UpdateWarningView(targetArea, targetAreaWarning))
+        return await createView(server, code, h)
       } catch (err) {
         return boom.badRequest('Update warning caught error', err)
       }
@@ -80,26 +69,32 @@ module.exports = [{
         const { code } = request.params
         const { server } = request
 
-        const [
-          { targetAreas },
-          { warnings }
-        ] = await Promise.all([
-          server.methods.flood.getAllAreas(),
-          server.methods.flood.getFloods()
-        ])
-
-        const targetArea = targetAreas.find(ta => ta.ta_code === code)
-        const targetAreaWarning = warnings.find(w => w.attr.taCode === code)
         const situationUpdate = request.payload.situation
-        const errorMessage = 'Situation must be 990 characters or fewer'
 
-        return h.view('update-warning', new UpdateWarningView(
-          targetArea,
-          targetAreaWarning,
-          errorMessage,
-          situationUpdate), {
-        }).takeover()
+        return createView(server, code, h, situationUpdate, err)
       }
     }
   }
 }]
+
+async function createView (server, code, h, situationUpdate, err) {
+  const [{ targetAreas }, { warnings }] = await Promise.all([
+    server.methods.flood.getAllAreas(),
+    server.methods.flood.getFloodsPlus()
+  ])
+  const targetArea = targetAreas.find(ta => ta.ta_code === code)
+  const targetAreaWarning = warnings.find(w => w.attr.taCode === code)
+
+  if (err) {
+    return h.view('update-warning', new UpdateWarningView(
+      targetArea,
+      targetAreaWarning,
+      err,
+      situationUpdate), {
+    }).takeover()
+  } else {
+    return h.view('update-warning', new UpdateWarningView(
+      targetArea,
+      targetAreaWarning))
+  }
+}
