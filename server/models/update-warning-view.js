@@ -31,19 +31,9 @@ class UpdateWarningView {
         : false
 
       return {
-<<<<<<< HEAD
         value, selected, text, err
       }
     })
-=======
-        value, selected, text, errorMessage
-      }
-    })
-
-    if (situationUpdate) {
-      this.situation = situationUpdate
-    } else { this.situation = warning && warning.situation }
->>>>>>> ea6aa0ee567bfb92b6354a56c6ddfd608c4e7382
     this.hideRefresh = true
   }
 
