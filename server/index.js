@@ -69,7 +69,7 @@ async function createServer () {
   await server.register(require('./plugins/logging'))
   await server.register(require('blipp'))
 
-  server.ext('onPostHandler', (request, h) => {
+  server.ext('onPreResponse', (request, h) => {
     const response = request.response
     if (response.variety === 'view') {
       const ctx = response.source.context || {}
