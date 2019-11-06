@@ -91,7 +91,7 @@ lab.experiment(('All basic routes'), () => {
     auth: {
       strategy: 'azure-legacy',
       credentials: {
-        scope: ['manage:warnings'],
+        scope: [''], // No manage warnings in scope of logged in user so returns 403
         isAdmin: true,
         profile: {
           id: 'test',
