@@ -9,6 +9,7 @@ class UpdateWarningView {
     this.severity = warning && warning.attr ? warning.attr.severityValue : undefined
     this.situation = warning && warning.situation
     this.situationTextArea = this.populateTextArea()
+    this.severitySelect = this.populateSeverity()
 
     const isFloodAlertArea = targetArea.ta_code.charAt(4).toLowerCase() !== 'w'
 
@@ -52,9 +53,50 @@ class UpdateWarningView {
     }
 
     if (this.err) {
-      textArea.errorMessage = { text: 'Situation must be 990 characters or fewer' }
+      textArea.errorMessage = {
+        text: 'Situation must be 990 characters or fewer'
+      }
     }
     return textArea
+  }
+
+  populateSeverity () {
+    const severity = this.severity
+
+    const severitySelect = {
+      id: 'severity',
+      name: 'severity',
+      label: {
+        text: 'Severity'
+      },
+      items: [
+        {
+          value: 'Please Select',
+          text: 'Please Select'
+        },
+        {
+          value: '2',
+          text: 'Flood warning'
+        },
+        {
+          value: '3',
+          text: 'Severe flood warning'
+        },
+        {
+          value: '4',
+          text: 'Warning no longer in force'
+        }
+      ]
+    }
+
+    severitySelect.items.forEach(item => { if (item.value === severity) item.selected = true })
+
+    if (this.err) {
+      severitySelect.errorMessage = {
+        text: 'Please select a Severity'
+      }
+    }
+    return severitySelect
   }
 }
 
