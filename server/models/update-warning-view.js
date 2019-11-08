@@ -9,7 +9,10 @@ class UpdateWarningView {
     this.severity = warning && warning.attr ? warning.attr.severityValue : undefined
     this.situation = warning && warning.situation
     this.situationTextArea = this.populateTextArea()
+<<<<<<< HEAD
     this.severitySelect = this.populateSeverity()
+=======
+>>>>>>> 19603cb6a718ba6dda7bd0ea423fe978ff62d3a3
 
     const isFloodAlertArea = targetArea.ta_code.charAt(4).toLowerCase() !== 'w'
 
@@ -53,6 +56,7 @@ class UpdateWarningView {
     }
 
     if (this.err) {
+<<<<<<< HEAD
       textArea.errorMessage = {
         text: 'Situation must be 990 characters or fewer'
       }
@@ -98,6 +102,12 @@ class UpdateWarningView {
     }
     return severitySelect
   }
+=======
+      textArea.errorMessage = { text: 'Situation must be 990 characters or fewer' }
+    }
+    return textArea
+  }
+>>>>>>> 19603cb6a718ba6dda7bd0ea423fe978ff62d3a3
 }
 
 module.exports = UpdateWarningView
