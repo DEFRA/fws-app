@@ -1,22 +1,15 @@
 const { severities } = require('../constants')
 
 class UpdateWarningView {
-  constructor (targetArea, warning, err, situationUpdate, currentSeverity) {
+  constructor (targetArea, warning, payload, errors) {
     this.targetArea = targetArea
-    this.warning = warning
-    this.currentSeverity = currentSeverity
-    this.situationUpdate = situationUpdate
-    this.err = err
-    this.severity = warning && warning.attr ? warning.attr.severityValue : undefined
-    this.situation = warning && warning.situation
-    this.situationTextArea = this.populateTextArea()
-    this.severitySelect = this.populateSeverity()
-
-    const isFloodAlertArea = targetArea.ta_code.charAt(4).toLowerCase() !== 'w'
+    const severityValue = payload ? '' + payload.severity : warning.attr.severityValue
+    const situationValue = payload ? payload.situation : warning.situation
 
     // For Alert Areas, only show "Flood Alert" and "WNLIF"
     // For Warning Areas, only show "Severe Flood Warning",
     // "Flood Warning" and "WNLIF"
+    const isFloodAlertArea = targetArea.ta_code.charAt(4).toLowerCase() !== 'w'
     const categorySeverities = isFloodAlertArea
       ? severities.filter(obj => { return obj.value === '1' || obj.value === '4' })
       : severities.filter(obj => { return obj.value === '2' || obj.value === '3' || obj.value === '4' })
@@ -25,82 +18,58 @@ class UpdateWarningView {
       return parseInt(a.value, 10) - parseInt(b.value, 10)
     })
 
-    this.options = categorySeverities.map(severity => {
+    const options = categorySeverities.map(severity => {
       const value = severity.value
       const text = severity.name
       const selected = warning
-        ? warning.attr.severityValue === severity.value
+        ? severityValue === severity.value
         : false
 
       return {
-        value, selected, text, err
+        value, selected, text
       }
     })
-    this.hideRefresh = true
-  }
 
-  populateTextArea () {
-    const textAreaContents = this.situationUpdate
-      ? this.situationUpdate
-      : this.situation
-    const textArea = {
+    // Prepare nunjucks model data
+
+    // Situation textarea
+    const situationTextarea = {
       name: 'situation',
       id: 'situation',
       label: {
         text: 'Situation'
       },
-      value: textAreaContents,
+      value: situationValue,
       rows: 10
     }
 
-    if (this.err) {
-      // console.log('NW : ', this.err)
-      textArea.errorMessage = {
-        text: 'Situation must be 990 characters or fewer'
+    if (errors && errors.situation) {
+      situationTextarea.errorMessage = {
+        text: errors.situation
       }
     }
-    return textArea
-  }
 
-  populateSeverity () {
-    const severity = this.currentSeverity
-      ? this.currentSeverity
-      : this.severity
+    this.situationTextarea = situationTextarea
 
+    // Severity select
     const severitySelect = {
       id: 'severity',
       name: 'severity',
       label: {
         text: 'Severity'
       },
-      items: [
-        {
-          value: 'Please Select',
-          text: 'Please Select'
-        },
-        {
-          value: '2',
-          text: 'Flood warning'
-        },
-        {
-          value: '3',
-          text: 'Severe flood warning'
-        },
-        {
-          value: '4',
-          text: 'Warning no longer in force'
-        }
-      ]
+      items: options
     }
 
-    severitySelect.items.forEach(item => { if (item.value === severity) item.selected = true })
-
-    if (this.err) {
+    if (errors && errors.severity) {
       severitySelect.errorMessage = {
-        text: 'Please select a Severity'
+        text: errors.severity
       }
     }
-    return severitySelect
+
+    this.severitySelect = severitySelect
+
+    this.hideRefresh = true
   }
 }
 

@@ -9,18 +9,7 @@
 
 {% block head %}
   <script>
-    var situation = '{{situation}}'
-    var severity = '{{severity}}'
-
     function onSubmitForm (e) {
-      var newSeverity = document.getElementById('severity').value
-      var newSituation = document.getElementById('situation').value
-
-      if (newSeverity !== severity && situation === newSituation) {
-        window.alert('Situation must be updated when severity is updated')
-        return e.preventDefault()
-      }
-
       if (window.confirm('Are you sure you want to add/update the message?')) {
         document.getElementById('submit').disabled = true
         return true
@@ -49,7 +38,7 @@
         <h2 class="govuk-heading-s">Current Warning</h2>
         <form method="POST" onsubmit="onSubmitForm(event)">
           {{govukSelect(severitySelect)}}
-          {{govukTextarea(situationTextArea)}}
+          {{govukTextarea(situationTextarea)}}
           <button id="submit" type="submit" class="govuk-button" data-prevent-double-click="true" data-module="govuk-button">Save and publish</button>
           <a class="govuk-button" href="/target-area/{{targetArea.ta_code}}">Cancel</a>
         </form>

@@ -5,6 +5,7 @@ const config = require('./config')
 const registerServerMethods = require('./services/methods')
 const { dateFormat, longDateFormat } = require('./constants')
 let cache
+
 if (!config.localCache) {
   cache = [{
     name: 'redis_cache',

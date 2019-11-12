@@ -2,6 +2,28 @@ const joi = require('@hapi/joi')
 const boom = require('@hapi/boom')
 const UpdateWarningView = require('../models/update-warning-view')
 
+const errorMessages = {
+  severity: {
+    '*': 'Enter a valid severity'
+  },
+  situation: {
+    '*': 'Enter a valid situation',
+    'string.max': 'Situation must be 990 characters or fewer'
+  }
+}
+
+function mapErrors (errors) {
+  const map = {}
+
+  errors.forEach(error => {
+    const contextKey = error.path[0]
+    const messages = errorMessages[contextKey]
+    map[contextKey] = messages[error.type] || messages['*']
+  })
+
+  return map
+}
+
 module.exports = [{
   method: 'GET',
   path: '/target-area/{code}/edit',
@@ -10,8 +32,11 @@ module.exports = [{
       try {
         const { code } = request.params
         const { server } = request
+        const { targetArea, targetAreaWarning } = await getFloodData(server, code)
 
-        return await createView(server, code, h)
+        return h.view('update-warning', new UpdateWarningView(
+          targetArea,
+          targetAreaWarning))
       } catch (err) {
         return boom.badRequest('Update warning caught error', err)
       }
@@ -32,23 +57,43 @@ module.exports = [{
   options: {
     handler: async (request, h) => {
       try {
-        const { code } = request.params
+        const { payload, params } = request
+        const { code } = params
         const { server } = request
         const { severity, situation } = request.payload
         const { id, email, displayName: name } = request.auth.credentials.profile
         const profile = { id, email, name }
         const flood = server.methods.flood
+        const { targetArea, targetAreaWarning } = await getFloodData(server, code)
 
-        await flood.updateWarning(code, severity, situation, profile)
+        // Situation must be updated when severity is updated
+        const situationChanged = situation !== targetAreaWarning.situation
+        const severityChanged = severity !== parseInt(targetAreaWarning.attr.severityValue, 10)
 
-        // Clear caches
-        await Promise.all([
-          flood.getFloods.cache.drop(),
-          flood.getFloodsPlus.cache.drop(),
-          flood.getHistoricFloods.cache.drop(code)
-        ])
+        if (!severityChanged && !situationChanged) {
+          return h.redirect(`/target-area/${code}`)
+        } else if (severityChanged && !situationChanged) {
+          const errors = {
+            situation: 'Situation must be updated when severity is updated'
+          }
 
-        return h.redirect(`/target-area/${code}`)
+          return h.view('update-warning', new UpdateWarningView(
+            targetArea,
+            targetAreaWarning,
+            payload,
+            errors))
+        } else {
+          await flood.updateWarning(code, severity, situation, profile)
+
+          // Clear caches
+          await Promise.all([
+            flood.getFloods.cache.drop(),
+            flood.getFloodsPlus.cache.drop(),
+            flood.getHistoricFloods.cache.drop(code)
+          ])
+
+          return h.redirect(`/target-area/${code}`)
+        }
       } catch (err) {
         return boom.badRequest('Failed to update warning', err)
       }
@@ -62,24 +107,27 @@ module.exports = [{
         code: joi.string().required()
       }),
       payload: joi.object({
-        severity: joi.number().required().valid(2, 3, 4),
+        severity: joi.number().required().valid(1, 2, 3, 4),
         situation: joi.string().required().max(990)
       }),
       failAction: async (request, h, err) => {
-        console.log('failAction : ', err)
-
-        const { code } = request.params
+        const { payload, params } = request
+        const { code } = params
         const { server } = request
-        const situationUpdate = request.payload.situation
-        const currentSeverity = request.payload.severity
+        const { targetArea, targetAreaWarning } = await getFloodData(server, code)
+        const errors = mapErrors(err.details)
 
-        return createView(server, code, h, situationUpdate, currentSeverity, err)
+        return h.view('update-warning', new UpdateWarningView(
+          targetArea,
+          targetAreaWarning,
+          payload,
+          errors)).takeover()
       }
     }
   }
 }]
 
-async function createView (server, code, h, situationUpdate, currentSeverity, err) {
+async function getFloodData (server, code) {
   const [{ targetAreas }, { warnings }] = await Promise.all([
     server.methods.flood.getAllAreas(),
     server.methods.flood.getFloodsPlus()
@@ -87,17 +135,8 @@ async function createView (server, code, h, situationUpdate, currentSeverity, er
   const targetArea = targetAreas.find(ta => ta.ta_code === code)
   const targetAreaWarning = warnings.find(w => w.attr.taCode === code)
 
-  if (err) {
-    return h.view('update-warning', new UpdateWarningView(
-      targetArea,
-      targetAreaWarning,
-      err,
-      situationUpdate,
-      currentSeverity), {
-    }).takeover()
-  } else {
-    return h.view('update-warning', new UpdateWarningView(
-      targetArea,
-      targetAreaWarning))
+  return {
+    targetArea,
+    targetAreaWarning
   }
 }
