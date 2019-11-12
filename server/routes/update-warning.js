@@ -62,22 +62,24 @@ module.exports = [{
         code: joi.string().required()
       }),
       payload: joi.object({
-        severity: joi.number().required().valid(1, 2, 3, 4),
-        situation: joi.string().required().replace(/(\r\n|\n|\r)/g, '').max(990)
+        severity: joi.number().required().valid(2, 3, 4),
+        situation: joi.string().required().max(990)
       }),
       failAction: async (request, h, err) => {
+        console.log('failAction : ', err)
+
         const { code } = request.params
         const { server } = request
-
         const situationUpdate = request.payload.situation
+        const currentSeverity = request.payload.severity
 
-        return createView(server, code, h, situationUpdate, err)
+        return createView(server, code, h, situationUpdate, currentSeverity, err)
       }
     }
   }
 }]
 
-async function createView (server, code, h, situationUpdate, err) {
+async function createView (server, code, h, situationUpdate, currentSeverity, err) {
   const [{ targetAreas }, { warnings }] = await Promise.all([
     server.methods.flood.getAllAreas(),
     server.methods.flood.getFloodsPlus()
@@ -90,7 +92,8 @@ async function createView (server, code, h, situationUpdate, err) {
       targetArea,
       targetAreaWarning,
       err,
-      situationUpdate), {
+      situationUpdate,
+      currentSeverity), {
     }).takeover()
   } else {
     return h.view('update-warning', new UpdateWarningView(

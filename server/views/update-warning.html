@@ -2,10 +2,7 @@
 
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "macros/tabs.html" import tabs %}
-<<<<<<< HEAD
 {% from "govuk/components/select/macro.njk" import govukSelect %}
-=======
->>>>>>> 19603cb6a718ba6dda7bd0ea423fe978ff62d3a3
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 
 {% set bodyClasses = "internal" %}
@@ -18,11 +15,6 @@
     function onSubmitForm (e) {
       var newSeverity = document.getElementById('severity').value
       var newSituation = document.getElementById('situation').value
-
-      if (newSeverity.length > 990) {
-        window.alert('Situation field length cannot exceed 990 characters')
-        return e.preventDefault()
-      }
 
       if (newSeverity !== severity && situation === newSituation) {
         window.alert('Situation must be updated when severity is updated')

@@ -1,9 +1,10 @@
 const { severities } = require('../constants')
 
 class UpdateWarningView {
-  constructor (targetArea, warning, err, situationUpdate) {
+  constructor (targetArea, warning, err, situationUpdate, currentSeverity) {
     this.targetArea = targetArea
     this.warning = warning
+    this.currentSeverity = currentSeverity
     this.situationUpdate = situationUpdate
     this.err = err
     this.severity = warning && warning.attr ? warning.attr.severityValue : undefined
@@ -53,6 +54,7 @@ class UpdateWarningView {
     }
 
     if (this.err) {
+      // console.log('NW : ', this.err)
       textArea.errorMessage = {
         text: 'Situation must be 990 characters or fewer'
       }
@@ -61,7 +63,9 @@ class UpdateWarningView {
   }
 
   populateSeverity () {
-    const severity = this.severity
+    const severity = this.currentSeverity
+      ? this.currentSeverity
+      : this.severity
 
     const severitySelect = {
       id: 'severity',
