@@ -43,7 +43,7 @@ module.exports = {
       appVersion: pkg.version,
       assetPath: '/assets',
       serviceName: 'FWIS',
-      pageTitle: 'Flood Digital Management Console',
+      pageTitle: 'Flood Warning Information System',
       analyticsAccount: config.analyticsAccount
     }
   }

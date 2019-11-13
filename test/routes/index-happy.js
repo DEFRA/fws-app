@@ -54,7 +54,7 @@ lab.experiment(('All basic routes'), () => {
     url: '/',
     code: 200,
     text: [
-      'Flood Digital Management Console</h1>',
+      'Flood Warning Information System</h1>',
       'Summary</h2>',
       // test order of warning severity headers
       '<thead class="govuk-table__head">\n    <tr class="govuk-table__row">\n    \n      <th scope="col" class="govuk-table__header">Environment agency area</th>\n    \n      <th scope="col" class="govuk-table__header center">Severe flood warnings</th>\n    \n      <th scope="col" class="govuk-table__header center">Flood warnings</th>\n    \n      <th scope="col" class="govuk-table__header center">Flood alerts</th>\n    \n      <th scope="col" class="govuk-table__header center">Warnings no longer in force</th>\n    \n      <th scope="col" class="govuk-table__header center">Area total</th>\n    \n    </tr>\n  </thead>'
