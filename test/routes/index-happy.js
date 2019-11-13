@@ -213,7 +213,7 @@ lab.experiment(('All basic routes'), () => {
     text: [
       'Cumbria and Lancashire',
       'Coast at North Morecambe Bay (011WACN6)',
-      '<select class="govuk-select" id="severity" name="severity">\n  \n    \n      <option value="Please Select">Please Select</option>\n    \n  \n    \n      <option value="2">Flood warning</option>\n    \n  \n    \n      <option value="3">Severe flood warning</option>\n    \n  \n    \n      <option value="4">Warning no longer in force</option>\n    \n  \n  </select>'
+      '<select class="govuk-select" id="severity" name="severity">\n  \n    \n      <option value="1" selected>Flood alert</option>\n    \n  \n    \n      <option value="4">Warning no longer in force</option>\n    \n  \n  </select>'
     ]
   }, {
     url: '/target-area/011FWFNC1D/edit',
@@ -271,6 +271,19 @@ lab.experiment(('All basic routes'), () => {
     code: 200,
     payload: {
       severity: 3,
+      situation: ''
+    },
+    auth: {
+      strategy: 'azure-legacy',
+      credentials: postLoginCredentials
+    },
+    text: ['Enter a valid situation']
+  }, {
+    method: 'POST',
+    url: '/target-area/011FWFNC1D/edit',
+    code: 200,
+    payload: {
+      severity: 3,
       situation: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.'
     },
     auth: {
@@ -278,6 +291,19 @@ lab.experiment(('All basic routes'), () => {
       credentials: postLoginCredentials
     },
     text: ['Situation must be 990 characters or fewer']
+  }, {
+    method: 'POST',
+    url: '/target-area/011FWFNC1D/edit',
+    code: 200,
+    payload: {
+      severity: 6,
+      situation: 'Tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.'
+    },
+    auth: {
+      strategy: 'azure-legacy',
+      credentials: postLoginCredentials
+    },
+    text: ['Enter a valid severity']
   }]
 
   urls.forEach(item => {
