@@ -66,34 +66,36 @@ module.exports = [{
         const flood = server.methods.flood
         const { targetArea, targetAreaWarning } = await getFloodData(server, code)
 
-        // Situation must be updated when severity is updated
-        const situationChanged = situation !== targetAreaWarning.situation
-        const severityChanged = severity !== parseInt(targetAreaWarning.attr.severityValue, 10)
+        if (targetAreaWarning) {
+          // Situation must be updated when severity is updated
+          const situationChanged = situation !== targetAreaWarning.situation
+          const severityChanged = severity !== parseInt(targetAreaWarning.attr.severityValue, 10)
 
-        if (!severityChanged && !situationChanged) {
-          return h.redirect(`/target-area/${code}`)
-        } else if (severityChanged && !situationChanged) {
-          const errors = {
-            situation: 'Situation must be updated when severity is updated'
+          if (!severityChanged && !situationChanged) {
+            return h.redirect(`/target-area/${code}`)
+          } else if (severityChanged && !situationChanged) {
+            const errors = {
+              situation: 'Situation must be updated when severity is updated'
+            }
+
+            return h.view('update-warning', new UpdateWarningView(
+              targetArea,
+              targetAreaWarning,
+              payload,
+              errors))
           }
-
-          return h.view('update-warning', new UpdateWarningView(
-            targetArea,
-            targetAreaWarning,
-            payload,
-            errors))
-        } else {
-          await flood.updateWarning(code, severity, situation, profile)
-
-          // Clear caches
-          await Promise.all([
-            flood.getFloods.cache.drop(),
-            flood.getFloodsPlus.cache.drop(),
-            flood.getHistoricFloods.cache.drop(code)
-          ])
-
-          return h.redirect(`/target-area/${code}`)
         }
+
+        await flood.updateWarning(code, severity, situation, profile)
+
+        // Clear caches
+        await Promise.all([
+          flood.getFloods.cache.drop(),
+          flood.getFloodsPlus.cache.drop(),
+          flood.getHistoricFloods.cache.drop(code)
+        ])
+
+        return h.redirect(`/target-area/${code}`)
       } catch (err) {
         return boom.badRequest('Failed to update warning', err)
       }
