@@ -3,8 +3,17 @@ const { severities } = require('../constants')
 class UpdateWarningView {
   constructor (targetArea, warning, payload, errors) {
     this.targetArea = targetArea
-    const severityValue = payload ? '' + payload.severity : warning.attr.severityValue
-    const situationValue = payload ? payload.situation : warning.situation
+
+    let severityValue
+    let situationValue
+
+    if (payload) {
+      severityValue = '' + payload.severity
+      situationValue = payload.situation
+    } else if (warning) {
+      severityValue = warning.attr.severityValue
+      situationValue = warning.situation
+    }
 
     // For Alert Areas, only show "Flood Alert" and "WNLIF"
     // For Warning Areas, only show "Severe Flood Warning",

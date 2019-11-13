@@ -213,7 +213,7 @@ lab.experiment(('All basic routes'), () => {
     text: [
       'Cumbria and Lancashire',
       'Coast at North Morecambe Bay (011WACN6)',
-      '<select class="govuk-select" id="severity" name="severity">\n  \n    \n      <option value="Please Select">Please Select</option>\n    \n  \n    \n      <option value="2">Flood warning</option>\n    \n  \n    \n      <option value="3">Severe flood warning</option>\n    \n  \n    \n      <option value="4">Warning no longer in force</option>\n    \n  \n  </select>'
+      '<select class="govuk-select" id="severity" name="severity">\n  \n    \n      <option value="1" selected>Flood alert</option>\n    \n  \n    \n      <option value="4">Warning no longer in force</option>\n    \n  \n  </select>'
     ]
   }, {
     url: '/target-area/011FWFNC1D/edit',
@@ -225,7 +225,7 @@ lab.experiment(('All basic routes'), () => {
     text: [
       'Cumbria and Lancashire',
       'Appleby, Holme and Chapel Street and Cherry Row (011FWFNC1D)',
-      '<select class="govuk-select" id="severity" name="severity">\n  \n    \n      <option value="Please Select">Please Select</option>\n    \n  \n    \n      <option value="2">Flood warning</option>\n    \n  \n    \n      <option value="3">Severe flood warning</option>\n    \n  \n    \n      <option value="4">Warning no longer in force</option>\n    \n  \n  </select>'
+      '<select class="govuk-select" id="severity" name="severity">\n  \n    \n      <option value="2">Flood warning</option>\n    \n  \n    \n      <option value="3">Severe flood warning</option>\n    \n  \n    \n      <option value="4">Warning no longer in force</option>\n    \n  \n  </select>'
     ]
   }, {
     url: '/login',
