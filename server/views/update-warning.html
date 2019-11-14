@@ -2,28 +2,14 @@
 
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "macros/tabs.html" import tabs %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 
 {% set bodyClasses = "internal" %}
 
 {% block head %}
   <script>
-    var situation = '{{situation}}'
-    var severity = '{{severity}}'
-
     function onSubmitForm (e) {
-      var newSeverity = document.getElementById('severity').value
-      var newSituation = document.getElementById('situation').value
-
-      if (newSeverity.length > 990) {
-        window.alert('Situation field length cannot exceed 990 characters')
-        return e.preventDefault()
-      }
-
-      if (newSeverity !== severity && situation === newSituation) {
-        window.alert('Situation must be updated when severity is updated')
-        return e.preventDefault()
-      }
-
       if (window.confirm('Are you sure you want to add/update the message?')) {
         document.getElementById('submit').disabled = true
         return true
@@ -43,30 +29,16 @@
     </div>
     <div class="govuk-tabs">
       {{tabs('target-area')}}
-    
       <section class="govuk-tabs__panel">
         <span style="float: right">
           <a href="/target-area" class="govuk-link">Search target areas</a>
         </span>
         <span class="govuk-caption-xl">{{targetArea.owner_area}}</span>
         <h2 class="govuk-heading-l">{{targetArea.ta_name}} ({{targetArea.ta_code}})</h2>
-
         <h2 class="govuk-heading-s">Current Warning</h2>
         <form method="POST" onsubmit="onSubmitForm(event)">
-          <div class="govuk-form-group">
-            <label class="govuk-label" for="severity">Severity</label>
-            <select class="govuk-select" id="severity" name="severity" required>
-              <option value="">Please select</option>
-              {% for option in options %}
-              <option value="{{option.value}}" {% if option.selected %}selected{% endif %}>{{option.text}}</option>
-              {% endfor %}
-            </select>
-          </div>
-          <div class="govuk-form-group">
-            <label class="govuk-label" for="situation">Situation</label>
-            <textarea class="govuk-textarea" id="situation" name="situation"
-              rows="10" maxLength="990" required>{{situation}}</textarea>
-          </div>
+          {{govukSelect(severitySelect)}}
+          {{govukTextarea(situationTextarea)}}
           <button id="submit" type="submit" class="govuk-button" data-prevent-double-click="true" data-module="govuk-button">Save and publish</button>
           <a class="govuk-button" href="/target-area/{{targetArea.ta_code}}">Cancel</a>
         </form>
