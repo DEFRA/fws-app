@@ -16,6 +16,22 @@
 
 {% block head %}
   <link href="{{ assetPath }}/stylesheets/unbranded.css" media="all" rel="stylesheet" type="text/css">
+
+{% if analyticsAccount %}
+    
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ analyticsAccount }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '{{  analyticsAccount  }}');
+</script> 
+
+{% endif %}
+
+
 {% endblock %}
 
 {% block header %}
@@ -60,4 +76,5 @@
 
 {% block bodyEnd %}
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
+
 {% endblock %}
