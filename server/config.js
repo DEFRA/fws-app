@@ -16,7 +16,8 @@ const schema = Joi.object({
   homePage: Joi.string().default('http://localhost:3000'),
   localCache: Joi.boolean().default(true),
   redisHost: Joi.string().allow(''),
-  redisPort: Joi.number().allow('')
+  redisPort: Joi.number().allow(''),
+  analyticsAccount: Joi.string().default('')
 })
 
 // Build config
@@ -35,7 +36,8 @@ const config = {
   homePage: process.env.HOME_PAGE,
   localCache: process.env.LOCAL_CACHE,
   redisHost: process.env.REDIS_HOST,
-  redisPort: process.env.REDIS_PORT
+  redisPort: process.env.REDIS_PORT,
+  analyticsAccount: process.env.FWS_APP_gaAccId
 }
 
 // Validate config

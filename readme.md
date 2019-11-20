@@ -22,6 +22,9 @@ This is the FWIS management tool
 | LOCAL_CACHE        | Force local cachi|    no    | true                  |                    |       |
 | REDIS_HOST         |                  |    no    |                       |                    |       |
 | REDIS_PORT         |                  |    no    |                       |                    |       |
+| FWS_APP_gaAccId    |                  |    no    |                       |                    |       |
+
+
 
 # Prerequisites
 
