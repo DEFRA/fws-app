@@ -37,7 +37,7 @@ const config = {
   localCache: process.env.LOCAL_CACHE,
   redisHost: process.env.REDIS_HOST,
   redisPort: process.env.REDIS_PORT,
-  analyticsAccount: process.env.FWS_APP_gaAccId
+  analyticsAccount: process.env.FWS_APP_GA_ID
 }
 
 // Validate config

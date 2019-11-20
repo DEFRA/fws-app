@@ -5,24 +5,24 @@ This is the FWIS management tool
 
 # Environment variables
 
-| name               | description      | required |        default        |       valid        | notes |
-|--------------------|------------------|:--------:|-----------------------|:------------------:|-------|
-| FWS_ENV_NAME       | Environment name |    no    | dev                   | dev,tst,pre,prd    |       |
-| PORT               | Port number      |    no    | 3000                  |                    |       |
-| FWS_API_URL        | API url          |    yes   |                       |                    |       |
-| FWS_API_KEY        | API key          |    yes   |                       |                    |       |
-| FWS_APP_PROXY      | Proxy            |    no    |                       |                    |       |
-| AD_CLIENT_ID       | AD Client Id     |    yes   |                       |                    |       |
-| AD_CLIENT_SECRET   | AD Client Secret |    yes   |                       |                    |       |
-| AD_TENANT          | AD Tenant        |    yes   |                       |                    |       |
-| AD_COOKIE_PASSWORD | Cookie password  |    yes   |                       |                    |       |
-| IS_SECURE          | Secure cookie    |    no    | false                 |                    |       |
-| FORCE_HTTPS        | Force https      |    no    | false                 |                    |       |
-| HOME_PAGE          | Home page        |    no    | http://localhost:3000 |                    |       |
-| LOCAL_CACHE        | Force local cachi|    no    | true                  |                    |       |
-| REDIS_HOST         |                  |    no    |                       |                    |       |
-| REDIS_PORT         |                  |    no    |                       |                    |       |
-| FWS_APP_gaAccId    |                  |    no    |                       |                    |       |
+| name               | description           | required |        default        |       valid        | notes |
+|--------------------|------------------     |:--------:|-----------------------|:------------------:|-------|
+| FWS_ENV_NAME       | Environment name      |    no    | dev                   | dev,tst,pre,prd    |       |
+| PORT               | Port number           |    no    | 3000                  |                    |       |
+| FWS_API_URL        | API url               |    yes   |                       |                    |       |
+| FWS_API_KEY        | API key               |    yes   |                       |                    |       |
+| FWS_APP_PROXY      | Proxy                 |    no    |                       |                    |       |
+| AD_CLIENT_ID       | AD Client Id          |    yes   |                       |                    |       |
+| AD_CLIENT_SECRET   | AD Client Secret      |    yes   |                       |                    |       |
+| AD_TENANT          | AD Tenant             |    yes   |                       |                    |       |
+| AD_COOKIE_PASSWORD | Cookie password       |    yes   |                       |                    |       |
+| IS_SECURE          | Secure cookie         |    no    | false                 |                    |       |
+| FORCE_HTTPS        | Force https           |    no    | false                 |                    |       |
+| HOME_PAGE          | Home page             |    no    | http://localhost:3000 |                    |       |
+| LOCAL_CACHE        | Force local cache     |    no    | true                  |                    |       |
+| REDIS_HOST         |                       |    no    |                       |                    |       |
+| REDIS_PORT         |                       |    no    |                       |                    |       |
+| FWS_APP_GA_ID      | Google analytics Id   |    no    |                       |                    |       |
 
 
 
