@@ -1,0 +1,9 @@
+# Release of FWIS production 27 November 2019
+
+This is a target area data update.
+
+# Instructions
+
+Execute job FWS_{stage}_102_UPDATE_TARGET_AREAS
+
+This job will only take a few moments to complete.
