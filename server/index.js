@@ -55,9 +55,12 @@ async function createServer () {
 
   server.auth.strategy('session', 'cookie', {
     cookie: {
+      path: '/',
       password: config.cookiePassword,
-      isSecure: config.isSecure
-    }
+      isSecure: config.isSecure,
+      ttl: 15 * 60 * 1000
+    },
+    keepAlive: true
   })
 
   server.auth.default('session')

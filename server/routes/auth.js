@@ -30,7 +30,11 @@ module.exports = [{
         scope,
         isAdmin,
         roles,
-        profile
+        profile: {
+          id: profile.id,
+          email: profile.email,
+          displayName: profile.displayName
+        }
       })
 
       return h.redirect(request.auth.credentials.query && request.auth.credentials.query.redirectTo ? request.auth.credentials.query.redirectTo : '/')
