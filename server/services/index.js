@@ -27,7 +27,7 @@ const service = {
   },
 
   async updateWarning (code, severity, situation, profile) {
-    const approved = moment.tz('Europe/London').format('DD/MM/YYYY HH:mm')
+    const approved = moment.tz('Europe/London').format('DD/MM/YYYY HH:mm:ss')
 
     const bodyXml = `
       <?xml version="1.0" encoding="UTF-8"?>
