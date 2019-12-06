@@ -18,7 +18,7 @@ const schema = Joi.object({
   redisHost: Joi.string().allow(''),
   redisPort: Joi.number().allow(''),
   analyticsAccount: Joi.string().default(''),
-  session_ttl: Joi.number().default(15)
+  sessionTtl: Joi.number().default(15)
 })
 
 // Build config
@@ -39,7 +39,7 @@ const config = {
   redisHost: process.env.REDIS_HOST,
   redisPort: process.env.REDIS_PORT,
   analyticsAccount: process.env.FWS_APP_GA_ID,
-  session_ttl: process.env.SESSION_TTL
+  sessionTtl: process.env.SESSION_TTL
 }
 
 // Validate config

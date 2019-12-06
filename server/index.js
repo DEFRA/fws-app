@@ -60,7 +60,7 @@ async function createServer () {
       path: '/',
       password: config.cookiePassword,
       isSecure: config.isSecure,
-      ttl: config.session_ttl * 60 * 1000
+      ttl: config.sessionTtl * 60 * 1000
     },
     keepAlive: true
   })
