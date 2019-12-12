@@ -23,7 +23,6 @@ This is the FWIS management tool
 | REDIS_HOST         |                       |    no    |                       |                    |       |
 | REDIS_PORT         |                       |    no    |                       |                    |       |
 | FWS_APP_GA_ID      | Google analytics Id   |    no    |                       |                    |       |
-| SESSION_TTL        | Session timout        |    no    |  15                   |                    |       |
 
 
 
