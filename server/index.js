@@ -31,7 +31,9 @@ async function createServer () {
         options: {
           abortEarly: false
         }
-      }
+      },
+      cors: true,
+      security: true
     },
     cache: cache
   })
@@ -57,10 +59,8 @@ async function createServer () {
     cookie: {
       path: '/',
       password: config.cookiePassword,
-      isSecure: config.isSecure,
-      ttl: 15 * 60 * 1000
-    },
-    keepAlive: true
+      isSecure: config.isSecure
+    }
   })
 
   server.auth.default('session')
