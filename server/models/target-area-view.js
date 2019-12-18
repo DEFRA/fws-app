@@ -133,8 +133,8 @@ class TargetAreaView {
           attributes: { valign: 'center' }
         },
         {
-          html: `<small>${warning.situation}</small>`,
-          attributes: { valign: 'center' }
+          text: warning.situation,
+          attributes: { valign: 'center', style: 'font-size: smaller' }
         },
         {
           text: formatUTCDate(warning.attr.timeMessageReceived),

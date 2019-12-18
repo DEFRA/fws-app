@@ -97,7 +97,19 @@ module.exports = [{
 
         return h.redirect(`/target-area/${code}`)
       } catch (err) {
-        return boom.badRequest('Failed to update warning', err)
+        if (err.data.payload.errorMessage === '[500] ValidationError: "situation" length must be less than or equal to 990 characters long') {
+          const errors = {
+            situation: 'Situation length must be less than or equal to 990 characters long'
+          }
+          const { targetArea, targetAreaWarning } = await getFloodData(request.server, request.params.code)
+          return h.view('update-warning', new UpdateWarningView(
+            targetArea,
+            targetAreaWarning,
+            request.payload,
+            errors))
+        } else {
+          return boom.badRequest('Failed to update warning', err)
+        }
       }
     },
     auth: {
