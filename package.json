@@ -34,14 +34,14 @@
     "govuk-frontend": "3.4.0",
     "https-proxy-agent": "3.0.1",
     "moment-timezone": "0.5.27",
-    "nunjucks": "3.2.0"
+    "nunjucks": "^3.2.1"
   },
   "devDependencies": {
     "@hapi/code": "7.0.0",
     "@hapi/lab": "21.0.0",
     "blipp": "4.0.1",
     "codeclimate-test-reporter": "0.5.1",
-    "node-sass": "4.13.0",
+    "node-sass": "^4.14.1",
     "standard": "14.3.1"
   }
 }
