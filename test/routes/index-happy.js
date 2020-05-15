@@ -304,6 +304,16 @@ lab.experiment(('All basic routes'), () => {
       credentials: postLoginCredentials
     },
     text: ['Enter a valid severity']
+  }, {
+    method: 'GET',
+    url: '/robots.txt',
+    code: 200,
+    text: ['Disallow: /']
+  }, {
+    method: 'GET',
+    url: '/status',
+    code: 200,
+    text: ['"status":"OK"']
   }]
 
   urls.forEach(item => {
