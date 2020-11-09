@@ -26,7 +26,7 @@
     "@hapi/good": "8.2.4",
     "@hapi/good-console": "8.1.2",
     "@hapi/good-squeeze": "5.2.1",
-    "@hapi/hapi": "18.4.0",
+    "@hapi/hapi": "20.0.1",
     "@hapi/inert": "5.2.2",
     "@hapi/joi": "16.1.7",
     "@hapi/vision": "5.5.4",
@@ -34,7 +34,7 @@
     "govuk-frontend": "3.4.0",
     "https-proxy-agent": "3.0.1",
     "moment-timezone": "0.5.27",
-    "nunjucks": "^3.2.1"
+    "nunjucks": "^3.2.2"
   },
   "devDependencies": {
     "@hapi/code": "7.0.0",
