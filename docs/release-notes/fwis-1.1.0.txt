@@ -1,0 +1,11 @@
+# FWIS API release Wednesday 25th November 2020
+
+# Information
+
+This release is to update the target areas with the November release
+
+# Instructions
+
+Execute job FWS_{stage}_102_UPDATE_TARGET_AREAS
+
+This job should only take a few moments to complete.
