@@ -2,6 +2,7 @@ const hapi = require('@hapi/hapi')
 const CatboxRedis = require('@hapi/catbox-redis')
 const moment = require('moment-timezone')
 const config = require('./config')
+const { version } = require('../package.json')
 const registerServerMethods = require('./services/methods')
 const { dateFormat, longDateFormat } = require('./constants')
 let cache
@@ -90,6 +91,8 @@ async function createServer () {
       meta.timestamp = new Date()
       meta.dateString = moment.tz('Europe/London').format(dateFormat)
       meta.longDateString = moment.tz('Europe/London').format(longDateFormat)
+      meta.version = version
+      meta.stage = config.env
 
       ctx.meta = meta
       response.source.context = ctx
