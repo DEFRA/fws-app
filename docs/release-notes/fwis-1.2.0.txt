@@ -1,0 +1,15 @@
+# FWIS release 1.2.0 Thursday 3rd December 2020
+
+# Tickets
+
+https://eaflood.atlassian.net/browse/FIS-642
+
+# Information
+
+This release updates the hapi version to v20 and updates a few node dependecies as well
+
+# Instructions
+
+Standard code build and deployment for fws-app:
+
+Execute job: FWS_{stage}_DEPLOY_FWS_APP
