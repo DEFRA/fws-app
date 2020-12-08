@@ -26,22 +26,22 @@
     "@hapi/good": "9.0.1",
     "@hapi/good-console": "9.0.1",
     "@hapi/good-squeeze": "6.0.0",
-    "@hapi/hapi": "20.0.1",
+    "@hapi/hapi": "20.0.3",
     "@hapi/inert": "6.0.3",
     "@hapi/joi": "17.1.1",
     "@hapi/vision": "6.0.1",
-    "@hapi/wreck": "17.0.0",
-    "govuk-frontend": "3.9.1",
+    "@hapi/wreck": "17.1.0",
+    "govuk-frontend": "3.10.1",
     "https-proxy-agent": "5.0.0",
-    "moment-timezone": "0.5.31",
+    "moment-timezone": "0.5.32",
     "nunjucks": "^3.2.2"
   },
   "devDependencies": {
     "@hapi/code": "8.0.2",
     "@hapi/lab": "24.1.0",
-    "blipp": "4.0.1",
+    "blipp": "4.0.2",
     "codeclimate-test-reporter": "0.5.1",
     "node-sass": "^5.0.0",
-    "standard": "16.0.1"
+    "standard": "16.0.3"
   }
 }
