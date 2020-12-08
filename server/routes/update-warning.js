@@ -8,7 +8,7 @@ const errorMessages = {
   },
   situation: {
     '*': 'Enter a valid situation',
-    'string.max': 'Situation must be 990 characters or fewer'
+    'string.max': 'Situation must be 1250 characters or fewer'
   }
 }
 
@@ -97,9 +97,9 @@ module.exports = [{
 
         return h.redirect(`/target-area/${code}`)
       } catch (err) {
-        if (err.data.payload.errorMessage === '[500] ValidationError: "situation" length must be less than or equal to 990 characters long') {
+        if (err.data.payload.errorMessage === '[500] ValidationError: "situation" length must be less than or equal to 1250 characters long') {
           const errors = {
-            situation: 'Situation length must be less than or equal to 990 characters long'
+            situation: 'Situation length must be less than or equal to 1250 characters long'
           }
           const { targetArea, targetAreaWarning } = await getFloodData(request.server, request.params.code)
           return h.view('update-warning', new UpdateWarningView(
@@ -122,7 +122,7 @@ module.exports = [{
       }),
       payload: joi.object({
         severity: joi.number().required().valid(1, 2, 3, 4),
-        situation: joi.string().required().max(990)
+        situation: joi.string().required().max(1250)
       }),
       failAction: async (request, h, err) => {
         const { payload, params } = request
