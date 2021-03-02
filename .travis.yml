@@ -1,9 +1,0 @@
-language: node_js
-node_js:
-  - "12"
-addons:
-  code_climate:
-    repo_token: a8fcd5ac24443dec032a82f750627db350e0c02f53c962966209a681737625f2 
-before_script:
-after_script:
-  - codeclimate-test-reporter < lcov.info
