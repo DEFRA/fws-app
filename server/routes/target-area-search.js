@@ -18,7 +18,7 @@ module.exports = {
           const { warnings } = await server.methods.flood.getFloods()
           const filter = getTargetAreaFilter(query, area)
           const filteredTargetAreas = targetAreas.filter(filter)
-          return h.view('target-area-search', new TargetAreaSearchView(areas, filteredTargetAreas, warnings, query, area))
+          return h.view('target-area-search', new TargetAreaSearchView(areas, query, area, filteredTargetAreas, warnings))
         } else {
           return h.view('target-area-search', new TargetAreaSearchView(areas))
         }
