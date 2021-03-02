@@ -1,5 +1,5 @@
 class TargetAreaSearchView {
-  constructor (areas, targetAreas = [], warnings = [], query, area) {
+  constructor (areas, query, area, targetAreas = [], warnings = []) {
     this.targetAreas = targetAreas
     this.warnings = warnings
     this.areas = areas
