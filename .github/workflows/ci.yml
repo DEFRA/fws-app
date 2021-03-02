@@ -1,0 +1,56 @@
+name: CI
+
+on: [push, pull_request]
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
+              with:
+                fetch-depth: 0
+
+            - name: Install nodejs
+              uses: actions/setup-node@v1
+              with:
+                node-version: "12.x"
+            
+            - name: Install node dependencies
+              run: npm ci
+
+            - name: Run linting
+              run: npm run lint
+
+            # This includes an extra run step. The sonarcloud analysis will be run in a docker container with the current
+            # folder mounted as `/github/workspace`. The problem is when the lcov.info file is generated it will reference the
+            # code in the current folder. So to enable sonarcloud to matchup code coverage with the files we use sed to update
+            # the references in lcov.info
+            # https://community.sonarsource.com/t/code-coverage-doesnt-work-with-github-action/16747/6
+            - name: Run unit tests
+              env:
+                AD_CLIENT_ID: "${{ secrets.AD_CLIENT_ID }}"
+                AD_CLIENT_SECRET: "${{ secrets.AD_CLIENT_SECRET }}"
+                AD_COOKIE_PASSWORD: "${{ secrets.AD_COOKIE_PASSWORD }}"
+                AD_TENANT: "${{ secrets.AD_TENANT }}"
+                FORCE_HTTPS: "${{ secrets.FORCE_HTTPS }}"
+                FWS_API: "${{ secrets.FWS_API }}"
+                FWS_API_KEY: "${{ secrets.FWS_API_KEY }}"
+                FWS_API_URL: "${{ secrets.FWS_API_URL }}"
+                FWS_APP_PROXY: "${{ secrets.FWS_APP_PROXY }}"
+              run: |
+                npm run unit-test
+                sed -i 's/\/home\/runner\/work\/fws-app\/fws-app\//\/github\/workspace\//g' coverage/lcov.info
+
+            - name: Analyse code quality
+              uses: sonarsource/sonarcloud-github-action@master
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+              with:
+                args: >
+                  -Dsonar.organization=defra
+                  -Dsonar.projectKey=DEFRA_fws-app
+                  -Dsonar.exclusions=**/node_modules/**,**/test/**,**/test-output/**
+                  -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+                  -Dsonar.javascript.exclusions=**/node_modules/**,**/test/**,**/test-output/**,**/mock/**,**/public/**
