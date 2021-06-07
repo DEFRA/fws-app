@@ -290,7 +290,7 @@ lab.experiment(('All basic routes'), () => {
       strategy: 'azure-legacy',
       credentials: postLoginCredentials
     },
-    text: ['Situation must be 1250 characters or fewer']
+    text: ['Situation must be 1100 characters or fewer']
   }, {
     method: 'POST',
     url: '/target-area/011FWFNC1D/edit',
