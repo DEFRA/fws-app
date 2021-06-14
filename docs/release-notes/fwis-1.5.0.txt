@@ -1,0 +1,18 @@
+# FWIS API & APP release Wednesday 16th June 2021
+
+# Information
+# Release
+https://eaflood.atlassian.net/projects/FS/versions/15472/tab/release-report-all-issues
+
+# Tickets
+FS-43: FWIS character limit increase
+
+# Instructions
+
+Execute jobs:
+
+FWS_{stage}_02_DEPLOY_FWS_API
+
+FWS_{stage}_03_DEPLOY_FWS_APP
+
+Confirm deployment with flood dev and test team.
