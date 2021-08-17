@@ -1,0 +1,20 @@
+# FWIS App release Wednesday 18th August 2021
+
+# Information
+
+This release is to update the target areas with the August 2021 release
+
+# Tickets
+FS-97/FS-96: FWIS Target Area Update Aug 2020
+
+# Instructions
+
+Execute jobs
+
+FWS_{stage}_102_UPDATE_TARGET_AREAS
+
+FWS_{stage}_03_DEPLOY_FWS_APP
+
+The only changes to the fws-app are updated version numbers and release document
+
+This job should only take a few moments to complete.
