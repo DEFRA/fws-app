@@ -1,0 +1,20 @@
+# FWIS App release Wednesday 24th November 2021
+
+# Information
+
+This release is to update the target areas with the November 2021 release
+
+# Tickets
+https://eaflood.atlassian.net/browse/FSR-489 - target area data release
+
+# Instructions
+
+Execute jobs
+
+FWS_{stage}_102_UPDATE_TARGET_AREAS
+
+FWS_{stage}_03_DEPLOY_FWS_APP
+
+The only changes to the fws-app are updated version numbers and release document
+
+This job should only take a few moments to complete.
