@@ -40,7 +40,7 @@
     "@hapi/code": "8.0.3",
     "@hapi/lab": "24.2.1",
     "blipp": "4.0.2",
-    "node-sass": "^6.0.0",
+    "node-sass": "^7.0.0",
     "standard": "16.0.3"
   }
 }
