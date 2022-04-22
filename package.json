@@ -45,6 +45,7 @@
   },
   "standard": {
     "ignore": [
+      "server/dist",
       "service-down"
     ]
   }
