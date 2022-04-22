@@ -53,4 +53,4 @@ jobs:
                   -Dsonar.projectKey=DEFRA_fws-app
                   -Dsonar.exclusions=**/node_modules/**,**/test/**,**/test-output/**,**/service-down/**
                   -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
-                  -Dsonar.javascript.exclusions=**/node_modules/**,**/test/**,**/test-output/**,**/mock/**,**/public/**,**/service-down/**,**/server/dist/**
+                  -Dsonar.javascript.exclusions=**/node_modules/**,**/test/**,**/test-output/**,**/mock/**,**/public/**
