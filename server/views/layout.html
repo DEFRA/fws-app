@@ -38,7 +38,10 @@
 {% endblock %}
 
 {% block header %}
-<header class="govuk-header " role="banner" data-module="header">
+
+<header class="govuk-header {% if meta.stage == 'tra' %} govuk-header-blue {% endif %}" role="banner" data-module="header">  
+
+
   <div class="govuk-header__container govuk-width-container">
     <div class="govuk-header__logo">
       <a href="/" class="govuk-header__link govuk-header__link--homepage">
@@ -66,8 +69,26 @@
 {% endblock %}
 
 {% block content %}
-  <h1 class="govuk-heading-l">Flood Warning Information System</h1>
-  {% block body %}{% endblock %}
+
+{% if meta.stage == 'tra' %}
+<div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Important
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <p class="govuk-notification-banner__heading">
+      This application version is for training only.
+    </p>
+  </div>
+</div>
+{% endif %}
+
+<h1 class="govuk-heading-l">Flood Warning Information System</h1>
+
+  {% block body %}
+  {% endblock %}
 
   {% if not hideRefresh %}
   <div>
@@ -75,6 +96,25 @@
   </div>
   {% endif %}
   <div>For help and information please contact: <a href="mailto:floodwarningservices@environment-agency.gov.uk">floodwarningservices@environment-agency.gov.uk</a></div>
+{% endblock %}
+
+{% block footer %}
+  <footer class="govuk-footer {% if meta.stage == 'tra' %} govuk-footer-blue {% endif %}" role="contentinfo">
+    <div class="govuk-width-container ">
+      <div class="govuk-footer__meta">
+        <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
+
+          <svg aria-hidden="true" focusable="false" class="govuk-footer__licence-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 483.2 195.7" height="17" width="41">
+            <path fill="currentColor" d="M421.5 142.8V.1l-50.7 32.3v161.1h112.4v-50.7zm-122.3-9.6A47.12 47.12 0 0 1 221 97.8c0-26 21.1-47.1 47.1-47.1 16.7 0 31.4 8.7 39.7 21.8l42.7-27.2A97.63 97.63 0 0 0 268.1 0c-36.5 0-68.3 20.1-85.1 49.7A98 98 0 0 0 97.8 0C43.9 0 0 43.9 0 97.8s43.9 97.8 97.8 97.8c36.5 0 68.3-20.1 85.1-49.7a97.76 97.76 0 0 0 149.6 25.4l19.4 22.2h3v-87.8h-80l24.3 27.5zM97.8 145c-26 0-47.1-21.1-47.1-47.1s21.1-47.1 47.1-47.1 47.2 21 47.2 47S123.8 145 97.8 145" />
+          </svg>
+          <span class="govuk-footer__licence-description">
+            All content is available under the
+            <a class="govuk-footer__link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated
+          </span>
+        </div>
+      </div>
+    </div>
+  </footer>
 {% endblock %}
 
 {% block bodyEnd %}
