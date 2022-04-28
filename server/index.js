@@ -93,7 +93,6 @@ async function createServer () {
       meta.longDateString = moment.tz('Europe/London').format(longDateFormat)
       meta.version = version
       meta.stage = config.env
-      console.log(config.env)
 
       ctx.meta = meta
       response.source.context = ctx
