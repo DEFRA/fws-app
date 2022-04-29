@@ -42,5 +42,11 @@
     "blipp": "4.0.2",
     "node-sass": "^7.0.1",
     "standard": "16.0.4"
+  },
+  "standard": {
+    "ignore": [
+      "server/dist",
+      "service-down"
+    ]
   }
 }
