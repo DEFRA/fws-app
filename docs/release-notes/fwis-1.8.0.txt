@@ -1,0 +1,21 @@
+# FWIS App release Wednesday 25th May 2022
+
+# Information
+
+This release is to update the target areas with the May 2022 release, update dependencies and add to new features.
+
+# Tickets
+https://eaflood.atlassian.net/browse/FSR-583 - TA Area update May 2022
+https://eaflood.atlassian.net/browse/FSR-566 - FWIS - View holding page
+https://eaflood.atlassian.net/browse/FSR-517 - FWIS - Updates
+https://eaflood.atlassian.net/browse/FSR-548 - FWIS - FWIS - Update training environment
+
+# Instructions
+
+Execute jobs
+
+FWS_{stage}_102_UPDATE_TARGET_AREAS
+
+FWS_{stage}_03_DEPLOY_FWS_APP
+
+Confirm deployment with flood dev and test team.
