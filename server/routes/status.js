@@ -4,7 +4,7 @@ module.exports = {
   method: 'GET',
   path: '/status',
   options: {
-    handler: async (request, h) => {
+    handler: async (_request, h) => {
       try {
         const status = {
           uptime: process.uptime(),
