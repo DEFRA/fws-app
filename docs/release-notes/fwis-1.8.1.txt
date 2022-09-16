@@ -1,0 +1,18 @@
+# RFC - CHG0059554 FWIS App release Wednesday 29th September 2022
+
+# Information
+
+This is an RFC - CHG0059554 - for the expiry of the azure AD client key.
+
+# Tickets
+FSR-613
+
+# Instructions
+
+Execute jobs
+
+FWS_{stage}_03_DEPLOY_FWS_APP
+
+This job should only take a few moments to complete.
+
+Please note that there is no method of testing the client secret key prior to deployment to production, so login ability will need to be tested and confirmed working correctly post deployment.
