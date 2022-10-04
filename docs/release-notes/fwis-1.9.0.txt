@@ -20,6 +20,8 @@ FSR-614 - node v16 update
 
  - update prd deploy job(FWS_PRD_03_DEPLOY_FWS_APP) from node 12 to version 16
 
+  - update to latest version of pm2
+
 Steps
 
 1 - Execute FWS_PRD_02_DEPLOY_FWS_API
