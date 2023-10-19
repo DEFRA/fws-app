@@ -4,7 +4,7 @@
   "description": "FWS Web App",
   "main": "index.js",
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
   },
   "scripts": {
     "start": "pm2 start index.js --name fws-app -i 0",
@@ -38,9 +38,9 @@
   },
   "devDependencies": {
     "@hapi/code": "8.0.7",
-    "@hapi/lab": "24.5.1",
+    "@hapi/lab": "25.1.3",
     "blipp": "4.0.2",
-    "node-sass": "^7.0.1",
+    "node-sass": "^9.0.0",
     "standard": "16.0.4"
   },
   "standard": {
