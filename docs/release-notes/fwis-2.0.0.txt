@@ -10,9 +10,22 @@ FSR-1049 - API node v18 update
 # Instructions
 !Important for webops
 
- - CCoE WebOps to run ansible playbook to update Node version on fwis servers to node v16
- - update prd deploy job(FWS_PRD_02_DEPLOY_FWS_API) from node 12 to version 16
- - update prd deploy job(FWS_PRD_03_DEPLOY_FWS_APP) from node 12 to version 16
+- Requires updating deployment job script in jenkins by replacing the line:
+
+    . /var/lib/jenkins/.bashrc && nvm install v18
+
+- with:
+
+    if [ -f "fws-api/.nvmrc" ]; then
+      cp "fws-api/.nvmrc" .nvmrc
+    else
+      echo "v18" > .nvmrc
+    fi
+
+    . /var/lib/jenkins/.bashrc && nvm install
+
+ - CCoE WebOps to run ansible playbook to update Node version on fwis servers to node v18
+
 
 Steps
 1 - Execute FWS_PRD_02_DEPLOY_FWS_API
