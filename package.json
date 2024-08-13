@@ -1,6 +1,6 @@
 {
   "name": "fws-app",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "FWS Web App",
   "main": "index.js",
   "engines": {
