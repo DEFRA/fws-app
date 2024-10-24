@@ -14,7 +14,8 @@ if (!config.localCache) {
       constructor: CatboxRedis,
       options: {
         host: config.redisHost,
-        port: config.redisPort
+        port: config.redisPort,
+        tls: config.redisTls ? {checkServerIdentity: () => undefined} : undefined
       }
     }
   }]
