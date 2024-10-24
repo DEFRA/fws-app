@@ -15,7 +15,7 @@ if (!config.localCache) {
       options: {
         host: config.redisHost,
         port: config.redisPort,
-        tls: config.redisTls ? {checkServerIdentity: () => undefined} : undefined
+        tls: config.redisTls ? { checkServerIdentity: () => undefined } : undefined
       }
     }
   }]
