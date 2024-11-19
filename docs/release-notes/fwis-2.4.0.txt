@@ -1,0 +1,20 @@
+# FWIS App release Wednesday 20th November 2024
+
+# Information
+
+This release is to update the target areas with the November 2024 release
+# Tickets
+https://eaflood.atlassian.net/browse/FSR-1361 - TA Area update Nov 2024
+
+# Instructions
+
+Execute jobs
+
+FWS_{stage}_102_UPDATE_TARGET_AREAS
+FWS_{stage}_03_DEPLOY_FWS_APP
+
+The only changes to the fws-app are updated version numbers and release document
+
+Confirm deployment with flood dev and test team.
+
+This job should only take a few moments to complete.
