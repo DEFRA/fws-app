@@ -4,6 +4,9 @@
 
 This release updates NPM packages and version numbers to bring it in line with FWS-api for the move from Serverless to Terraform.
 
+## Branches
+The branch for this release is release/3.0.0
+ 
 ## Tickets
 
 Tickets linked to the release in Jira: [https://eaflood.atlassian.net/projects/NI/versions/20437/tab/release-report-all-issues](https://eaflood.atlassian.net/projects/NI/versions/20437/tab/release-report-all-issues)
