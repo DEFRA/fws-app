@@ -22,6 +22,7 @@ This is the FWIS management tool
 | LOCAL_CACHE        | Force local cache     |    no    | true                  |                    |       |
 | REDIS_HOST         |                       |    no    |                       |                    |       |
 | REDIS_PORT         |                       |    no    |                       |                    |       |
+| REDIS_TLS          |                       |    no    | false                 |                    |       |
 | FWS_APP_GA_ID      | Google analytics Id   |    no    |                       |                    |       |
 
 
