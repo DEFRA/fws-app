@@ -6,7 +6,7 @@ const config = require('../config')
 function registerServerMethods (server) {
   server.method('flood.getFloods', services.getFloods, {
     cache: {
-      cache: config.localCache ? '' : 'redis_cache',
+      cache: config.localCache ? undefined : 'redis_cache',
       expiresIn: 1 * 60 * 1000, // 1 minute
       generateTimeout: 30 * 1000 // 30 secs
     }
@@ -14,7 +14,7 @@ function registerServerMethods (server) {
 
   server.method('flood.getFloodsPlus', services.getFloodsPlus, {
     cache: {
-      cache: config.localCache ? '' : 'redis_cache',
+      cache: config.localCache ? undefined : 'redis_cache',
       expiresIn: 1 * 60 * 1000, // 1 minute
       generateTimeout: 30 * 1000 // 30 secs
     }
@@ -22,7 +22,7 @@ function registerServerMethods (server) {
 
   server.method('flood.getHistoricFloods', services.getHistoricFloods, {
     cache: {
-      cache: config.localCache ? '' : 'redis_cache',
+      cache: config.localCache ? undefined : 'redis_cache',
       expiresIn: 10 * 60 * 1000, // 10 mins
       generateTimeout: 30 * 1000 // 30 secs
     }
@@ -30,7 +30,7 @@ function registerServerMethods (server) {
 
   server.method('flood.getAllAreas', services.getAllAreas, {
     cache: {
-      cache: config.localCache ? '' : 'redis_cache',
+      cache: config.localCache ? undefined : 'redis_cache',
       expiresIn: 60 * 60 * 1000, // 1 hour
       generateTimeout: 30 * 1000 // 30 seconds
     }
