@@ -9,6 +9,7 @@ lab.experiment(('Training Env banner'), () => {
 
   lab.before(async () => {
     config.env = 'tra'
+    composeServer.initLocalCache(true)
     server = await composeServer.start()
   })
 

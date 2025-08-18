@@ -1,8 +1,5 @@
-// Force tests to use server object cache
+// Force tests to use server object cache by default
 process.env.LOCAL_CACHE = true
-
-const composeServer = require('../server')
-const services = require('../server/services')
 
 const mock = require('./mock')
 const mocks = {}
@@ -32,12 +29,21 @@ const clearMocks = () => {
   })
 }
 
+let composeServer
 let server
+let services
 
 module.exports = {
-  start: async (err = false) => {
+  initLocalCache: (localCache) => {
+    process.env.LOCAL_CACHE = localCache
+    composeServer = require('../server')
+    services = require('../server/services')
+  },
+  start: async (err = false, useMocks = true) => {
     console.log('Starting server')
-    err ? setErrorMocks() : setMocks()
+    if (useMocks) {
+      err ? setErrorMocks() : setMocks()
+    }
     server = await composeServer()
     await server.initialize()
     return server

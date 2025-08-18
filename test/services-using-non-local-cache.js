@@ -25,7 +25,7 @@ lab.experiment('Services', () => {
     delete require.cache[require.resolve('../server/services/methods')]
     delete require.cache[require.resolve('../server/services')]
     composeServer = require('./server')
-    composeServer.initLocalCache(true)
+    composeServer.initLocalCache(false)
     await composeServer.start(false, false)
     services = require('../server/services')
     http = require('../server/http')
@@ -41,7 +41,7 @@ lab.experiment('Services', () => {
     require.cache[require.resolve('../server/services')] = ORIGINAL_SERVICES_CACHE
   })
 
-  lab.beforeEach(() => {
+  lab.beforeEach(async () => {
     // mocks.getJson = mock.replace(http, 'getJson', mock.makePromise(null, {}))
     // mocks.postJson = mock.replace(http, 'postJson', mock.makePromise(null, {}))
   })

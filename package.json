@@ -14,7 +14,11 @@
     "lint": "standard",
     "unit-test": "lab -v -c -r console -o stdout -r lcov -o coverage/lcov.info",
     "test": "npm run lint & npm run unit-test",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build",
+    "docker:start-infrastructure": "docker compose -f docker/infrastructure.yml up -d",
+    "docker:start-test-double-infrastructure": "docker compose -f docker/infrastructure.yml up -d fws-app-redis",
+    "docker:stop-infrastructure": "docker compose -f docker/infrastructure.yml down",
+    "docker:stop-test-double-infrastructure": "docker compose -f docker/infrastructure.yml rm -f -s fws-app-redis"
   },
   "author": "",
   "license": "ISC",
