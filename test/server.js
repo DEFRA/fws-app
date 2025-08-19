@@ -1,11 +1,14 @@
 // Force tests to use server object cache by default
-// To achieve full test coverage for Redis connectivity, the initLocalCache function
+// To achieve full test coverage for Redis connectivity, the initRedisCache function
 // can be used to connect to a containerised Redis instance.
 process.env.LOCAL_CACHE = true
 
 const mock = require('./mock')
 const mocks = {}
 const data = require('./data')
+
+let composeServer = require('../server')
+let services = require('../server/services')
 
 const setMocks = () => {
   console.log('Mocking server')
@@ -31,16 +34,17 @@ const clearMocks = () => {
   })
 }
 
-let composeServer
 let server
-let services
 
 module.exports = {
-  initLocalCache: (localCache) => {
-    process.env.LOCAL_CACHE = localCache
-    // Load the sever and services modules so
+  initRedisCache: () => {
+    delete require.cache[require.resolve('../server')]
+    delete require.cache[require.resolve('../server/services')]
+    process.env.LOCAL_CACHE = false
+
+    // Load the server and services modules so
     // that they use the current value of
-    // process.env.LOCAK_CACHE.
+    // process.env.LOCAL_CACHE.
     composeServer = require('../server')
     services = require('../server/services')
   },

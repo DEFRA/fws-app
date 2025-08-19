@@ -25,7 +25,8 @@ lab.experiment('Services', () => {
     delete require.cache[require.resolve('../server/services/methods')]
     delete require.cache[require.resolve('../server/services')]
     composeServer = require('./server')
-    composeServer.initLocalCache(false)
+    composeServer.initRedisCache()
+    // Start the server ensuring that the server method mocks in this file are used rather than those in ./server.js.
     await composeServer.start(false, false)
     services = require('../server/services')
     http = require('../server/http')

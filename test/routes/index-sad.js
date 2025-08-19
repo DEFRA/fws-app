@@ -6,7 +6,6 @@ const composeServer = require('../server')
 lab.experiment(('All basic routes'), () => {
   let server
   lab.before(async () => {
-    composeServer.initLocalCache(true)
     server = await composeServer.start(true)
   })
 
