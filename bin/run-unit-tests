@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -e
+
+# Ensure tests requring a Redis cache use a local containerised instance.
+REDIS_HOST=localhost
+REDIS_PORT=6379
+
+lab -v -c -r console -o stdout -r lcov -o coverage/lcov.info
