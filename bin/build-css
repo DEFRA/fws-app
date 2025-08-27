@@ -1,5 +1,7 @@
 #!/bin/bash
 
-node-sass --output-style=expanded \
-  --output=server/public/build/stylesheets \
-  client/sass
+sass --style=expanded \
+  --load-path=node_modules \
+  --no-source-map \
+  --quiet \
+  client/sass:server/public/build/stylesheets
