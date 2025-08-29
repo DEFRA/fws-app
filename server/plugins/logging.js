@@ -12,7 +12,7 @@ module.exports = {
         query: Object.keys(req.query || {}).length ? req.query : undefined
       }),
       res: res => ({
-        statusCode: res?.output?.statusCode
+        statusCode: res?.statusCode
       }),
       err: ({ name, message, stack, code }) => ({
         name,
@@ -21,7 +21,7 @@ module.exports = {
         stack
       })
     },
-    logRequestComplete: false,
+    logRequestComplete: true,
     ignorePaths: [
       '/favicon.ico'
     ],

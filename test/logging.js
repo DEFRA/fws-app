@@ -74,9 +74,7 @@ lab.experiment('logging plugin', () => {
 
   lab.test('res serializer', async () => {
     const res = {
-      output: {
-        statusCode: 200
-      },
+      statusCode: 200,
       header: {
         'x-api-key': '12345'
       }
