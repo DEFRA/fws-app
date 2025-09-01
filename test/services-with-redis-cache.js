@@ -11,7 +11,6 @@ const ORIGINAL_HTTP_CACHE = require.cache[require.resolve('../server/http')]
 const ORIGINAL_METHODS_CACHE = require.cache[require.resolve('../server/services/methods')]
 const ORIGINAL_SERVER_CACHE = require.cache[require.resolve('./server')]
 const ORIGINAL_SERVICES_CACHE = require.cache[require.resolve('../server/services')]
-const ORIGINAL_ENV = process.env
 
 let http
 let composeServer
@@ -34,7 +33,6 @@ lab.experiment('Services', () => {
 
   lab.after(() => {
     composeServer.stop()
-    process.env = { ...ORIGINAL_ENV }
     require.cache[require.resolve('../server')] = ORIGINAL_SERVER_CACHE
     require.cache[require.resolve('../server/config')] = ORIGINAL_CONFIG_CACHE
     require.cache[require.resolve('../server/http')] = ORIGINAL_HTTP_CACHE
