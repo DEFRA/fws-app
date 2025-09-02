@@ -1,4 +1,3 @@
-const path = require('path')
 const nunjucks = require('nunjucks')
 const config = require('../config')
 const pkg = require('../../package.json')
@@ -16,12 +15,7 @@ module.exports = {
           }
         },
         prepare: (options, next) => {
-          const nunjucksPath = path.join(options.relativeTo || process.cwd(), options.path)
-          const env = nunjucks.configure([
-            nunjucksPath,
-            'node_modules/govuk-frontend/',
-            'node_modules/govuk-frontend/components/'
-          ], {
+          const env = nunjucks.configure(options.path, {
             autoescape: true,
             watch: false
           })
@@ -36,8 +30,11 @@ module.exports = {
         }
       }
     },
-    path: '../views',
-    relativeTo: __dirname,
+    path: [
+      'server/views',
+      'node_modules/govuk-frontend/dist/govuk',
+      'node_modules/govuk-frontend/dist/govuk/components'
+    ],
     isCached: !config.isDev,
     context: {
       appVersion: pkg.version,

@@ -2,13 +2,45 @@ const Lab = require('@hapi/lab')
 const lab = exports.lab = Lab.script()
 const Code = require('@hapi/code')
 const data = require('./data')
-const services = require('../server/services')
-const http = require('../server/http')
+
 const mock = require('./mock')
 const mocks = {}
 
+const ORIGINAL_CONFIG_CACHE = require.cache[require.resolve('../server/config')]
+const ORIGINAL_HTTP_CACHE = require.cache[require.resolve('../server/http')]
+const ORIGINAL_METHODS_CACHE = require.cache[require.resolve('../server/services/methods')]
+const ORIGINAL_SERVER_CACHE = require.cache[require.resolve('./server')]
+const ORIGINAL_SERVICES_CACHE = require.cache[require.resolve('../server/services')]
+
+let http
+let composeServer
+let services
+
 lab.experiment('Services', () => {
-  lab.beforeEach(() => {
+  lab.before(async () => {
+    delete require.cache[require.resolve('../server')]
+    delete require.cache[require.resolve('../server/config')]
+    delete require.cache[require.resolve('../server/http')]
+    delete require.cache[require.resolve('../server/services/methods')]
+    delete require.cache[require.resolve('../server/services')]
+    composeServer = require('./server')
+    composeServer.initRedisCache()
+    // Start the server ensuring that the server method mocks in this file are used rather than those in ./server.js.
+    await composeServer.start(false, false)
+    services = require('../server/services')
+    http = require('../server/http')
+  })
+
+  lab.after(() => {
+    composeServer.stop()
+    require.cache[require.resolve('../server')] = ORIGINAL_SERVER_CACHE
+    require.cache[require.resolve('../server/config')] = ORIGINAL_CONFIG_CACHE
+    require.cache[require.resolve('../server/http')] = ORIGINAL_HTTP_CACHE
+    require.cache[require.resolve('../server/services/methods')] = ORIGINAL_METHODS_CACHE
+    require.cache[require.resolve('../server/services')] = ORIGINAL_SERVICES_CACHE
+  })
+
+  lab.beforeEach(async () => {
     // mocks.getJson = mock.replace(http, 'getJson', mock.makePromise(null, {}))
     // mocks.postJson = mock.replace(http, 'postJson', mock.makePromise(null, {}))
   })

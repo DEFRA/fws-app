@@ -1,4 +1,4 @@
-const Joi = require('@hapi/joi')
+const Joi = require('joi')
 
 // Define config schema
 const schema = Joi.object({
@@ -18,7 +18,8 @@ const schema = Joi.object({
   redisHost: Joi.string().allow(''),
   redisPort: Joi.number().allow(''),
   redisTls: Joi.boolean().default(false),
-  analyticsAccount: Joi.string().default('')
+  analyticsAccount: Joi.string().default(''),
+  logLevel: Joi.string().valid('fatal', 'error', 'warn', 'info', 'debug', 'trace').default('info')
 })
 
 // Build config
@@ -39,7 +40,8 @@ const config = {
   redisHost: process.env.REDIS_HOST,
   redisPort: process.env.REDIS_PORT,
   redisTls: process.env.REDIS_TLS,
-  analyticsAccount: process.env.FWS_APP_GA_ID
+  analyticsAccount: process.env.FWS_APP_GA_ID,
+  logLevel: process.env.LOG_LEVEL
 }
 
 // Validate config

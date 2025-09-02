@@ -1,0 +1,15 @@
+services:
+ fws-app-redis:
+  container_name: fws-app-redis
+  image: redis:8.2-alpine
+  ports:
+    - "6379:6379"
+  deploy:
+    restart_policy:
+      condition: on-failure
+  healthcheck:
+    test: ["CMD", "redis-cli", "ping"]
+    interval: 5s
+    timeout: 5s
+    retries: 10    
+    

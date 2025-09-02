@@ -25,8 +25,6 @@ This is the FWIS management tool
 | REDIS_TLS          |                       |    no    | false                 |                    |       |
 | FWS_APP_GA_ID      | Google analytics Id   |    no    |                       |                    |       |
 
-
-
 # Prerequisites
 
 Node v20+
@@ -42,3 +40,9 @@ This will build the css based on the `govuk-frontend` scss/styles.
 Now the application is ready to run:
 
 `$ node index.js`
+
+# Use Of Containerisation
+
+A Redis container is used to provide full test coverage for Redis instance connectivity.
+At present the Redis container exists for the duration of test runs **only**.
+If Redis containers are to be used for future local development, refactoring  is required accordingly.
