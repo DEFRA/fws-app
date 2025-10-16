@@ -1,4 +1,4 @@
-# FWIS API/App Release - Tuesday, 30th September 2025
+# FWIS API/App Release - Tuesday, 21st October 2025
 
 ## Information
 
@@ -19,3 +19,4 @@ Tickets linked to the release in Jira: [https://eaflood.atlassian.net/projects/N
 
 
 Confirm deployment with the flood dev and test team.
+
