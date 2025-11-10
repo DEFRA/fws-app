@@ -1,4 +1,4 @@
-const joi = require('@hapi/joi')
+const joi = require('joi')
 const boom = require('@hapi/boom')
 const { getTargetAreaFilter } = require('../helpers')
 const TargetAreaSearchView = require('../models/target-area-search-view')

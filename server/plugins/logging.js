@@ -1,30 +1,32 @@
-const config = require('../config')
+const pino = require('../pino')
 
 module.exports = {
-  plugin: require('@hapi/good'),
+  plugin: require('hapi-pino'),
   options: {
-    ops: {
-      interval: 60000
+    instance: pino,
+    wrapSerializers: false,
+    serializers: {
+      req: req => ({
+        method: req.method.toUpperCase(),
+        url: req.url.pathname,
+        query: Object.keys(req.query || {}).length ? req.query : undefined
+      }),
+      res: res => ({
+        statusCode: res?.statusCode
+      }),
+      err: ({ name, message, stack, code }) => ({
+        name,
+        code,
+        message,
+        stack
+      })
     },
-    reporters: {
-      console: [
-        {
-          module: '@hapi/good-squeeze',
-          name: 'Squeeze',
-          args: [
-            {
-              log: config.isProd ? 'error' : '*',
-              error: config.isProd ? 'error' : '*',
-              response: config.isProd ? 'error' : '*',
-              request: config.isProd ? 'error' : '*'
-            }
-          ]
-        },
-        {
-          module: '@hapi/good-console'
-        },
-        'stdout'
-      ]
-    }
+    logRequestComplete: true,
+    ignorePaths: [
+      '/favicon.ico'
+    ],
+    ignoreTags: [
+      'asset'
+    ]
   }
 }

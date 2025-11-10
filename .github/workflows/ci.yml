@@ -7,22 +7,19 @@ jobs:
 
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                 fetch-depth: 0
 
             - name: Install nodejs
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
-                node-version: "18.x"
+                node-version: "20.x"
             
             - name: Install node dependencies
               run: npm ci
 
-            - name: Run linting
-              run: npm run lint
-
-            - name: Run unit tests
+            - name: Run linting and unit tests
               env:
                 AD_CLIENT_ID: "${{ secrets.AD_CLIENT_ID }}"
                 AD_CLIENT_SECRET: "${{ secrets.AD_CLIENT_SECRET }}"
@@ -34,10 +31,10 @@ jobs:
                 FWS_API_URL: "${{ secrets.FWS_API_URL }}"
                 FWS_APP_PROXY: "${{ secrets.FWS_APP_PROXY }}"
               run: |
-                npm run unit-test
+                npm run test
 
             - name: Analyse code quality
-              uses: sonarsource/sonarqube-scan-action@master
+              uses: sonarsource/sonarqube-scan-action@1a6d90ebcb0e6a6b1d87e37ba693fe453195ae25 # v5.3.1
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
