@@ -4,7 +4,7 @@
   "description": "FWS Web App",
   "main": "index.js",
   "engines": {
-    "node": "20.x"
+    "node": "22.x"
   },
   "scripts": {
     "start": "pm2 start index.js --name fws-app -i 0",
