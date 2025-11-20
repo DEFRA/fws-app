@@ -16,7 +16,7 @@ echo "Found FWS API Gateway with ID: $API_ID"
 API_URL="http://localstack-main:4566/restapis/${API_ID}/local/_user_request_"
 
 # Update the .env file
-ENV_FILE="$(dirname "$0")/.env"
+ENV_FILE="$(dirname "$0")/../.env"
 
 if [ ! -f "$ENV_FILE" ]; then
     echo "Error: .env file not found at $ENV_FILE"

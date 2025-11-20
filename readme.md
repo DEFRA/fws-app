@@ -46,3 +46,95 @@ Now the application is ready to run:
 A Redis container is used to provide full test coverage for Redis instance connectivity.
 At present the Redis container exists for the duration of test runs **only**.
 If Redis containers are to be used for future local development, refactoring  is required accordingly.
+
+# Docker Setup
+
+## Prerequisites
+
+- Docker and Docker Compose installed
+- Python virtual environment (required for fws-api setup)
+- [fws-api](https://github.com/DEFRA/fws-api) cloned as a sibling directory to fws-app
+
+## Quick Start
+
+The easiest way to run fws-app with Docker is using the automated startup script:
+
+```bash
+# 1. Activate your Python virtual environment
+source ~/environments/my_env/bin/activate
+
+# 2. Configure environment variables
+# Copy docker/.env and populate the required secrets:
+# - AD_CLIENT_ID
+# - AD_CLIENT_SECRET
+# - AD_TENANT
+# - AD_COOKIE_PASSWORD
+
+# 3. Run the startup script
+./docker/scripts/start-local.sh
+```
+
+The `start-local.sh` script will:
+1. Validate all required environment variables are set
+2. Bootstrap the fws-api in LocalStack (`npm run bootstrap-debug`)
+3. Auto-populate the `FWS_API_URL` from LocalStack
+4. Build and start all Docker services
+5. Display the application URL: http://localhost:3000
+
+## Manual Docker Commands
+
+### Build the fws-app image only
+
+```bash
+docker build -f docker/Dockerfile -t fws-app:latest --target development .
+```
+
+### Run with Docker Compose
+
+```bash
+# Start all services (Redis + fws-app)
+docker compose -f docker/infrastructure.yml up -d
+
+# Start with rebuild
+docker compose -f docker/infrastructure.yml up -d --build
+
+# View logs
+docker compose -f docker/infrastructure.yml logs -f
+
+# Stop all services
+docker compose -f docker/infrastructure.yml down
+```
+
+### Start individual services
+
+```bash
+# Start only Redis
+docker compose -f docker/infrastructure.yml up -d fws-app-redis
+
+# Start only fws-app
+docker compose -f docker/infrastructure.yml up -d fws-app
+```
+
+## Configuration
+
+Environment variables are managed in `docker/.env`. See the Environment Variables section above for required values.
+
+**Note:** Never commit secrets to `docker/.env`. A pre-commit hook is available to prevent this:
+
+```bash
+./install-hooks.sh
+```
+
+## Helper Scripts
+
+- `docker/scripts/start-local.sh` - Full automated setup and startup
+- `docker/scripts/update-localstack-url.sh` - Update FWS_API_URL from LocalStack
+
+## Network Configuration
+
+The fws-app container connects to:
+- **default network** - For communication with fws-app-redis
+- **docker_ls (LocalStack network)** - For communication with the fws-api in LocalStack
+
+Ensure LocalStack is running before starting fws-app if you need API connectivity.
+

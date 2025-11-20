@@ -16,7 +16,7 @@
     "pretest": "npm run docker:start-test-double-infrastructure",
     "test": "npm run lint & npm run unit-test",
     "posttest": "npm run docker:stop-test-double-infrastructure",
-    "postinstall": "npm run build",
+    "postinstall": "./install-hooks.sh && npm run build",
     "docker:start-infrastructure": "docker compose -f docker/infrastructure.yml up -d",
     "docker:start-test-double-infrastructure": "docker compose -f docker/infrastructure.yml up -d fws-app-redis",
     "docker:stop-infrastructure": "docker compose -f docker/infrastructure.yml down",

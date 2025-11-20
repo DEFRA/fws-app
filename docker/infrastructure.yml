@@ -7,9 +7,6 @@ services:
   deploy:
     restart_policy:
       condition: on-failure
-  networks:
-    - default
-    - localstack
   healthcheck:
     test: ["CMD", "redis-cli", "ping"]
     interval: 5s
@@ -38,5 +35,4 @@ services:
 networks:
   localstack:
     external: true
-    name: docker_ls    
-    
+    name: docker_ls
