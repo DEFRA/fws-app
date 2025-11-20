@@ -5,24 +5,25 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 ENV_FILE="$SCRIPT_DIR/../.env"
+readonly SEPARATOR="======================================"
 
-echo "======================================"
+echo "$SEPARATOR"
 echo "FWS App Local Startup Script"
-echo "======================================"
+echo "$SEPARATOR"
 echo ""
 
 # Step 0: Check for active Python virtual environment
 echo "Step 0: Checking Python virtual environment..."
 
-if [ -z "$VIRTUAL_ENV" ]; then
-    echo "Error: No Python virtual environment is active"
-    echo ""
-    echo "Please activate your Python virtual environment before running this script:"
-    echo "  source ~/environments/my_env/bin/activate"
-    echo ""
-    echo "Or if using a different virtual environment:"
-    echo "  source /path/to/your/venv/bin/activate"
-    echo ""
+if [[ -z "$VIRTUAL_ENV" ]]; then
+    echo "Error: No Python virtual environment is active" >&2
+    echo "" >&2
+    echo "Please activate your Python virtual environment before running this script:" >&2
+    echo "  source ~/environments/my_env/bin/activate" >&2
+    echo "" >&2
+    echo "Or if using a different virtual environment:" >&2
+    echo "  source /path/to/your/venv/bin/activate" >&2
+    echo "" >&2
     exit 1
 fi
 
@@ -32,8 +33,8 @@ echo ""
 # Step 1: Check .env file for required variables
 echo "Step 1: Validating .env file..."
 
-if [ ! -f "$ENV_FILE" ]; then
-    echo "Error: .env file not found at $ENV_FILE"
+if [[ ! -f "$ENV_FILE" ]]; then
+    echo "Error: .env file not found at $ENV_FILE" >&2
     exit 1
 fi
 
@@ -54,20 +55,20 @@ MISSING_VARS=()
 
 for var in "${REQUIRED_VARS[@]}"; do
     # Extract value from .env file (handle both 'VAR=value' and 'export VAR=value')
-    value=$(grep "^${var}=" "$ENV_FILE" | cut -d'=' -f2- | tr -d ' ')
+    value=$(grep "^${var}=" "$ENV_FILE" | cut -d'=' -f2- | tr -d ' ' || true)
     
-    if [ -z "$value" ]; then
+    if [[ -z "$value" ]]; then
         MISSING_VARS+=("$var")
     fi
 done
 
-if [ ${#MISSING_VARS[@]} -gt 0 ]; then
-    echo "Error: The following required environment variables are missing or empty in .env:"
+if [[ ${#MISSING_VARS[@]} -gt 0 ]]; then
+    echo "Error: The following required environment variables are missing or empty in .env:" >&2
     for var in "${MISSING_VARS[@]}"; do
-        echo "  - $var"
+        echo "  - $var" >&2
     done
-    echo ""
-    echo "Please populate these values in $ENV_FILE before running this script."
+    echo "" >&2
+    echo "Please populate these values in $ENV_FILE before running this script." >&2
     exit 1
 fi
 
@@ -78,9 +79,9 @@ echo ""
 echo "Step 2: Bootstrapping LocalStack API..."
 FWS_API_DIR="$PROJECT_ROOT/../fws-api"
 
-if [ ! -d "$FWS_API_DIR" ]; then
-    echo "Error: fws-api directory not found at $FWS_API_DIR"
-    echo "Please ensure fws-api is in the same parent directory as fws-app"
+if [[ ! -d "$FWS_API_DIR" ]]; then
+    echo "Error: fws-api directory not found at $FWS_API_DIR" >&2
+    echo "Please ensure fws-api is in the same parent directory as fws-app" >&2
     exit 1
 fi
 
@@ -108,9 +109,9 @@ echo "✓ Services started successfully"
 echo ""
 
 # Step 5: Display success message
-echo "======================================"
+echo "$SEPARATOR"
 echo "✓ FWS App is now running!"
-echo "======================================"
+echo "$SEPARATOR"
 echo ""
 echo "Access the application at:"
 echo "  → http://localhost:3000"

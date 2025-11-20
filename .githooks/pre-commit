@@ -24,18 +24,18 @@ if git diff --cached --name-only | grep -q "^${ENV_FILE}$"; then
         staged_value=$(git diff --cached ${ENV_FILE} | grep "^+${var}=" | cut -d'=' -f2- | tr -d ' ')
         
         # Also check current file content if it's being added
-        if [ -f "${ENV_FILE}" ]; then
-            current_value=$(grep "^${var}=" ${ENV_FILE} 2>/dev/null | cut -d'=' -f2- | tr -d ' ')
+        if [[ -f "${ENV_FILE}" ]]; then
+            current_value=$(grep "^${var}=" "${ENV_FILE}" 2>/dev/null | cut -d'=' -f2- | tr -d ' ' || true)
             
             # Check if value is not empty and not a placeholder
-            if [ -n "$current_value" ] && [ "$current_value" != "YOUR_VALUE_HERE" ] && [ "$current_value" != "CHANGE_ME" ] && [ "$current_value" != "" ]; then
+            if [[ -n "$current_value" ]] && [[ "$current_value" != "YOUR_VALUE_HERE" ]] && [[ "$current_value" != "CHANGE_ME" ]]; then
                 echo "❌ ERROR: Secret variable ${var} contains a value"
                 SECRETS_FOUND=true
             fi
         fi
     done
     
-    if [ "$SECRETS_FOUND" = true ]; then
+    if [[ "$SECRETS_FOUND" = true ]]; then
         echo ""
         echo "Commit blocked! The .env file contains sensitive values."
         echo ""

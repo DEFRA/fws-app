@@ -8,8 +8,8 @@ GIT_HOOKS_DIR="$SCRIPT_DIR/.git/hooks"
 
 echo "Installing git hooks..."
 
-if [ ! -d "$GIT_HOOKS_DIR" ]; then
-    echo "Error: .git/hooks directory not found. Are you in a git repository?"
+if [[ ! -d "$GIT_HOOKS_DIR" ]]; then
+    echo "Error: .git/hooks directory not found. Are you in a git repository?" >&2
     exit 1
 fi
 
@@ -20,7 +20,7 @@ echo "✓ Git hooks installed successfully!"
 echo ""
 echo "Active hooks:"
 for hook in "$HOOKS_DIR"/*; do
-    if [ -f "$hook" ] && [ -x "$hook" ]; then
+    if [[ -f "$hook" && -x "$hook" ]]; then
         echo "  - $(basename "$hook")"
     fi
 done
