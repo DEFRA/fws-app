@@ -12,27 +12,3 @@ services:
     interval: 5s
     timeout: 5s
     retries: 10
-
- fws-app:
-  container_name: fws-app
-  build:
-    context: ..
-    target: development
-  ports:
-    - "3000:3000"
-  env_file:
-    - .env
-  depends_on:
-    fws-app-redis:
-      condition: service_healthy
-  networks:
-    - default
-    - localstack
-  deploy:
-    restart_policy:
-      condition: on-failure
-
-networks:
-  localstack:
-    external: true
-    name: docker_ls

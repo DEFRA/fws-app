@@ -103,7 +103,7 @@ echo ""
 # Step 4: Start Docker Compose services
 echo "Step 4: Starting Docker Compose services..."
 cd "$PROJECT_ROOT"
-docker compose -f docker/infrastructure.yml up -d --build
+docker compose -f docker/infrastructure.yml -f docker/app.yml up -d --build
 
 echo "✓ Services started successfully"
 echo ""

@@ -93,16 +93,13 @@ docker build -f docker/Dockerfile -t fws-app:latest --target development .
 
 ```bash
 # Start all services (Redis + fws-app)
-docker compose -f docker/infrastructure.yml up -d
+docker compose -f docker/infrastructure.yml -f docker/app.yml up -d
 
 # Start with rebuild
-docker compose -f docker/infrastructure.yml up -d --build
-
-# View logs
-docker compose -f docker/infrastructure.yml logs -f
+docker compose -f docker/infrastructure.yml -f docker/app.yml up -d --build
 
 # Stop all services
-docker compose -f docker/infrastructure.yml down
+docker compose -f docker/infrastructure.yml -f docker/app.yml down
 ```
 
 ### Start individual services
@@ -112,7 +109,7 @@ docker compose -f docker/infrastructure.yml down
 docker compose -f docker/infrastructure.yml up -d fws-app-redis
 
 # Start only fws-app
-docker compose -f docker/infrastructure.yml up -d fws-app
+docker compose -f docker/app.yml up -d fws-app
 ```
 
 ## Configuration

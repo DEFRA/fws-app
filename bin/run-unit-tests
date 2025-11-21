@@ -4,7 +4,7 @@ set -e
 
 # Set environtment variables for test run
 set -a
-. test/.env
+. docker/.env.example
 set +a
 
 lab -v -c -r console -o stdout -r lcov -o coverage/lcov.info
