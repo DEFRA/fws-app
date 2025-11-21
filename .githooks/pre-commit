@@ -2,52 +2,68 @@
 
 # Pre-commit hook to prevent committing .env files with secrets
 
-ENV_FILE="docker/.env"
+ENV_FILES=(
+    "docker/.env"
+    "docker/.env.example"
+)
 
-# Check if .env file is being committed
-if git diff --cached --name-only | grep -q "^${ENV_FILE}$"; then
-    echo "⚠️  WARNING: Attempting to commit ${ENV_FILE}"
-    echo ""
-    
-    # Check for populated secrets
-    SECRETS_FOUND=false
-    SENSITIVE_VARS=(
-        "AD_CLIENT_ID"
-        "AD_CLIENT_SECRET"
-        "AD_TENANT"
-        "AD_COOKIE_PASSWORD"
-        "FWS_API_KEY"
-    )
-    
-    for var in "${SENSITIVE_VARS[@]}"; do
-        # Get the staged content
-        staged_value=$(git diff --cached ${ENV_FILE} | grep "^+${var}=" | cut -d'=' -f2- | tr -d ' ')
+SECRETS_FOUND=false
+
+for ENV_FILE in "${ENV_FILES[@]}"; do
+    # Check if .env file is being committed
+    if git diff --cached --name-only | grep -q "^${ENV_FILE}$"; then
+        echo "⚠️  WARNING: Attempting to commit ${ENV_FILE}"
+        echo ""
         
-        # Also check current file content if it's being added
-        if [[ -f "${ENV_FILE}" ]]; then
-            current_value=$(grep "^${var}=" "${ENV_FILE}" 2>/dev/null | cut -d'=' -f2- | tr -d ' ' || true)
+        # Check for populated secrets
+        SENSITIVE_VARS=(
+            "AD_CLIENT_ID"
+            "AD_CLIENT_SECRET"
+            "AD_TENANT"
+            "AD_COOKIE_PASSWORD"
+            "FWS_API_KEY"
+        )
+        
+        for var in "${SENSITIVE_VARS[@]}"; do
+            # Get the staged content
+            staged_value=$(git diff --cached "${ENV_FILE}" | grep "^+${var}=" | cut -d'=' -f2- | tr -d ' ' || true)
             
-            # Check if value is not empty and not a placeholder
-            if [[ -n "$current_value" ]] && [[ "$current_value" != "YOUR_VALUE_HERE" ]] && [[ "$current_value" != "CHANGE_ME" ]]; then
-                echo "❌ ERROR: Secret variable ${var} contains a value"
-                SECRETS_FOUND=true
+            # Also check current file content if it's being added
+            if [[ -f "${ENV_FILE}" ]]; then
+                current_value=$(grep "^${var}=" "${ENV_FILE}" 2>/dev/null | cut -d'=' -f2- | tr -d ' ' || true)
+                
+                # Check if value is not empty and not a placeholder
+                if [[ -n "$current_value" ]] && \
+                   [[ "$current_value" != "YOUR_VALUE_HERE" ]] && \
+                   [[ "$current_value" != "CHANGE_ME" ]] && \
+                   [[ "$current_value" != "DUMMY_VALUE" ]] && \
+                   [[ "$current_value" != "http://dummy.url" ]] && \
+                   [[ "$current_value" != "cookie_encryption_password_secure" ]]; then
+                    echo "❌ ERROR: Secret variable ${var} contains a value in ${ENV_FILE}"
+                    SECRETS_FOUND=true
+                fi
             fi
+        done
+        
+        if [[ "$SECRETS_FOUND" = false ]]; then
+            echo "✓ No secrets detected in ${ENV_FILE}"
         fi
-    done
-    
-    if [[ "$SECRETS_FOUND" = true ]]; then
         echo ""
-        echo "Commit blocked! The .env file contains sensitive values."
-        echo ""
-        echo "To fix this:"
-        echo "  1. Remove sensitive values from ${ENV_FILE}"
-        echo "  2. Replace them with empty values or placeholders"
-        echo "  3. Or remove ${ENV_FILE} from this commit with: git reset ${ENV_FILE}"
-        echo ""
-        exit 1
     fi
-    
-    echo "✓ No secrets detected in ${ENV_FILE}"
+done
+
+if [[ "$SECRETS_FOUND" = true ]]; then
+    echo "Commit blocked! One or more .env files contain sensitive values."
+    echo ""
+    echo "To fix this:"
+    echo "  1. Remove sensitive values from the .env files"
+    echo "  2. Replace them with empty values or allowed placeholders:"
+    echo "     - DUMMY_VALUE"
+    echo "     - http://dummy.url"
+    echo "     - cookie_encryption_password_secure"
+    echo "  3. Or remove the files from this commit with: git reset <file>"
+    echo ""
+    exit 1
 fi
 
 exit 0

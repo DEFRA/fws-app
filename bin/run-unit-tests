@@ -2,9 +2,9 @@
 
 set -e
 
-# Ensure tests requring a Redis cache use a local containerised instance.
-REDIS_HOST=localhost
-REDIS_PORT=6379
-REDIS_TLS=false
+# Set environtment variables for test run
+set -a
+. test/.env
+set +a
 
 lab -v -c -r console -o stdout -r lcov -o coverage/lcov.info

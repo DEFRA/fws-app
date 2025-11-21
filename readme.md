@@ -64,7 +64,7 @@ The easiest way to run fws-app with Docker is using the automated startup script
 source ~/environments/my_env/bin/activate
 
 # 2. Configure environment variables
-# Copy docker/.env and populate the required secrets:
+# Copy docker/.env.example to docker/.env and populate the required secrets:
 # - AD_CLIENT_ID
 # - AD_CLIENT_SECRET
 # - AD_TENANT
