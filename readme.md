@@ -41,12 +41,6 @@ Now the application is ready to run:
 
 `$ node index.js`
 
-# Use Of Containerisation
-
-A Redis container is used to provide full test coverage for Redis instance connectivity.
-At present the Redis container exists for the duration of test runs **only**.
-If Redis containers are to be used for future local development, refactoring  is required accordingly.
-
 # Docker Setup
 
 ## Prerequisites
