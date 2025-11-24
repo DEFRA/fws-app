@@ -13,7 +13,7 @@ fi
 echo "Found FWS API Gateway with ID: $API_ID"
 
 # Build the full API URL
-API_URL="http://localstack-main:4566/restapis/${API_ID}/local/_user_request_"
+API_URL="http://localstack-main:4566/_aws/execute-api/${API_ID}/local"
 
 # Update the .env file
 ENV_FILE="$(dirname "$0")/../.env"
