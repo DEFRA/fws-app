@@ -36,7 +36,8 @@ RUN npm pkg set scripts.postinstall="echo no-postinstall" \
 
 USER node
 EXPOSE ${PORT}/tcp
-CMD [ "node", "index.js" ]
+EXPOSE 9229/tcp
+CMD [ "node", "--inspect=0.0.0.0:9229", "index.js" ]
 
 FROM base AS production 
 

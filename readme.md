@@ -75,6 +75,32 @@ The `start-local.sh` script will:
 4. Build and start all Docker services
 5. Display the application URL: http://localhost:3000
 
+To stop and teardown the local environment:
+
+```bash
+./docker/scripts/stop-local.sh
+```
+
+The `stop-local.sh` script will:
+1. Stop and remove all Docker containers
+2. Teardown the fws-api in LocalStack (`npm run teardown`)
+3. Display completion message
+
+### Debugging
+
+```json
+// The development base of the webapp exposes debug port 9229 so add this to your .vscode/launch.json file for debugging:
+{
+  "type": "node",
+  "request": "attach",
+  "name": "Attach to Docker",
+  "address": "localhost",
+  "port": 9229,
+  "localRoot": "${workspaceFolder}",
+  "remoteRoot": "/app"
+}
+```
+
 ## Manual Docker Commands
 
 ### Build the fws-app image only
@@ -119,6 +145,7 @@ Environment variables are managed in `docker/.env`. See the Environment Variable
 ## Helper Scripts
 
 - `docker/scripts/start-local.sh` - Full automated setup and startup
+- `docker/scripts/stop-local.sh` - Full automated teardown and cleanup
 - `docker/scripts/update-localstack-url.sh` - Update FWS_API_URL from LocalStack
 
 ## Network Configuration
