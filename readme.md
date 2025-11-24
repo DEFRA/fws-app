@@ -11,7 +11,6 @@ This is the FWIS management tool
 | PORT               | Port number           |    no    | 3000                  |                    |       |
 | FWS_API_URL        | API url               |    yes   |                       |                    |       |
 | FWS_API_KEY        | API key               |    yes   |                       |                    |       |
-| FWS_APP_PROXY      | Proxy                 |    no    |                       |                    |       |
 | AD_CLIENT_ID       | AD Client Id          |    yes   |                       |                    |       |
 | AD_CLIENT_SECRET   | AD Client Secret      |    yes   |                       |                    |       |
 | AD_TENANT          | AD Tenant             |    yes   |                       |                    |       |
@@ -50,6 +49,8 @@ Now the application is ready to run:
 - [fws-api](https://github.com/DEFRA/fws-api) cloned as a sibling directory to fws-app
 
 ## Quick Start
+
+**_NOTE:_** The fws-api localstack debugging must be disabled by ensuring that `LAMBDA_DOCKER_FLAGS` is not defined in https://github.com/DEFRA/fws-api/blob/development/docker/.env
 
 The easiest way to run fws-app with Docker is using the automated startup script:
 
