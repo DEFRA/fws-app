@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
   
 env:
-  REPOSITORY: flood_warning_information_system/app
+  REPOSITORY: flood_warning_information_system/application
   
 jobs:
   docker-build:
