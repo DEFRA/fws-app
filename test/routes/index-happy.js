@@ -141,7 +141,8 @@ lab.experiment(('All basic routes'), () => {
     text: [
       'Appleby, Holme and Chapel Street and Cherry Row (011FWFNC1D)</h2>',
       '<p>There are no warnings currently in force for Appleby, Holme and Chapel Street and Cherry Row</p>',
-      'Login'
+      'Login',
+      'test-name</td>'
     ]
   }, {
     url: '/target-area/011WACN6',
@@ -162,6 +163,12 @@ lab.experiment(('All basic routes'), () => {
       strategy: 'azure-legacy',
       credentials: postLoginCredentials
     }
+  }, {
+    url: '/target-area/012WACLS',
+    code: 200,
+    text: [
+      'test-name</td>'
+    ]
   }, {
     url: '/target-area/sdfdsf',
     code: 404,
