@@ -1,16 +1,18 @@
-# FWIS App Release - Date TBD
+# FWIS App Release - Tuesday 20th January 2026
 
 ## Information
 
 This release will update to Node v22
 
 ## Branches
-The branch for this release is release/4.1.0
+The branch for this release is release/4.1.0 ([fws-api](https://github.com/DEFRA/fws-api/) and [fws-app](https://github.com/DEFRA/fws-app/) respositories)
+
+
  
 ## Tickets
 
-Tickets linked to the release in Jira: [https://eaflood.atlassian.net/projects/NI/versions/28467/tab/release-report-all-issues
-](https://eaflood.atlassian.net/projects/NI/versions/28467/tab/release-report-all-issues)
+Tickets linked to the release in Jira: [https://eaflood.atlassian.net/projects/NI/versions/29550/tab/release-report-all-issues
+](https://eaflood.atlassian.net/projects/NI/versions/29550/tab/release-report-all-issues)
 
 ## Instructions
 
