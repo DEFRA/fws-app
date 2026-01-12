@@ -17,13 +17,20 @@ Tickets linked to the release in Jira: [https://eaflood.atlassian.net/projects/N
 ## Instructions
 
  - CCOE WebOps to update FWS_{stage}_03_DEPLOY_FWS_APP to use node v22 as .nvmrc default rather then node 20
+ - To strengthen defence against NPM supply chain attacks, CCOE WebOps to update FWS_{stage}_03_DEPLOY_FWS_APP to replace use of
+   ```sh
+   npm i/npm ci
+   ```
+   with
+   ```sh
+   npm ci --ignore-scripts && npm run build
+   ```
  - CCoE WebOps to run ansible playbook to update Node version on fwis servers to node v22
 
 
 Steps
 1 - `FWS_{stage}_02_DEPLOY_FWS_API`
     - Modules to deploy: `lambda`
-
 2 - Execute FWS_{stage}_03_DEPLOY_FWS_APP
 
 Confirm deployment with the flood dev and test team.
