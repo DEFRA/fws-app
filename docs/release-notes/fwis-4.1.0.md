@@ -29,8 +29,9 @@ Tickets linked to the release in Jira: [https://eaflood.atlassian.net/projects/N
 
 
 Steps
-1 - `FWS_{stage}_02_DEPLOY_FWS_API`
+1. Execute FWS_{stage}_02_DEPLOY_FWS_API`
     - Modules to deploy: `lambda`
-2 - Execute FWS_{stage}_03_DEPLOY_FWS_APP
+2. Execute FWS_{stage}_03_DEPLOY_FWS_APP
+3. Execute FWS_{stage}_05_FWIS_SMOKE_TESTS
 
 Confirm deployment with the flood dev and test team.
