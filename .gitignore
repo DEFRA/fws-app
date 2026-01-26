@@ -4,3 +4,6 @@ node_modules
 npm-debug.log
 server/public/build
 lcov.info
+docker/.env
+coverage
+docker/.env
