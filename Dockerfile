@@ -17,11 +17,11 @@ WORKDIR /home/node/app
 
 # Copy the basic directories/files across
 RUN mkdir -p dist
-COPY --chown=root:root package*.json .
-COPY --chown=root:root ./index.js .
-COPY --chown=root:root ./bin ./bin
-COPY --chown=root:root ./client ./client
-COPY --chown=root:root ./server ./server
+COPY --chown=node:node --chmod=644 package*.json .
+COPY --chown=node:node --chmod=644 ./index.js .
+COPY --chown=node:node --chmod=644 ./bin ./bin
+COPY --chown=node:node --chmod=644 ./client ./client
+COPY --chown=node:node --chmod=644 ./server ./server
 
 ARG BUILD_VERSION=v4.0.0-1-g6666666
 ARG GIT_COMMIT=0
