@@ -2,9 +2,33 @@
 
 set -e
 
-# Set environtment variables for test run
-set -a
-. docker/.env.example
-set +a
+if test -r docker/.env.example; then
+  # Set environtment variables for test run
+  set -a
+    . docker/.env.example
+  set +a
+fi
 
-lab -v -c -r console -o stdout -r lcov -o coverage/lcov.info
+if  ! `nc -z $REDIS_HOST $REDIS_PORT`; then
+  if command -v docker > /dev/null 2>&1; then
+    docker compose -f docker/infrastructure.yml up -d fws-app-redis
+    if test -w .; then
+      # The current directory is writable, so a code coverage report can be written to the filesystem after the tests run.
+      lab -v -c -r console -o stdout -r lcov -o coverage/lcov.info
+    else
+      # Run the unit tests without code coverage as a report cannot be written to the filesystem.
+      lab -v -r console
+    fi
+    docker compose -f docker/infrastructure.yml down
+  else
+    echo "Error: Redis is not running on $REDIS_HOST:$REDIS_PORT and Docker is not available to start it." >&2
+    echo "Please ensure Redis is running or Docker is installed and available." >&2
+    exit 1
+  fi
+elif test -w .; then
+  # The current directory is writable, so a code coverage report can be written to the filesystem after the tests run.
+  lab -v -c -r console -o stdout -r lcov -o coverage/lcov.info
+else
+  # Run the unit tests without code coverage as a report cannot be written to the filesystem.
+  lab -v -r console
+fi

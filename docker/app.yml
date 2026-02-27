@@ -15,6 +15,10 @@ services:
   networks:
     - default
     - localstack
+  volumes:
+    - ../:/home/node/app
+    - /home/node/app/node_modules # Avoid overwriting node_modules
+    - /home/node/app/coverage # Exclude coverage reports from the host
   deploy:
     restart_policy:
       condition: on-failure
