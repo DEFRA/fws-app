@@ -9,6 +9,15 @@ if test -r docker/.env.example; then
   set +a
 fi
 
+if ! test -w . && ! command -v docker > /dev/null 2>&1; then
+  # The script is running in a container so prepare to try connecting to a running containerised Redis instance.
+  set -a
+    REDIS_HOST=fws-app-redis
+    REDIS_PORT=6379
+    REDIS_TLS=false
+  set +a
+fi
+
 if  ! `nc -z $REDIS_HOST $REDIS_PORT`; then
   if command -v docker > /dev/null 2>&1; then
     docker compose -f docker/infrastructure.yml up -d fws-app-redis
