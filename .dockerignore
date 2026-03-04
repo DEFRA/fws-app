@@ -1,0 +1,26 @@
+# Version control
+.git
+.github
+
+# Dependencies
+node_modules
+
+# Docker files
+docker
+Dockerfile
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Testing
+coverage
+
+# IDE
+.vscode
+.DS_Store
+
+# Documentation
+docs
+readme.md
