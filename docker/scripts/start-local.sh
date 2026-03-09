@@ -7,6 +7,58 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 ENV_FILE="$SCRIPT_DIR/../.env"
 readonly SEPARATOR="======================================"
 
+is_port_in_use() {
+    local port="$1"
+    ss -ltn 2>/dev/null | awk 'NR>1 {print $4}' | grep -Eq ":${port}$"
+}
+
+is_fwsdb_mapped_to_port() {
+    local port="$1"
+    docker ps --format '{{.Names}}\t{{.Ports}}' 2>/dev/null | grep -Eq "fwsdb.*:${port}->5432/tcp"
+}
+
+resolve_fws_db_host_port() {
+    if [[ -n "${FWS_DB_HOST_PORT:-}" ]]; then
+        echo "Using explicit FWS_DB_HOST_PORT=${FWS_DB_HOST_PORT}"
+        return
+    fi
+
+    if is_port_in_use 5432; then
+        if is_fwsdb_mapped_to_port 5432; then
+            export FWS_DB_HOST_PORT=5432
+            echo "Detected running fwsdb already mapped to 5432; continuing with FWS_DB_HOST_PORT=5432"
+        else
+            export FWS_DB_HOST_PORT=5433
+            echo "Warning: Host port 5432 is already in use. Falling back to FWS_DB_HOST_PORT=5433"
+        fi
+    else
+        export FWS_DB_HOST_PORT=5432
+    fi
+}
+
+ensure_localstack_local_stage() {
+    local api_id
+    local stage_name
+
+    api_id=$(docker exec localstack-main awslocal apigateway get-rest-apis --query "items[?name=='FWS API Gateway']|[-1].id" --output text 2>/dev/null | tr -d '\r')
+
+    if [[ -z "$api_id" || "$api_id" == "None" ]]; then
+        echo "Error: Could not find FWS API Gateway in LocalStack" >&2
+        exit 1
+    fi
+
+    stage_name=$(docker exec localstack-main awslocal apigateway get-stages --rest-api-id "$api_id" --query "item[?stageName=='local'].stageName" --output text 2>/dev/null | tr -d '\r')
+
+    if [[ "$stage_name" == "local" ]]; then
+        echo "✓ LocalStack API stage 'local' is present (API ID: $api_id)"
+        return
+    fi
+
+    echo "LocalStack API stage 'local' is missing for API ID: $api_id; creating deployment..."
+    docker exec localstack-main awslocal apigateway create-deployment --rest-api-id "$api_id" --stage-name local >/dev/null
+    echo "✓ LocalStack API stage 'local' created (API ID: $api_id)"
+}
+
 echo "$SEPARATOR"
 echo "FWS App Local Startup Script"
 echo "$SEPARATOR"
@@ -75,6 +127,15 @@ fi
 echo "✓ All required environment variables are set"
 echo ""
 
+# Step 1.5: Resolve DB host port and disable AWS pager
+echo "Step 1.5: Resolving DB host port..."
+resolve_fws_db_host_port
+export FWS_DB_HOST_PORT
+export AWS_PAGER=""
+
+echo "✓ Using FWS_DB_HOST_PORT=$FWS_DB_HOST_PORT"
+echo ""
+
 # Step 2: Bootstrap LocalStack API
 echo "Step 2: Bootstrapping LocalStack API..."
 FWS_API_DIR="$PROJECT_ROOT/../fws-api"
@@ -92,23 +153,29 @@ npm run bootstrap-debug
 echo "✓ LocalStack API bootstrapped successfully"
 echo ""
 
-# Step 3: Update LocalStack URL in .env
-echo "Step 3: Updating FWS_API_URL in .env..."
+# Step 3: Ensure LocalStack API stage exists
+echo "Step 3: Verifying LocalStack API stage..."
+ensure_localstack_local_stage
+
+echo ""
+
+# Step 4: Update LocalStack URL in .env
+echo "Step 4: Updating FWS_API_URL in .env..."
 cd "$SCRIPT_DIR"
 ./update-localstack-url.sh
 
 echo "✓ FWS_API_URL updated"
 echo ""
 
-# Step 4: Start Docker Compose services
-echo "Step 4: Starting Docker Compose services..."
+# Step 5: Start Docker Compose services
+echo "Step 5: Starting Docker Compose services..."
 cd "$PROJECT_ROOT"
 docker compose -f docker/infrastructure.yml -f docker/app.yml up -d --build
 
 echo "✓ Services started successfully"
 echo ""
 
-# Step 5: Display success message
+# Step 6: Display success message
 echo "$SEPARATOR"
 echo "✓ FWS App is now running!"
 echo "$SEPARATOR"

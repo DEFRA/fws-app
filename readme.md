@@ -147,10 +147,9 @@ If you prefer running tests inside the app container:
 
 ```bash
 # 1. Start the local environment
-# Use FWS_DB_HOST_PORT=5433 if port 5432 is already in use on your host
 ./docker/scripts/start-local.sh
 
-# 2. List running containers and identify the app container name
+# 2. Open new Terminal and list running containers and identify the app container name
 docker ps -a
 
 # 3. Open a shell in the app container
@@ -184,7 +183,7 @@ docker compose -f docker/infrastructure.yml -f docker/app.yml down --remove-orph
 
 # 2) Stop fws-api services
 cd ~/Projects/fws-api
-FWS_DB_HOST_PORT=5433 docker compose -f docker/infrastructure.yml -f docker/networks.yml -f docker/dev-tools.yml down --remove-orphans || true
+docker compose -f docker/infrastructure.yml -f docker/networks.yml -f docker/dev-tools.yml down --remove-orphans || true
 
 # 3) Remove local development volumes used by fws-api
 docker volume rm -f fwspgdata fwspgbootstrap fwsliquibase fwspgadmin fwstables fwsindexes
@@ -192,7 +191,7 @@ docker volume rm -f fwspgdata fwspgbootstrap fwsliquibase fwspgadmin fwstables f
 # 4) Start again from fws-app
 cd ~/Projects/fws-app
 source ~/environments/my_env/bin/activate
-FWS_DB_HOST_PORT=5433 ./docker/scripts/start-local.sh
+./docker/scripts/start-local.sh
 ```
 
 Note: this removes local development data only; it does not affect deployed environments.
