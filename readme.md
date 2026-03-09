@@ -58,7 +58,7 @@ The easiest way to run fws-app with Docker is using the automated startup script
 ```bash
 # 1. Create a Python virtual environment (first time only)
 mkdir -p ~/environments
-python3 -m venv ~/environments/my_env
+python3 -m venv ~/environments/{my_env}
 
 # 2. Activate your Python virtual environment
 source ~/environments/my_env/bin/activate
