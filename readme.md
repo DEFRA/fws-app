@@ -56,17 +56,24 @@ Now the application is ready to run:
 The easiest way to run fws-app with Docker is using the automated startup script:
 
 ```bash
-# 1. Activate your Python virtual environment
+# 1. Create a Python virtual environment (first time only)
+mkdir -p ~/environments
+python3 -m venv ~/environments/my_env
+
+# 2. Activate your Python virtual environment
 source ~/environments/my_env/bin/activate
 
-# 2. Configure environment variables
+# 3. Install required Python packages (first time only)
+pip install awscli-local
+
+# 4. Configure environment variables
 # Copy docker/.env.example to docker/.env and populate the required secrets:
 # - AD_CLIENT_ID
 # - AD_CLIENT_SECRET
 # - AD_TENANT
 # - AD_COOKIE_PASSWORD
 
-# 3. Run the startup script
+# 5. Run the startup script
 ./docker/scripts/start-local.sh
 ```
 
@@ -133,6 +140,62 @@ docker compose -f docker/infrastructure.yml up -d fws-app-redis
 # Start only fws-app
 docker compose -f docker/app.yml up -d fws-app
 ```
+
+### Run unit tests in the running container
+
+If you prefer running tests inside the app container:
+
+```bash
+# 1. Start the local environment
+# Use FWS_DB_HOST_PORT=5433 if port 5432 is already in use on your host
+./docker/scripts/start-local.sh
+
+# 2. List running containers and identify the app container name
+docker ps -a
+
+# 3. Open a shell in the app container
+docker exec -it fws-app /bin/sh
+
+# 4. (Optional) confirm the current user
+whoami
+
+# 5. Run unit tests
+npm run test
+```
+
+You can also run tests in one command without opening an interactive shell:
+
+```bash
+docker exec -it fws-app sh -lc "npm run etest"
+```
+
+### Troubleshooting: reset local Docker volumes
+
+If the app starts but shows errors in the browser (for example HTTP 500/502 after switching branches), your local `fws-api` database volumes may be out of sync with the current schema.
+
+Common symptoms include errors mentioning missing columns/relations (for example `latest`, `target_area`) or `pg_tblspc` file path issues.
+
+Run the following to reset local development volumes and rebuild cleanly:
+
+```bash
+# 1) Stop fws-app services
+cd ~/Projects/fws-app
+docker compose -f docker/infrastructure.yml -f docker/app.yml down --remove-orphans || true
+
+# 2) Stop fws-api services
+cd ~/Projects/fws-api
+FWS_DB_HOST_PORT=5433 docker compose -f docker/infrastructure.yml -f docker/networks.yml -f docker/dev-tools.yml down --remove-orphans || true
+
+# 3) Remove local development volumes used by fws-api
+docker volume rm -f fwspgdata fwspgbootstrap fwsliquibase fwspgadmin fwstables fwsindexes
+
+# 4) Start again from fws-app
+cd ~/Projects/fws-app
+source ~/environments/my_env/bin/activate
+FWS_DB_HOST_PORT=5433 ./docker/scripts/start-local.sh
+```
+
+Note: this removes local development data only; it does not affect deployed environments.
 
 ## Configuration
 
