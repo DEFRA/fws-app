@@ -5,7 +5,6 @@ on:
     branches:
       - master
       - development
-      - feature/NI-165-update-dependencies
     tags:
       - "v*.*.*"
   workflow_dispatch:
