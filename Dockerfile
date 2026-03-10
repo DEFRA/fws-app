@@ -1,4 +1,4 @@
-ARG PARENT_VERSION=2.10.0-node22.21.1
+ARG PARENT_VERSION=2.10.3-node22.21.1
 
 FROM defradigital/node:${PARENT_VERSION} AS base
 ARG PORT=3000
@@ -9,14 +9,14 @@ USER root
 # set -xe : -e abort on error : -x verbose output
 RUN set -xe \
   && apk update && apk upgrade \
-  && rm -rf /var/cache/apk/* \
-  && mkdir -p /home/node/app
+  && rm -rf /var/cache/apk/*
 
 # Create app directory
 WORKDIR /home/node/app
 
 # Copy the basic directories/files across
-RUN mkdir -p dist
+# When developing/debugging within a container locally, --chown=root:root should be replaced with --chown=node:node to provide
+# required write permissions. SonarQube cloud will raise a security issue if analysing these changes.
 COPY --chown=root:root package*.json .
 COPY --chown=root:root ./index.js .
 COPY --chown=root:root ./bin ./bin
@@ -29,9 +29,13 @@ RUN echo -e "module.exports = { version: '$BUILD_VERSION', revision: '$GIT_COMMI
 
 FROM base AS development
 
+# When developing/debugging within a container locally, --chown=root:root should be replaced with --chown=node:node to provide
+# required write permissions. SonarQube cloud will raise a security issue if analysing these changes.
+COPY --chown=root:root ./test ./test
+
 # Temporarily disable the postinstall NPM script
 RUN npm pkg set scripts.postinstall="echo no-postinstall" \
-&& npm ci --ignore-scripts --omit dev \
+&& npm ci --ignore-scripts --include dev \
 && npm run build
 
 USER node
@@ -44,7 +48,7 @@ FROM base AS production
 # Temporarily disable the postinstall NPM script
 RUN npm pkg set scripts.postinstall="echo no-postinstall" \
 && npm ci --ignore-scripts --omit dev \
-&& npm run build
+&& npm run build && chmod -R a-w /home/node
 
 USER node
 EXPOSE ${PORT}/tcp
