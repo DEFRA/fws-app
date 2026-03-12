@@ -55,15 +55,17 @@ Now the application is ready to run:
 
 The easiest way to run fws-app with Docker is using the automated startup script:
 
+### One-time setup (first time only)
+
 ```bash
-# 1. Create a Python virtual environment (first time only)
+# 1. Create a Python virtual environment
 mkdir -p ~/environments
 python3 -m venv ~/environments/{my_env}
 
 # 2. Activate your Python virtual environment
-source ~/environments/my_env/bin/activate
+source ~/environments/{my_env}/bin/activate
 
-# 3. Install required Python packages (first time only)
+# 3. Install required Python packages
 pip install awscli-local
 
 # 4. Configure environment variables
@@ -72,8 +74,15 @@ pip install awscli-local
 # - AD_CLIENT_SECRET
 # - AD_TENANT
 # - AD_COOKIE_PASSWORD
+```
 
-# 5. Run the startup script
+### Start local environment (after one-time setup)
+
+```bash
+# 1. Activate your Python virtual environment
+source ~/environments/my_env/bin/activate
+
+# 2. Run the startup script
 ./docker/scripts/start-local.sh
 ```
 
