@@ -2,7 +2,7 @@
 
 ## Information
 
-This release will update FWIS App to ECS
+This release will migrate FWIS App to ECS
 
 ## Tag
 The tag for this release is v5.0.0 ([fws-app](https://github.com/DEFRA/fws-app/) respositories)
