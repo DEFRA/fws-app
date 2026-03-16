@@ -4,8 +4,8 @@
 
 This release will update FWIS App to ECS
 
-## Branches
-The branch for this release is release/5.0.0 ([fws-app](https://github.com/DEFRA/fws-app/) respositories)
+## Tag
+The tag for this release is v5.0.0 ([fws-app](https://github.com/DEFRA/fws-app/) respositories)
 
 
  
@@ -16,15 +16,8 @@ Tickets linked to the release in Jira: [https://eaflood.atlassian.net/projects/N
 
 ## Instructions
 
- - CCOE WebOps to update FWS_{stage}_03_DEPLOY_FWS_APP to use tag
+ - CCOE WebOps to update FWS_PRD_03_DEPLOY_APPLICATION_1 to use tag v5.0.0
   
- -
-
-
-Steps
-1. Execute FWS_{stage}_02_DEPLOY_FWS_API`
-    - Modules to deploy: `lambda`
-2. Execute FWS_{stage}_03_DEPLOY_FWS_APP
-3. Execute FWS_{stage}_05_FWIS_SMOKE_TESTS
+ - Execute FWS_PRD_05_FWIS_SMOKE_TESTS
 
 Confirm deployment with the flood dev and test team.
