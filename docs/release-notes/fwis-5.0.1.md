@@ -5,7 +5,7 @@
 This release will migrate FWIS App to ECS
 
 ## Tag
-The tag for this release is v5.0.0 ([fws-app](https://github.com/DEFRA/fws-app/) respositories)
+The tag for this release is v5.0.1 ([fws-app](https://github.com/DEFRA/fws-app/) respositories)
 
 
  
@@ -16,7 +16,7 @@ Tickets linked to the release in Jira: [https://eaflood.atlassian.net/projects/N
 
 ## Instructions
 
- - CCOE WebOps to update FWS_PRD_03_DEPLOY_APPLICATION_1 to use tag v5.0.0
+ - CCOE WebOps to update FWS_PRD_03_DEPLOY_APPLICATION_1 to use tag v5.0.1
   
  - Execute FWS_PRD_05_FWIS_SMOKE_TESTS
 
