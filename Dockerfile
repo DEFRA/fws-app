@@ -1,4 +1,4 @@
-ARG PARENT_VERSION=2.10.3-node22.21.1
+ARG PARENT_VERSION=3.0.3-node22.22.1
 
 FROM defradigital/node:${PARENT_VERSION} AS base
 ARG PORT=3000
@@ -17,7 +17,7 @@ WORKDIR /home/node/app
 # Copy the basic directories/files across
 # When developing/debugging within a container locally, --chown=root:root should be replaced with --chown=node:node to provide
 # required write permissions. SonarQube cloud will raise a security issue if analysing these changes.
-COPY --chown=root:root package*.json .
+COPY --chown=root:root package*.json ./
 COPY --chown=root:root ./index.js .
 COPY --chown=root:root ./bin ./bin
 COPY --chown=root:root ./client ./client
