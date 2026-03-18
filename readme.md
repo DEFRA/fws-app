@@ -11,7 +11,6 @@ This is the FWIS management tool
 | PORT               | Port number           |    no    | 3000                  |                    |       |
 | FWS_API_URL        | API url               |    yes   |                       |                    |       |
 | FWS_API_KEY        | API key               |    yes   |                       |                    |       |
-| FWS_APP_PROXY      | Proxy                 |    no    |                       |                    |       |
 | AD_CLIENT_ID       | AD Client Id          |    yes   |                       |                    |       |
 | AD_CLIENT_SECRET   | AD Client Secret      |    yes   |                       |                    |       |
 | AD_TENANT          | AD Tenant             |    yes   |                       |                    |       |
