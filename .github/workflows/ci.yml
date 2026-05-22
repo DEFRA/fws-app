@@ -48,4 +48,9 @@ jobs:
                   -Dsonar.issue.ignore.multicriteria=e1
                   -Dsonar.issue.ignore.multicriteria.e1.ruleKey=shell:S5332
                   -Dsonar.issue.ignore.multicriteria.e1.resourceKey=**/docker/scripts/update-localstack-url.sh
-
+            - name: Dependency Review
+              if: github.event_name == 'pull_request'
+              uses: actions/dependency-review-action@v4
+              with:
+                fail-on-severity: moderate
+                comment-summary-in-pr: always
