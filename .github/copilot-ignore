@@ -1,0 +1,12 @@
+# Minimal repo-level exclusions for Copilot indexing.
+# Keep application source indexed; exclude only low-value or data-bearing content.
+
+# Dependencies
+node_modules/**
+
+# Build and coverage artifacts
+coverage/**
+server/public/build/**
+
+# Historical release notes are not part of runtime behavior.
+docs/release-notes/**
