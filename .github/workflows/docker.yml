@@ -26,7 +26,7 @@ jobs:
       # Configure our AWS credentials and region environment variables for use in other GitHub Actions
       # https://github.com/aws-actions/configure-aws-credentials
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@56d6a583f00f6bad6d19d91d53a7bc3b8143d0e9 # 5.1.1
+        uses: aws-actions/configure-aws-credentials@254c19bd240aabef8777f48595e9d2d7b972184b # 6.2.1
         with:
           aws-region: ${{ secrets.AWS_ENV_REGION }}
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ENV_ACCOUNT }}:role/${{ secrets.AWS_ENV_ROLE }}
@@ -35,7 +35,7 @@ jobs:
       # https://github.com/aws-actions/amazon-ecr-login
       - name: Login to Amazon ECR
         id: login-ecr
-        uses: aws-actions/amazon-ecr-login@062b18b96a7aff071d4dc91bc00c4c1a7945b076 # 2.0.1
+        uses: aws-actions/amazon-ecr-login@d539f0932e70871a027e9d5a9d8fc38589180a64 # 2.1.6
 
       - name: Generate raw tag
         id: raw-tag
