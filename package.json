@@ -32,7 +32,7 @@
     "@hapi/vision": "7.0.3",
     "@hapi/wreck": "18.1.2",
     "blipp": "4.0.2",
-    "govuk-frontend": "6.1.0",
+    "govuk-frontend": "6.3.0",
     "hapi-pino": "13.0.0",
     "https-proxy-agent": "7.0.6",
     "joi": "18.2.3",
