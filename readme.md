@@ -27,7 +27,7 @@ This is the FWIS management tool
 
 # Prerequisites
 
-Node v24
+Node v24.x
 
 # Running the application
 
