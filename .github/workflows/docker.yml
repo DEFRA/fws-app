@@ -42,7 +42,7 @@ jobs:
 
       - name: Generate raw tag
         id: raw-tag
-        run:
+        run: |
           echo "raw_tag=$(git describe --always --tags)" >> $GITHUB_OUTPUT
 
       # If on a release or hotfix branch, generate a release candidate number based on the number of commits since the last development branch commit.
