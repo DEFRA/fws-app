@@ -332,4 +332,35 @@ lab.experiment(('All basic routes'), () => {
       }
     })
   })
+
+  lab.test('Unauthenticated request sets redirectToken HttpOnly cookie', async () => {
+    const response = await server.inject({ method: 'GET', url: '/target-area/011FWFNC1D' })
+    const setCookie = response.headers['set-cookie']
+    Code.expect(setCookie).to.exist()
+    const tokenCookie = setCookie.find(c => c.startsWith('redirectToken='))
+    Code.expect(tokenCookie).to.exist()
+    Code.expect(tokenCookie).to.include('HttpOnly')
+    Code.expect(tokenCookie).to.include('SameSite=Lax')
+  })
+
+  lab.test('Authenticated request does not set redirectToken cookie', async () => {
+    const response = await server.inject({
+      method: 'GET',
+      url: '/target-area/011WACN6',
+      auth: { strategy: 'session', credentials: postLoginCredentials }
+    })
+    const setCookie = response.headers['set-cookie'] || []
+    const tokenCookie = setCookie.find(c => c.startsWith('redirectToken='))
+    Code.expect(tokenCookie).to.not.exist()
+  })
+
+  lab.test('Login without redirectToken cookie redirects to /', async () => {
+    const response = await server.inject({
+      method: 'GET',
+      url: '/login',
+      auth: { strategy: 'azure-legacy', credentials: preLoginCredentials }
+    })
+    Code.expect(response.statusCode).to.equal(302)
+    Code.expect(response.headers.location).to.equal('/')
+  })
 })
