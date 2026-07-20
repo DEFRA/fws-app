@@ -15,6 +15,7 @@ const schema = Joi.object({
   forceHttps: Joi.boolean().default(false),
   homePage: Joi.string().default('http://localhost:3000'),
   localCache: Joi.boolean().default(true),
+  redirectTokenTtl: Joi.number().integer().min(1).max(15).default(10),
   redisHost: Joi.string().allow(''),
   redisPort: Joi.number().allow(''),
   redisTls: Joi.boolean().default(false),
@@ -37,6 +38,7 @@ const config = {
   forceHttps: process.env.FORCE_HTTPS,
   homePage: process.env.HOME_PAGE,
   localCache: process.env.LOCAL_CACHE,
+  redirectTokenTtl: process.env.REDIRECT_TOKEN_TTL_MINUTES,
   redisHost: process.env.REDIS_HOST,
   redisPort: process.env.REDIS_PORT,
   redisTls: process.env.REDIS_TLS,
@@ -60,5 +62,6 @@ const value = result.value
 // Add some helper props
 value.isDev = value.env === 'dev'
 value.isProd = value.env === 'prd'
+value.redirectTokenTtlMs = value.redirectTokenTtl * 60 * 1000
 
 module.exports = value

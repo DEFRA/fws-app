@@ -1,3 +1,4 @@
+const crypto = require('node:crypto')
 const hapi = require('@hapi/hapi')
 const CatboxRedis = require('@hapi/catbox-redis')
 const moment = require('moment-timezone')
@@ -75,7 +76,7 @@ async function createServer () {
   await server.register(require('./plugins/logging'))
   await server.register(require('blipp'))
 
-  server.ext('onPreResponse', (request, h) => {
+  server.ext('onPreResponse', async (request, h) => {
     const response = request.response
     if (response.variety === 'view') {
       const ctx = response.source.context || {}
@@ -88,18 +89,46 @@ async function createServer () {
       // Set some common context
       // variables under the `meta` namespace
       meta.url = request.url.href
-      meta.redirectTo = encodeURIComponent(request.path + (request.url.search ? request.url.search : ''))
       meta.timestamp = new Date()
       meta.dateString = moment.tz('Europe/London').format(dateFormat)
       meta.longDateString = moment.tz('Europe/London').format(longDateFormat)
       meta.version = version
       meta.stage = config.env
 
+      // For unauthenticated requests, use Redis to store the destination to redirect to
+      // after logging in. Store the destination using an opaque UUID based token and
+      // deliver the token via a short lived HttpOnly cookie.
+      // As the destination does not appear in URLs or page source the attack surface from
+      // destination manipulation is reduced. The token is short lived and single use, further
+      // reducing the attack surface. SameSite=Lax is required (not/ Strict) so the cookie is
+      //  sent on the cross-site Azure AD callback redirect.
+      if (!request.auth.isAuthenticated) {
+        const token = crypto.randomUUID()
+        const redirectPath = request.path + (request.url.search || '')
+        await server.app.redirectCache.set(token, redirectPath, config.redirectTokenTtlMs)
+        h.state('redirectToken', token, {
+          path: '/',
+          isSecure: config.isSecure,
+          isHttpOnly: true,
+          isSameSite: 'Lax',
+          ttl: config.redirectTokenTtlMs
+        })
+      }
+
       ctx.meta = meta
       response.source.context = ctx
     }
     return h.continue
   })
+
+  // Catbox cache policy for redirect tokens. Uses the shared Redis cache in
+  // deployed environments and falls back to Hapi's in-memory cache locally.
+  const redirectCache = server.cache({
+    cache: config.localCache ? undefined : 'redis_cache',
+    segment: 'redirect-tokens',
+    expiresIn: config.redirectTokenTtlMs
+  })
+  server.app.redirectCache = redirectCache
 
   registerServerMethods(server)
 
