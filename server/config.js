@@ -1,5 +1,9 @@
 const Joi = require('joi')
 
+const MINIUM_REDIRECT_TOKEN_TTL = 1
+const MAXIMUM_REDIRECT_TOKEN_TTL = 15
+const DEFAULT_REDIRECT_TOKEN_TTL = 10
+
 // Define config schema
 const schema = Joi.object({
   port: Joi.number().default(3000),
@@ -15,7 +19,7 @@ const schema = Joi.object({
   forceHttps: Joi.boolean().default(false),
   homePage: Joi.string().default('http://localhost:3000'),
   localCache: Joi.boolean().default(true),
-  redirectTokenTtl: Joi.number().integer().min(1).max(15).default(10),
+  redirectTokenTtl: Joi.number().integer().min(MINIUM_REDIRECT_TOKEN_TTL).max(MAXIMUM_REDIRECT_TOKEN_TTL).default(DEFAULT_REDIRECT_TOKEN_TTL),
   redisHost: Joi.string().allow(''),
   redisPort: Joi.number().allow(''),
   redisTls: Joi.boolean().default(false),

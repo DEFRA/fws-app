@@ -22,6 +22,26 @@ if (!config.localCache) {
   }]
 }
 
+// For unauthenticated requests, use Redis to store the destination to redirect to
+// after logging in. Store the destination using an opaque UUID based token and
+// deliver the token via a short lived HttpOnly cookie.
+// As the destination does not appear in URLs or page source the attack surface from
+// destination manipulation is reduced. The token is short lived and single use, further
+// reducing the attack surface. SameSite=Lax is required (not Strict) so the cookie is
+// sent on the cross-site Azure AD callback redirect.
+async function setRedirectTokenCookie (request, h, redirectCache) {
+  const token = crypto.randomUUID()
+  const redirectPath = request.path + (request.url.search || '')
+  await redirectCache.set(token, redirectPath, config.redirectTokenTtlMs)
+  h.state('redirectToken', token, {
+    path: '/',
+    isSecure: config.isSecure,
+    isHttpOnly: true,
+    isSameSite: 'Lax',
+    ttl: config.redirectTokenTtlMs
+  })
+}
+
 async function createServer () {
   // Create the hapi server
   const server = hapi.server({
@@ -95,24 +115,8 @@ async function createServer () {
       meta.version = version
       meta.stage = config.env
 
-      // For unauthenticated requests, use Redis to store the destination to redirect to
-      // after logging in. Store the destination using an opaque UUID based token and
-      // deliver the token via a short lived HttpOnly cookie.
-      // As the destination does not appear in URLs or page source the attack surface from
-      // destination manipulation is reduced. The token is short lived and single use, further
-      // reducing the attack surface. SameSite=Lax is required (not/ Strict) so the cookie is
-      //  sent on the cross-site Azure AD callback redirect.
       if (!request.auth.isAuthenticated) {
-        const token = crypto.randomUUID()
-        const redirectPath = request.path + (request.url.search || '')
-        await server.app.redirectCache.set(token, redirectPath, config.redirectTokenTtlMs)
-        h.state('redirectToken', token, {
-          path: '/',
-          isSecure: config.isSecure,
-          isHttpOnly: true,
-          isSameSite: 'Lax',
-          ttl: config.redirectTokenTtlMs
-        })
+        await setRedirectTokenCookie(request, h, server.app.redirectCache)
       }
 
       ctx.meta = meta
