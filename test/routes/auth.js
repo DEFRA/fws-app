@@ -128,5 +128,16 @@ lab.experiment('Auth route handler', () => {
       Code.expect(result.url).to.equal('/')
       Code.expect(dropCalls).to.equal(['test-token-uuid'])
     })
+
+    lab.test('falls back to / and does not drop token when cache returns nothing', async () => {
+      const handler = authRoutes[0].options.handler
+      const { request, dropCalls } = makeAuthenticatedRequest(
+        { redirectToken: 'test-token-uuid' },
+        null
+      )
+      const result = await handler(request, mockH)
+      Code.expect(result.url).to.equal('/')
+      Code.expect(dropCalls).to.be.empty()
+    })
   })
 })
