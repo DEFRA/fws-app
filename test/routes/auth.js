@@ -74,4 +74,59 @@ lab.experiment('Auth route handler', () => {
     Code.expect(result.output.statusCode).to.equal(401)
     Code.expect(boomMessages[0]).to.include('null')
   })
+
+  lab.experiment('Login handler redirect token', () => {
+    const makeAuthenticatedRequest = (state, cacheGetResult) => {
+      const dropCalls = []
+      return {
+        request: {
+          auth: {
+            isAuthenticated: true,
+            error: null,
+            credentials: {
+              profile: {
+                id: 'user-1',
+                email: 'user@example.com',
+                displayName: 'Test User',
+                raw: {}
+              }
+            }
+          },
+          server: {
+            app: {
+              redirectCache: {
+                get: async () => cacheGetResult,
+                drop: async (key) => { dropCalls.push(key) }
+              }
+            }
+          },
+          state,
+          cookieAuth: { set: () => {} }
+        },
+        dropCalls
+      }
+    }
+
+    lab.test('redirects to stored path and drops token when valid redirect token is present', async () => {
+      const handler = authRoutes[0].options.handler
+      const { request, dropCalls } = makeAuthenticatedRequest(
+        { redirectToken: 'test-token-uuid' },
+        '/target-area'
+      )
+      const result = await handler(request, mockH)
+      Code.expect(result.url).to.equal('/target-area')
+      Code.expect(dropCalls).to.equal(['test-token-uuid'])
+    })
+
+    lab.test('falls back to / when stored path does not start with /', async () => {
+      const handler = authRoutes[0].options.handler
+      const { request, dropCalls } = makeAuthenticatedRequest(
+        { redirectToken: 'test-token-uuid' },
+        'https://example.com'
+      )
+      const result = await handler(request, mockH)
+      Code.expect(result.url).to.equal('/')
+      Code.expect(dropCalls).to.equal(['test-token-uuid'])
+    })
+  })
 })
