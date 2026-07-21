@@ -139,5 +139,41 @@ lab.experiment('Auth route handler', () => {
       Code.expect(result.url).to.equal('/')
       Code.expect(dropCalls).to.be.empty()
     })
+
+    lab.test('falls back to / and logs a warning when cache throws', async () => {
+      const handler = authRoutes[0].options.handler
+      const logCalls = []
+      const request = {
+        auth: {
+          isAuthenticated: true,
+          error: null,
+          credentials: {
+            profile: {
+              id: 'user-1',
+              email: 'user@example.com',
+              displayName: 'Test User',
+              raw: {}
+            }
+          }
+        },
+        server: {
+          app: {
+            redirectCache: {
+              get: async () => { throw new Error('Redis unavailable') },
+              drop: async () => {}
+            }
+          }
+        },
+        state: { redirectToken: 'test-token-uuid' },
+        cookieAuth: { set: () => {} },
+        log: (level, data) => { logCalls.push({ level, data }) }
+      }
+      const result = await handler(request, mockH)
+      Code.expect(result.url).to.equal('/')
+      Code.expect(logCalls).to.have.length(1)
+      Code.expect(logCalls[0].level).to.equal('warn')
+      Code.expect(logCalls[0].data.message).to.equal('Failed to resolve redirect token')
+      Code.expect(logCalls[0].data.err).to.equal('Redis unavailable')
+    })
   })
 })
