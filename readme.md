@@ -27,7 +27,7 @@ This is the FWIS management tool
 
 # Prerequisites
 
-Node v22+
+Node v24.x
 
 # Running the application
 
@@ -230,4 +230,3 @@ The fws-app container connects to:
 - **docker_ls (LocalStack network)** - For communication with the fws-api in LocalStack
 
 Ensure LocalStack is running before starting fws-app if you need API connectivity.
-
