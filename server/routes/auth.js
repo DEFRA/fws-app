@@ -54,6 +54,8 @@ module.exports = [{
             redirectPath = safePath ? stored : '/'
           }
         } catch (err) {
+          // If the cache lookup fails (e.g. Redis unavailable), fall back to /
+          // rather than surfacing a 500 on an otherwise successful login.
           request.log('warn', { message: 'Failed to resolve redirect token', err: err.message })
         }
       }

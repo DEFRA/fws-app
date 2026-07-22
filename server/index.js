@@ -42,6 +42,8 @@ async function setRedirectTokenCookie (request, h, redirectCache) {
       ttl: config.redirectTokenTtlMs
     })
   } catch (err) {
+    // If the cache write fails (e.g. Redis unavailable), allow the page to render
+    // normally without a redirect token cookie. The user will be sent to / after login.
     request.log('warn', { message: 'Failed to set redirect token', err: err.message })
   }
 }
