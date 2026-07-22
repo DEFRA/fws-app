@@ -50,7 +50,8 @@ module.exports = [{
             await request.server.app.redirectCache.drop(token)
             // Defense-in-depth: the stored value always comes from request.path
             // (a Hapi-parsed relative path), but guard against future regressions.
-            redirectPath = stored.startsWith('/') ? stored : '/'
+            const safePath = stored.startsWith('/') && !stored.startsWith('//') && !stored.startsWith('/\\')
+            redirectPath = safePath ? stored : '/'
           }
         } catch (err) {
           request.log('warn', { message: 'Failed to resolve redirect token', err: err.message })
