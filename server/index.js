@@ -32,14 +32,18 @@ if (!config.localCache) {
 async function setRedirectTokenCookie (request, h, redirectCache) {
   const token = crypto.randomUUID()
   const redirectPath = request.path + (request.url.search || '')
-  await redirectCache.set(token, redirectPath, config.redirectTokenTtlMs)
-  h.state('redirectToken', token, {
-    path: '/',
-    isSecure: config.isSecure,
-    isHttpOnly: true,
-    isSameSite: 'Lax',
-    ttl: config.redirectTokenTtlMs
-  })
+  try {
+    await redirectCache.set(token, redirectPath, config.redirectTokenTtlMs)
+    h.state('redirectToken', token, {
+      path: '/',
+      isSecure: config.isSecure,
+      isHttpOnly: true,
+      isSameSite: 'Lax',
+      ttl: config.redirectTokenTtlMs
+    })
+  } catch (err) {
+    request.log('warn', { message: 'Failed to set redirect token', err: err.message })
+  }
 }
 
 async function createServer () {
