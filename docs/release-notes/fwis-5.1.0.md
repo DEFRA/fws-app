@@ -22,9 +22,16 @@ Tickets linked to the release in Jira: [https://eaflood.atlassian.net/projects/N
  - CCOE WebOps to update FWIS secrets keys as defined in work and backout plan
  
 Steps
-1. Execute FWS_{stage}_02_DEPLOY_FWS_API`
-    - Modules to deploy: `lambda`
+1. Execute FWS_{stage}_02_DEPLOY_FWS_API
+ 
+    Ensure build parameters are set as follows:  
+   - TERRAGRUNT_BRANCH:  master
+   - TERRAFORM_BRANCH:  terraform-main
+   - FWS_CONFIG_BRANCH:  master 
+   - MODULE_DEPLOY: lambda
+
 2. Execute FWS_{stage}_03_DEPLOY_FWS_APPLICATION_1
+
 3. Execute FWS_{stage}_06_FWIS_SMOKE_TESTS
 
 Confirm deployment with the flood dev and test team.
