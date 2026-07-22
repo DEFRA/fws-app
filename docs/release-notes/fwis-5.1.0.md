@@ -32,6 +32,13 @@ Steps
 
 2. Execute FWS_{stage}_03_DEPLOY_FWS_APPLICATION_1
 
+   - TERRAGRUNT_BRANCH:  master
+   - TERRAFORM_BRANCH:  terraform-main
+
+   Tag to deploy is 5.1.0
+
+
+
 3. Execute FWS_{stage}_06_FWIS_SMOKE_TESTS
 
 Confirm deployment with the flood dev and test team.
