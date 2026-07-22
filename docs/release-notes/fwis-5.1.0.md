@@ -27,7 +27,7 @@ Steps
     Ensure build parameters are set as follows:  
    - TERRAGRUNT_BRANCH:  master
    - TERRAFORM_BRANCH:  terraform-main
-   - FWS_CONFIG_BRANCH:  master 
+   - FWS_CONFIG_BRANCH:  feature/NI-144-ecs-migration
    - MODULE_DEPLOY: lambda
 
 2. Execute FWS_{stage}_03_DEPLOY_FWS_APPLICATION_1
