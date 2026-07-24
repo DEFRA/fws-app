@@ -19,7 +19,7 @@ Tickets linked to the release in Jira: [https://eaflood.atlassian.net/projects/N
 ## Instructions
 
  - CCOE WebOps to update Lambda runtime for FWIS API to Node.js 24 as defined in work and backout plan
- - CCOE WebOps to update FWIS secrets keys as defined in work and backout plan
+- CCOE WebOps to update FWIS secret keys as defined in work and backout plan
  
 Steps
 1. Execute FWS_{stage}_02_DEPLOY_FWS_API
