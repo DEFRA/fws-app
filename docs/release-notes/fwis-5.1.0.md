@@ -10,7 +10,7 @@ This release will:
 The branch for this release is release/4.2.0 ([fws-api](https://github.com/DEFRA/fws-api/) repository)
 
 ## FWIS App Tag
-The tag for this release is 5.1.0 ([fws-app](https://github.com/DEFRA/fws-app/) respository)
+The tag for this release is 5.1.0 ([fws-app](https://github.com/DEFRA/fws-app/) repository).
 
 ## Tickets
 
