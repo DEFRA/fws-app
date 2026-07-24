@@ -7,7 +7,7 @@ This release will:
 - update the FWIS API and FWIS App to Node v24
 
 ## FWIS API Branch
-The branch for this release is release/4.2.0 ([fws-api](https://github.com/DEFRA/fws-api/ repository)
+The branch for this release is release/4.2.0 ([fws-api](https://github.com/DEFRA/fws-api/) repository)
 
 ## FWIS App Tag
 The tag for this release is 5.1.0 ([fws-app](https://github.com/DEFRA/fws-app/) respository)
