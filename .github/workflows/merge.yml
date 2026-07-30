@@ -1,0 +1,82 @@
+name: Merge Release Branch and Create Release
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        type: string
+        description: version for release
+
+jobs:
+  merge_release_branch_and_create_release:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Display inputs
+        run: echo "${{ github.event.inputs.version }}"
+
+      - name: Checkout code
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # 4.3.1
+        with:
+          ref: development
+          fetch-depth: 0
+
+      - name: Set up Node.js environment
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # 4.4.0
+        with:
+          node-version: "24.x"
+
+      - name: Setup version env vars
+        run: |
+          version=${{ github.event.inputs.version }}
+          echo VERSION=$version >> "$GITHUB_ENV"
+          echo RELEASE_BRANCH="release/$version" >> "$GITHUB_ENV"
+          echo TAG_VERSION="v$version" >> "$GITHUB_ENV"
+          echo RELEASE_NOTES_FILE="./docs/release-notes/fwis-${version}.md" >> "$GITHUB_ENV"
+
+      - name: Check branch exists
+        run: |
+          if ! git ls-remote --exit-code origin "refs/heads/${RELEASE_BRANCH}"; then
+            echo "Error: Branch ${RELEASE_BRANCH} does not exist." >&2
+            exit 1
+          fi
+
+      - name: Check PR's approved
+        run: |
+            function prCheck () {
+              REPO=$1
+              BASE=$2
+              STATE=$(gh pr list --repo $GITHUB_REPOSITORY_OWNER/$REPO --json title,mergeStateStatus,state,reviews --state OPEN --base $BASE --head $RELEASE_BRANCH --jq '.[] | select(.mergeStateStatus == "CLEAN" and .reviews[-1].state == "APPROVED") | .reviews[-1].state')
+              if [ "$STATE" != "APPROVED" ]; then
+                echo "Error: PR for merging $GITHUB_REPOSITORY_OWNER/$REPO $RELEASE_BRANCH into $BASE needs to be ready to merge and approved. (STATE=$STATE)" >&2
+                exit 1
+              fi
+            }
+            prCheck fws-app master
+            prCheck fws-app development
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Merge release branch into master
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git switch $RELEASE_BRANCH
+          git switch master
+          git merge --no-edit $RELEASE_BRANCH
+          git push origin master
+
+      - name: Create GitHub Release
+        run: gh release create $TAG_VERSION --title "Release $VERSION" --notes "[release notes](/$RELEASE_NOTES_FILE)"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Merge release branch into development
+        run: |
+          git switch development
+          git merge --no-edit $RELEASE_BRANCH
+          git push origin development
+
