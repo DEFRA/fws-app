@@ -332,4 +332,49 @@ lab.experiment(('All basic routes'), () => {
       }
     })
   })
+
+  lab.test('Unauthenticated request sets redirectToken HttpOnly cookie', async () => {
+    const response = await server.inject({ method: 'GET', url: '/target-area/011FWFNC1D' })
+    const setCookie = response.headers['set-cookie']
+    Code.expect(setCookie).to.exist()
+    const tokenCookie = setCookie.find(c => c.startsWith('redirectToken='))
+    Code.expect(tokenCookie).to.exist()
+    Code.expect(tokenCookie).to.include('HttpOnly')
+    Code.expect(tokenCookie).to.include('SameSite=Lax')
+  })
+
+  lab.test('Authenticated request does not set redirectToken cookie', async () => {
+    const response = await server.inject({
+      method: 'GET',
+      url: '/target-area/011WACN6',
+      auth: { strategy: 'session', credentials: postLoginCredentials }
+    })
+    const setCookie = response.headers['set-cookie'] || []
+    const tokenCookie = setCookie.find(c => c.startsWith('redirectToken='))
+    Code.expect(tokenCookie).to.not.exist()
+  })
+
+  lab.test('Unauthenticated request renders page normally when cache throws on redirect token set', async () => {
+    const original = server.app.redirectCache.set
+    server.app.redirectCache.set = async () => { throw new Error('Redis unavailable') }
+    try {
+      const response = await server.inject({ method: 'GET', url: '/target-area/011FWFNC1D' })
+      Code.expect(response.statusCode).to.equal(200)
+      const setCookie = response.headers['set-cookie'] || []
+      const tokenCookie = setCookie.find(c => c.startsWith('redirectToken='))
+      Code.expect(tokenCookie).to.not.exist()
+    } finally {
+      server.app.redirectCache.set = original
+    }
+  })
+
+  lab.test('Login without redirectToken cookie redirects to /', async () => {
+    const response = await server.inject({
+      method: 'GET',
+      url: '/login',
+      auth: { strategy: 'azure-legacy', credentials: preLoginCredentials }
+    })
+    Code.expect(response.statusCode).to.equal(302)
+    Code.expect(response.headers.location).to.equal('/')
+  })
 })

@@ -23,6 +23,7 @@ This is the FWIS management tool
 | REDIS_HOST         |                       |    no    |                       |                    |       |
 | REDIS_PORT         |                       |    no    |                       |                    |       |
 | REDIS_TLS          |                       |    no    | false                 |                    |       |
+| REDIRECT_TOKEN_TTL_MINUTES | Login redirect token TTL | no | 10               | 1-15               |       |
 | FWS_APP_GA_ID      | Google analytics Id   |    no    |                       |                    |       |
 
 # Prerequisites

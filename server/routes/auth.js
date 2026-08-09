@@ -6,7 +6,7 @@ module.exports = [{
   path: '/login',
   options: {
     auth: 'azure-legacy',
-    handler: (request, h) => {
+    handler: async (request, h) => {
       if (!request.auth.isAuthenticated) {
         const message = request.auth.error && request.auth.error.message
         return boom.unauthorized(`Authentication failed due to: ${message}`)
@@ -37,7 +37,29 @@ module.exports = [{
         }
       })
 
-      return h.redirect(request.auth.credentials.query && request.auth.credentials.query.redirectTo ? request.auth.credentials.query.redirectTo : '/')
+      // Retrieve the pre-login destination from Redis using the token stored
+      // in the HttpOnly cookie, then clear both the cookie (h.unstate) and the
+      // Redis key (drop) so the token cannot be replayed.
+      const token = request.state.redirectToken
+      h.unstate('redirectToken')
+      let redirectPath = '/'
+      if (token) {
+        try {
+          const stored = await request.server.app.redirectCache.get(token)
+          if (stored) {
+            await request.server.app.redirectCache.drop(token)
+            // Defense-in-depth: the stored value always comes from request.path
+            // (a Hapi-parsed relative path), but guard against future regressions.
+            const safePath = stored.startsWith('/') && !stored.startsWith('//') && !stored.startsWith('/\\')
+            redirectPath = safePath ? stored : '/'
+          }
+        } catch (err) {
+          // If the cache lookup fails (e.g. Redis unavailable), fall back to /
+          // rather than surfacing a 500 on an otherwise successful login.
+          request.log('warn', { message: 'Failed to resolve redirect token', err: err.message })
+        }
+      }
+      return h.redirect(redirectPath)
     }
   }
 }, {
