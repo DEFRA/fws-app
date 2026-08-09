@@ -1,10 +1,8 @@
 const Lab = require('@hapi/lab')
 const lab = exports.lab = Lab.script()
 const Code = require('@hapi/code')
+const sinon = require('sinon')
 const data = require('./data')
-
-const mock = require('./mock')
-const mocks = {}
 
 const ORIGINAL_CONFIG_CACHE = require.cache[require.resolve('../server/config')]
 const ORIGINAL_HTTP_CACHE = require.cache[require.resolve('../server/http')]
@@ -15,6 +13,7 @@ const ORIGINAL_SERVICES_CACHE = require.cache[require.resolve('../server/service
 let http
 let composeServer
 let services
+let httpStubs = []
 
 lab.experiment('Services', () => {
   lab.before(async () => {
@@ -40,36 +39,31 @@ lab.experiment('Services', () => {
     require.cache[require.resolve('../server/services')] = ORIGINAL_SERVICES_CACHE
   })
 
-  lab.beforeEach(async () => {
-    // mocks.getJson = mock.replace(http, 'getJson', mock.makePromise(null, {}))
-    // mocks.postJson = mock.replace(http, 'postJson', mock.makePromise(null, {}))
-  })
   lab.afterEach(() => {
-    Object.keys(mocks).forEach((key) => {
-      mocks[key].revert()
-    })
+    httpStubs.forEach(stub => stub.restore())
+    httpStubs = []
   })
 
   lab.test('Services: getFloods', async () => {
-    mocks.getJson = mock.replace(http, 'getJson', mock.makePromise(null, data.getFloods))
+    httpStubs.push(sinon.stub(http, 'getJson').resolves(data.getFloods))
     const floods = await services.getFloods()
     Code.expect(floods.warnings.length).to.equal(57)
   })
 
   lab.test('Services: getFloodsPlus', async () => {
-    mocks.getJson = mock.replace(http, 'getJson', mock.makePromise(null, data.getFloodsPlus))
+    httpStubs.push(sinon.stub(http, 'getJson').resolves(data.getFloodsPlus))
     const floods = await services.getFloodsPlus()
     Code.expect(floods.warnings.length).to.equal(57)
   })
 
   lab.test('Services: getHistoricFloods', async () => {
-    mocks.getJson = mock.replace(http, 'getJson', mock.makePromise(null, data.getHistoricFloods))
+    httpStubs.push(sinon.stub(http, 'getJson').resolves(data.getHistoricFloods))
     const historicFloods = await services.getHistoricFloods()
     Code.expect(historicFloods.warnings.length).to.equal(67)
   })
 
   lab.test('Services: getAllAreas', async () => {
-    mocks.getJson = mock.replace(http, 'getJson', mock.makePromise(null, data.targetAreas))
+    httpStubs.push(sinon.stub(http, 'getJson').resolves(data.targetAreas))
     const areas = await services.getAllAreas()
     Code.expect(areas.areas.length).to.equal(14)
     Code.expect(areas.areas[0].name).to.equal('Cumbria and Lancashire')
@@ -80,17 +74,15 @@ lab.experiment('Services', () => {
   })
 
   lab.test('Services: updateWarning', async () => {
-    mocks.postJson = mock.replace(http, 'postJson', (url, payload, ext) => {
+    httpStubs.push(sinon.stub(http, 'postJson').callsFake((url, payload, ext) => {
       Code.expect(payload.bodyXml).to.include('<TargetAreaCode><![CDATA[test]]></TargetAreaCode>')
       Code.expect(payload.bodyXml).to.include('<SeverityLevel>1</SeverityLevel>')
       Code.expect(payload.bodyXml).to.include('<InternetSituation><![CDATA[Test situation]]></InternetSituation>')
       Code.expect(payload.profile.id).to.equal('test')
       Code.expect(payload.profile.name).to.equal('John Smith')
       Code.expect(payload.profile.email).to.equal('john.smith@defra.net')
-      return new Promise((resolve, reject) => {
-        resolve({})
-      })
-    })
+      return Promise.resolve({})
+    }))
 
     await services.updateWarning('test', 1, 'Test situation', { id: 'test', name: 'John Smith', email: 'john.smith@defra.net' })
   })

@@ -1,5 +1,4 @@
 const config = require('./config')
-const { HttpsProxyAgent } = require('https-proxy-agent')
 
 // Timeout is high to accomodate the use of lambda backend functions
 const timeout = 30 * 1000
@@ -7,18 +6,10 @@ const timeout = 30 * 1000
 const wreck = require('@hapi/wreck').defaults({
   timeout
 })
-let wreckExt
-if (config.proxy) {
-  wreckExt = require('@hapi/wreck').defaults({
-    timeout,
-    agent: new HttpsProxyAgent(config.proxy)
-  })
-}
 
 module.exports = {
-  getJson: function (url, ext = false) {
-    const thisWreck = (ext && wreckExt) ? wreckExt : wreck
-    return thisWreck
+  getJson: function (url) {
+    return wreck
       .get(url, {
         json: true,
         headers: {
@@ -32,9 +23,8 @@ module.exports = {
         return response.payload
       })
   },
-  postJson: function (url, payload, ext = false) {
-    const thisWreck = (ext && wreckExt) ? wreckExt : wreck
-    return thisWreck
+  postJson: function (url, payload) {
+    return wreck
       .post(url, {
         json: true,
         payload,

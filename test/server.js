@@ -3,38 +3,14 @@
 // can be used to connect to a containerised Redis instance.
 process.env.LOCAL_CACHE = true
 
-const mock = require('./mock')
-const mocks = {}
+const sinon = require('sinon')
 const data = require('./data')
 
 let composeServer = require('../server')
-let services = require('../server/services')
-
-const setMocks = () => {
-  console.log('Mocking server')
-  mocks.getFloods = mock.replace(services, 'getFloods', mock.makePromise(null, data.getFloods))
-  mocks.getFloodPlus = mock.replace(services, 'getFloodsPlus', mock.makePromise(null, data.getFloodsPlus))
-  mocks.getHistoricFloods = mock.replace(services, 'getHistoricFloods', mock.makePromise(null, data.getHistoricFloods))
-  mocks.getAllAreas = mock.replace(services, 'getAllAreas', mock.makePromise(null, data.getAllAreas))
-  mocks.updateWarning = mock.replace(services, 'updateWarning', mock.makePromise())
-}
-
-const setErrorMocks = async () => {
-  console.log('Mocking server with errors')
-  mocks.getFloods = mock.replace(services, 'getFloods', mock.makePromise(new Error('Failed to get floods')))
-  mocks.getFloodsPlus = mock.replace(services, 'getFloodsPlus', mock.makePromise(new Error('Failed to get floods plus')))
-  mocks.getHistoricFloods = mock.replace(services, 'getHistoricFloods', mock.makePromise(new Error('Failed to get historic floods')))
-  mocks.getAllAreas = mock.replace(services, 'getAllAreas', mock.makePromise(new Error('Failed to get all areas')))
-  mocks.updateWarning = mock.replace(services, 'updateWarning', mock.makePromise(new Error('Failed to update warning')))
-}
-
-const clearMocks = () => {
-  Object.keys(mocks).forEach((key) => {
-    mocks[key].revert()
-  })
-}
+const services = require('../server/services')
 
 let server
+let stubs = []
 
 module.exports = {
   initRedisCache: () => {
@@ -46,7 +22,6 @@ module.exports = {
     // that they use the current value of
     // process.env.LOCAL_CACHE.
     composeServer = require('../server')
-    services = require('../server/services')
   },
   start: async (err = false, useMocks = true) => {
     console.log('Starting server')
@@ -55,15 +30,32 @@ module.exports = {
     // override the mocks in the server method configuration test
     // files.
     if (useMocks) {
-      err ? setErrorMocks() : setMocks()
+      if (err) {
+        console.log('Mocking server with errors')
+        stubs.push(sinon.stub(services, 'getFloods').rejects(new Error('Failed to get floods')))
+        stubs.push(sinon.stub(services, 'getFloodsPlus').rejects(new Error('Failed to get floods plus')))
+        stubs.push(sinon.stub(services, 'getHistoricFloods').rejects(new Error('Failed to get historic floods')))
+        stubs.push(sinon.stub(services, 'getAllAreas').rejects(new Error('Failed to get all areas')))
+        stubs.push(sinon.stub(services, 'updateWarning').rejects(new Error('Failed to update warning')))
+      } else {
+        console.log('Mocking server')
+        stubs.push(sinon.stub(services, 'getFloods').resolves(data.getFloods))
+        stubs.push(sinon.stub(services, 'getFloodsPlus').resolves(data.getFloodsPlus))
+        stubs.push(sinon.stub(services, 'getHistoricFloods').resolves(data.getHistoricFloods))
+        stubs.push(sinon.stub(services, 'getAllAreas').resolves(data.getAllAreas))
+        stubs.push(sinon.stub(services, 'updateWarning').resolves())
+      }
     }
+
     server = await composeServer()
     await server.initialize()
     return server
   },
   stop: () => {
     console.log('Stopping server')
-    clearMocks()
+    stubs.forEach(stub => stub.restore())
+    stubs = []
     return server.stop()
-  }
+  },
+  getStubs: () => stubs
 }

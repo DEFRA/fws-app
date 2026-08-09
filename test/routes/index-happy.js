@@ -140,7 +140,8 @@ lab.experiment(('All basic routes'), () => {
     text: [
       'Appleby, Holme and Chapel Street and Cherry Row (011FWFNC1D)</h2>',
       '<p>There are no warnings currently in force for Appleby, Holme and Chapel Street and Cherry Row</p>',
-      'Login'
+      'Login',
+      'test-name</td>'
     ]
   }, {
     url: '/target-area/011WACN6',
@@ -161,6 +162,12 @@ lab.experiment(('All basic routes'), () => {
       strategy: 'azure-legacy',
       credentials: postLoginCredentials
     }
+  }, {
+    url: '/target-area/012WACLS',
+    code: 200,
+    text: [
+      'test-name</td>'
+    ]
   }, {
     url: '/target-area/sdfdsf',
     code: 404,
@@ -259,6 +266,55 @@ lab.experiment(('All basic routes'), () => {
       strategy: 'azure-legacy',
       credentials: postLoginCredentials
     }
+  }, {
+    method: 'POST',
+    url: '/target-area/011FWFNC1D/edit',
+    code: 302,
+    payload: {
+      severity: 2,
+      situation: 'Valid test situation'
+    },
+    auth: {
+      strategy: 'azure-legacy',
+      credentials: postLoginCredentials
+    }
+  }, {
+    method: 'POST',
+    url: '/target-area//edit',
+    code: 404,
+    payload: {
+      severity: 1,
+      situation: 'Test situation'
+    },
+    auth: {
+      strategy: 'azure-legacy',
+      credentials: postLoginCredentials
+    }
+  }, {
+    method: 'POST',
+    url: '/target-area/011WACN6/edit',
+    code: 302,
+    payload: {
+      severity: 1,
+      situation: 'FWIS management console test data'
+    },
+    auth: {
+      strategy: 'azure-legacy',
+      credentials: postLoginCredentials
+    }
+  }, {
+    method: 'POST',
+    url: '/target-area/011WACN6/edit',
+    code: 200,
+    payload: {
+      severity: 2,
+      situation: 'FWIS management console test data'
+    },
+    auth: {
+      strategy: 'azure-legacy',
+      credentials: postLoginCredentials
+    },
+    text: ['Situation must be updated when severity is updated']
   }, {
     url: '/severity-view',
     code: 200,
