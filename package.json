@@ -30,7 +30,7 @@
     "@hapi/hapi": "21.4.9",
     "@hapi/inert": "7.1.2",
     "@hapi/vision": "7.0.3",
-    "@hapi/wreck": "18.1.2",
+    "@hapi/wreck": "18.1.1",
     "blipp": "4.0.2",
     "govuk-frontend": "6.3.0",
     "hapi-pino": "13.0.0",
