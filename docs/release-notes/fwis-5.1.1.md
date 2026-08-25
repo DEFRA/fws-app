@@ -11,7 +11,7 @@ This release will:
 The branch for this release is hotfix/worm-attack-exercise  ([fws-api](https://github.com/DEFRA/fws-api/) repository)
 
 ## FWIS App Tag
-The tag for this release is hotfix-worm-attack-exercise-rc4-74fa71d ([fws-app](https://github.com/DEFRA/fws-app/) repository).
+The tag for this release is hotfix-worm-attack-exercise-xxx-xxxxxxx ([fws-app](https://github.com/DEFRA/fws-app/) repository).
 
 ## FWIS Config (GitLab)
 
@@ -38,28 +38,33 @@ Steps
    - FWS_CONFIG_BRANCH: master
    - MODULE_DEPLOY: lambda
 
-2. Configure FWS_{stage}_05_FWIS_UI_TESTS
+2. Configure FWS_{stage}_04_FWIS_API_TESTS
+   
+   - FWS_CONFIG_BRANCH: */master
+   - FWS_TESTS_BRANCH: */master
+
+3. Configure FWS_{stage}_05_FWIS_UI_TESTS
    
    - FWS_CONFIG_BRANCH: */master
    - FWS_APP_TESTS_BRANCH: */hotfix/worm-attack-exercise
 
-3. Configure FWS_{stage}_06_FWIS_SMOKE_TESTS
+4. Configure FWS_{stage}_06_FWIS_SMOKE_TESTS
 
     - FWS_CONFIG_BRANCH: */master
     - FWS_APP_TESTS_BRANCH: */hotfix/worm-attack-exercise
 
-4. Configure FWS_{stage}_103_UPDATE_API_KEYS
+5. Configure FWS_{stage}_103_UPDATE_API_KEYS
 
     - FWS_CONFIG_BRANCH: */master
 
-5. Execute FWS_{stage}_103_UPDATE_API_KEYS
+6. Execute FWS_{stage}_103_UPDATE_API_KEYS
 
-6. Execute FWS_{stage}_03_DEPLOY_FWS_APPLICATION_1
+7. Execute FWS_{stage}_03_DEPLOY_FWS_APPLICATION_1
 
    - TERRAGRUNT_BRANCH:  master
    - TERRAFORM_BRANCH:  terraform-main
 
-   Tag to deploy is hotfix-worm-attack-exercise-rc4-74fa71d
+   Tag to deploy the latest generated release candidate hotfix-worm-attack-exercise-xxx-xxxxxxx
 
 
 Confirm deployment with the flood dev and test team.
