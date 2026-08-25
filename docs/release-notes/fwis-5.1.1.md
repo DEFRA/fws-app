@@ -30,35 +30,36 @@ No tickets as emergency hotfix exercise.
 - CCOE WebOps to update FWIS API secret keys as defined below
  
 Steps
-1. Execute FWS_{stage}_02_DEPLOY_FWS_API
+
+1. Configure FWS_{stage}_04_FWIS_API_TESTS
+   
+   - FWS_CONFIG_BRANCH: */master
+   - FWS_TESTS_BRANCH: */master
+
+2. Configure FWS_{stage}_05_FWIS_UI_TESTS
+   
+   - FWS_CONFIG_BRANCH: */master
+   - FWS_APP_TESTS_BRANCH: */hotfix/worm-attack-exercise
+
+3. Configure FWS_{stage}_06_FWIS_SMOKE_TESTS
+
+    - FWS_CONFIG_BRANCH: */master
+    - FWS_APP_TESTS_BRANCH: */hotfix/worm-attack-exercise
+
+4. Configure FWS_{stage}_103_UPDATE_API_KEYS
+
+    - FWS_CONFIG_BRANCH: */master
+
+5. Execute FWS_{stage}_103_UPDATE_API_KEYS
+
+6. Execute FWS_{stage}_02_DEPLOY_FWS_API
  
     Ensure build parameters are set as follows:  
    - TERRAGRUNT_BRANCH:  master
    - TERRAFORM_BRANCH:  terraform-main
    - FWS_CONFIG_BRANCH: master
    - MODULE_DEPLOY: lambda
-
-2. Configure FWS_{stage}_04_FWIS_API_TESTS
    
-   - FWS_CONFIG_BRANCH: */master
-   - FWS_TESTS_BRANCH: */master
-
-3. Configure FWS_{stage}_05_FWIS_UI_TESTS
-   
-   - FWS_CONFIG_BRANCH: */master
-   - FWS_APP_TESTS_BRANCH: */hotfix/worm-attack-exercise
-
-4. Configure FWS_{stage}_06_FWIS_SMOKE_TESTS
-
-    - FWS_CONFIG_BRANCH: */master
-    - FWS_APP_TESTS_BRANCH: */hotfix/worm-attack-exercise
-
-5. Configure FWS_{stage}_103_UPDATE_API_KEYS
-
-    - FWS_CONFIG_BRANCH: */master
-
-6. Execute FWS_{stage}_103_UPDATE_API_KEYS
-
 7. Execute FWS_{stage}_03_DEPLOY_FWS_APPLICATION_1
 
    - TERRAGRUNT_BRANCH:  master
