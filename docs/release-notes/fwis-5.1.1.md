@@ -1,4 +1,4 @@
-# FWIS API and FWIS App Release - Wednesday 28th October 2026
+# FWIS API and FWIS App Release - Thursday 29th October 2026
 
 ## Information
 
@@ -18,13 +18,13 @@ Tickets linked to the release in Jira: [https://eaflood.atlassian.net/projects/N
 
 ## Instructions
 
- 
+
 Steps
 1. Disable LFW_{STAGE}_06_SMOKE_TESTS temporarily to ensure that smoke tests do not run until the new deploment of fws-app has become operational
 
 2. Execute FWS_{stage}_02_DEPLOY_FWS_API
- 
-    Ensure build parameters are set as follows:  
+
+    Ensure build parameters are set as follows:
    - TERRAGRUNT_BRANCH:  master
    - TERRAFORM_BRANCH:  terraform-main
    - FWS_CONFIG_BRANCH:  master
