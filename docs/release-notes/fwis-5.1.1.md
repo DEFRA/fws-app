@@ -20,7 +20,7 @@ Tickets linked to the release in Jira: [https://eaflood.atlassian.net/projects/N
 
 
 Steps
-1. Disable LFW_{STAGE}_06_SMOKE_TESTS temporarily to ensure that smoke tests do not run until the new deploment of fws-app has become operational
+1. Disable FWS_{STAGE}_06_SMOKE_TESTS temporarily to ensure that smoke tests do not run until the new deploment of fws-app has become operational
 
 2. Execute FWS_{stage}_02_DEPLOY_FWS_API
 
@@ -30,7 +30,7 @@ Steps
    - FWS_CONFIG_BRANCH:  master
    - MODULE_DEPLOY: lambda
 
-3. Execute FWS_{stage}_03_DEPLOY_FWS_APPLICATION_1
+3. Execute FWS_{stage}_03_DEPLOY_APPLICATION_1
 
    - TERRAGRUNT_BRANCH:  master
    - TERRAFORM_BRANCH:  terraform-main
@@ -39,7 +39,7 @@ Steps
 
 4. Wait for 60 seconds
 
-5. Enable LFW_{STAGE}_06_SMOKE_TESTS
+5. Enable FWS_{STAGE}_06_SMOKE_TESTS
 
 6. Execute FWS_{stage}_06_FWIS_SMOKE_TESTS
 
