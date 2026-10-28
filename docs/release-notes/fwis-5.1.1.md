@@ -10,7 +10,7 @@ This release will:
 The branch for this release is release/4.2.1 ([fws-api](https://github.com/DEFRA/fws-api/) repository)
 
 ## FWIS App Tag
-The tag for this release is 5.1.1 ([fws-app](https://github.com/DEFRA/fws-app/) repository).
+The tag for this release is v5.1.1 ([fws-app](https://github.com/DEFRA/fws-app/) repository).
 
 ## Tickets
 
@@ -35,7 +35,7 @@ Steps
    - TERRAGRUNT_BRANCH:  master
    - TERRAFORM_BRANCH:  terraform-main
 
-   Tag to deploy is 5.1.1
+   Tag to deploy is v5.1.1
 
 4. Wait for 60 seconds
 
