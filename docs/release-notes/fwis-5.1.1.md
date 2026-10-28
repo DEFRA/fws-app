@@ -43,4 +43,6 @@ Steps
 
 6. Execute FWS_{stage}_06_FWIS_SMOKE_TESTS
 
+   - fws-app-tests repository branch: master.
+
 Confirm deployment with the flood dev and test team.
