@@ -23,7 +23,9 @@
   "author": "",
   "license": "ISC",
   "overrides": {
-    "minimatch": "11.0.3"
+    "neostandard": {
+      "minimatch": "11.0.3"
+    }
   },
   "dependencies": {
     "@hapi/bell": "13.1.0",
