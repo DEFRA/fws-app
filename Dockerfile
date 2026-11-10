@@ -32,6 +32,7 @@ FROM base AS development
 # When developing/debugging within a container locally, --chown=root:root should be replaced with --chown=node:node to provide
 # required write permissions. SonarQube cloud will raise a security issue if analysing these changes.
 COPY --chown=root:root ./test ./test
+COPY --chown=root:root ./eslint.config.js .
 
 # Temporarily disable the postinstall NPM script
 RUN npm pkg set scripts.postinstall="echo no-postinstall" \
