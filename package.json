@@ -40,7 +40,7 @@
     "govuk-frontend": "6.3.0",
     "hapi-pino": "13.0.0",
     "https-proxy-agent": "7.0.6",
-    "joi": "18.3.1",
+    "joi": "18.3.2",
     "moment-timezone": "0.6.2",
     "nunjucks": "3.2.4",
     "pino": "10.3.1",
