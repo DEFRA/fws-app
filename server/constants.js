@@ -26,8 +26,6 @@ const severities = [
   }
 ]
 
-module.exports = {
-  dateFormat: 'DD/MM/YYYY h:mma',
-  longDateFormat: 'dddd D MMMM YYYY [at] h:mma',
-  severities
-}
+export const dateFormat = 'DD/MM/YYYY h:mma'
+export const longDateFormat = 'dddd D MMMM YYYY [at] h:mma'
+export { severities }

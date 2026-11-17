@@ -1,5 +1,5 @@
-const services = require('.')
-const config = require('../config')
+import services from './index.js'
+import config from '../config.js'
 
 // Note that generate timeouts are set as 30 seconds as the backend is served by lambda which can take a while to warm up if not already warm
 
@@ -39,4 +39,4 @@ function registerServerMethods (server) {
   server.method('flood.updateWarning', services.updateWarning)
 }
 
-module.exports = registerServerMethods
+export default registerServerMethods

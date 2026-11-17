@@ -1,4 +1,4 @@
-const { severities } = require('../constants')
+import { severities } from '../constants.js'
 
 class UpdateWarningView {
   constructor (targetArea, warning, payload, errors) {
@@ -82,4 +82,4 @@ class UpdateWarningView {
   }
 }
 
-module.exports = UpdateWarningView
+export default UpdateWarningView

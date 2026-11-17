@@ -82,4 +82,4 @@ class TargetAreaSearchView {
   }
 }
 
-module.exports = TargetAreaSearchView
+export default TargetAreaSearchView

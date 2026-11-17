@@ -1,7 +1,7 @@
-const boom = require('@hapi/boom')
-const SeverityView = require('../models/severity-view')
+import boom from '@hapi/boom'
+import SeverityView from '../models/severity-view.js'
 
-module.exports = {
+export default {
   method: 'GET',
   path: '/severity-view',
   options: {

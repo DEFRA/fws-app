@@ -1,30 +1,31 @@
-const Lab = require('@hapi/lab')
-const lab = exports.lab = Lab.script()
-const Code = require('@hapi/code')
-const composeServer = require('../server')
-const config = require('../../server/config')
+import { describe, test, expect, beforeAll, afterAll } from 'vitest'
+import composeServer from '../server.js'
+import config from '../../server/config.js'
 
-lab.experiment(('Training Env banner'), () => {
+describe('Training Env banner', () => {
   let server
+  let originalEnv
 
-  lab.before(async () => {
+  beforeAll(async () => {
+    originalEnv = config.env
     config.env = 'tra'
     server = await composeServer.start()
   })
 
-  lab.after(() => {
-    composeServer.stop()
+  afterAll(async () => {
+    config.env = originalEnv
+    await composeServer.stop()
   })
 
-  lab.test('trainning env', async () => {
+  test('shows the training environment banner', async () => {
     const response = await server.inject({
       method: 'GET',
       url: '/'
     })
 
-    Code.expect(response.payload).to.contain('This application version is for training only')
-    Code.expect(response.payload).to.contain('govuk-header-blue')
-    Code.expect(response.payload).to.contain('govuk-footer-blue')
-    Code.expect(response.statusCode).to.equal(200)
+    expect(response.payload).toContain('This application version is for training only')
+    expect(response.payload).toContain('govuk-header-blue')
+    expect(response.payload).toContain('govuk-footer-blue')
+    expect(response.statusCode).toBe(200)
   })
 })

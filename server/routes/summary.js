@@ -1,7 +1,7 @@
-const boom = require('@hapi/boom')
-const SummaryView = require('../models/summary-view')
+import boom from '@hapi/boom'
+import SummaryView from '../models/summary-view.js'
 
-module.exports = {
+export default {
   method: 'GET',
   path: '/',
   options: {

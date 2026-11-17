@@ -1,9 +1,9 @@
-const joi = require('joi')
-const boom = require('@hapi/boom')
-const { getTargetAreaFilter } = require('../helpers')
-const TargetAreaSearchView = require('../models/target-area-search-view')
+import joi from 'joi'
+import boom from '@hapi/boom'
+import { getTargetAreaFilter } from '../helpers.js'
+import TargetAreaSearchView from '../models/target-area-search-view.js'
 
-module.exports = {
+export default {
   method: 'GET',
   path: '/target-area',
   options: {

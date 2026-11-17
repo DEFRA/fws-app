@@ -23,10 +23,10 @@ if  ! `nc -z $REDIS_HOST $REDIS_PORT`; then
     docker compose -f docker/infrastructure.yml up -d fws-app-redis
     if test -w .; then
       # The current directory is writable, so a code coverage report can be written to the filesystem after the tests run.
-      lab -v -c -r console -o stdout -r lcov -o coverage/lcov.info
+      vitest run --coverage
     else
       # Run the unit tests without code coverage as a report cannot be written to the filesystem.
-      lab -v -r console
+      vitest run
     fi
     docker compose -f docker/infrastructure.yml down
   else
@@ -36,8 +36,8 @@ if  ! `nc -z $REDIS_HOST $REDIS_PORT`; then
   fi
 elif test -w .; then
   # The current directory is writable, so a code coverage report can be written to the filesystem after the tests run.
-  lab -v -c -r console -o stdout -r lcov -o coverage/lcov.info
+  vitest run --coverage
 else
   # Run the unit tests without code coverage as a report cannot be written to the filesystem.
-  lab -v -r console
+  vitest run
 fi

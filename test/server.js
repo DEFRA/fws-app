@@ -1,69 +1,72 @@
-// Force tests to use server object cache by default
+import { vi } from 'vitest'
+import data from './data/index.js'
+
+// The server and services modules are imported lazily so that they pick up the
+// current value of process.env.LOCAL_CACHE (set to true by default in vitest.config.js).
 // To achieve full test coverage for Redis connectivity, the initRedisCache function
 // can be used to connect to a containerised Redis instance.
-process.env.LOCAL_CACHE = true
+const spies = []
+let server
 
-const mock = require('./mock')
-const mocks = {}
-const data = require('./data')
-
-let composeServer = require('../server')
-let services = require('../server/services')
-
-const setMocks = () => {
-  console.log('Mocking server')
-  mocks.getFloods = mock.replace(services, 'getFloods', mock.makePromise(null, data.getFloods))
-  mocks.getFloodPlus = mock.replace(services, 'getFloodsPlus', mock.makePromise(null, data.getFloodsPlus))
-  mocks.getHistoricFloods = mock.replace(services, 'getHistoricFloods', mock.makePromise(null, data.getHistoricFloods))
-  mocks.getAllAreas = mock.replace(services, 'getAllAreas', mock.makePromise(null, data.getAllAreas))
-  mocks.updateWarning = mock.replace(services, 'updateWarning', mock.makePromise())
+const loadModules = async () => {
+  const { default: composeServer } = await import('../server/index.js')
+  const { default: services } = await import('../server/services/index.js')
+  return { composeServer, services }
 }
 
-const setErrorMocks = async () => {
+const spy = (services, name) => {
+  const s = vi.spyOn(services, name)
+  spies.push(s)
+  return s
+}
+
+const setMocks = (services) => {
+  console.log('Mocking server')
+  spy(services, 'getFloods').mockResolvedValue(data.getFloods)
+  spy(services, 'getFloodsPlus').mockResolvedValue(data.getFloodsPlus)
+  spy(services, 'getHistoricFloods').mockResolvedValue(data.getHistoricFloods)
+  spy(services, 'getAllAreas').mockResolvedValue(data.getAllAreas)
+  spy(services, 'updateWarning').mockResolvedValue()
+}
+
+const setErrorMocks = (services) => {
   console.log('Mocking server with errors')
-  mocks.getFloods = mock.replace(services, 'getFloods', mock.makePromise(new Error('Failed to get floods')))
-  mocks.getFloodsPlus = mock.replace(services, 'getFloodsPlus', mock.makePromise(new Error('Failed to get floods plus')))
-  mocks.getHistoricFloods = mock.replace(services, 'getHistoricFloods', mock.makePromise(new Error('Failed to get historic floods')))
-  mocks.getAllAreas = mock.replace(services, 'getAllAreas', mock.makePromise(new Error('Failed to get all areas')))
-  mocks.updateWarning = mock.replace(services, 'updateWarning', mock.makePromise(new Error('Failed to update warning')))
+  spy(services, 'getFloods').mockRejectedValue(new Error('Failed to get floods'))
+  spy(services, 'getFloodsPlus').mockRejectedValue(new Error('Failed to get floods plus'))
+  spy(services, 'getHistoricFloods').mockRejectedValue(new Error('Failed to get historic floods'))
+  spy(services, 'getAllAreas').mockRejectedValue(new Error('Failed to get all areas'))
+  spy(services, 'updateWarning').mockRejectedValue(new Error('Failed to update warning'))
 }
 
 const clearMocks = () => {
-  Object.keys(mocks).forEach((key) => {
-    mocks[key].revert()
-  })
+  spies.splice(0).forEach(s => s.mockRestore())
 }
 
-let server
-
-module.exports = {
+export default {
   initRedisCache: () => {
-    delete require.cache[require.resolve('../server')]
-    delete require.cache[require.resolve('../server/services')]
-    process.env.LOCAL_CACHE = false
+    process.env.LOCAL_CACHE = 'false'
 
-    // Load the server and services modules so
-    // that they use the current value of
-    // process.env.LOCAL_CACHE.
-    composeServer = require('../server')
-    services = require('../server/services')
+    // Discard cached modules so that the server and services
+    // are loaded again using the new LOCAL_CACHE value.
+    vi.resetModules()
   },
   start: async (err = false, useMocks = true) => {
     console.log('Starting server')
+    const { composeServer, services } = await loadModules()
     // When testing server method configuration, useMocks must
     // be set to false so that the mocks in this file do not
     // override the mocks in the server method configuration test
     // files.
     if (useMocks) {
-      err ? setErrorMocks() : setMocks()
+      err ? setErrorMocks(services) : setMocks(services)
     }
     server = await composeServer()
     await server.initialize()
     return server
   },
-  stop: () => {
+  stop: async () => {
     console.log('Stopping server')
     clearMocks()
-    return server.stop()
+    await server.stop()
   }
 }

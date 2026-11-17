@@ -1,5 +1,5 @@
-const { severities } = require('../constants')
-const { formatUTCDate, sortByMultiple } = require('../helpers')
+import { severities } from '../constants.js'
+import { formatUTCDate, sortByMultiple } from '../helpers.js'
 
 class SeverityView {
   constructor (warnings) {
@@ -158,4 +158,4 @@ class SeverityView {
   }
 }
 
-module.exports = SeverityView
+export default SeverityView

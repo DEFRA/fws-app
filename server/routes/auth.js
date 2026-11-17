@@ -1,7 +1,7 @@
-const boom = require('@hapi/boom')
-const config = require('../config')
+import boom from '@hapi/boom'
+import config from '../config.js'
 
-module.exports = [{
+export default [{
   method: 'GET',
   path: '/login',
   options: {

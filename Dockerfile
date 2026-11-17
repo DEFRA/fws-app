@@ -25,7 +25,7 @@ COPY --chown=root:root ./server ./server
 
 ARG BUILD_VERSION=v4.0.0-1-g6666666
 ARG GIT_COMMIT=0
-RUN echo -e "module.exports = { version: '$BUILD_VERSION', revision: '$GIT_COMMIT' }" > ./version.js
+RUN echo -e "export default { version: '$BUILD_VERSION', revision: '$GIT_COMMIT' }" > ./version.js
 
 FROM base AS development
 

@@ -1,5 +1,5 @@
-const { severities } = require('../constants')
-const { groupBy, formatUTCDate } = require('../helpers')
+import { severities } from '../constants.js'
+import { groupBy, formatUTCDate } from '../helpers.js'
 
 class AreaView {
   constructor (warnings, id) {
@@ -196,4 +196,4 @@ class AreaView {
   }
 }
 
-module.exports = AreaView
+export default AreaView

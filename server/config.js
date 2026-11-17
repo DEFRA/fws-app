@@ -1,4 +1,4 @@
-const Joi = require('joi')
+import Joi from 'joi'
 
 // Define config schema
 const schema = Joi.object({
@@ -61,4 +61,4 @@ const value = result.value
 value.isDev = value.env === 'dev'
 value.isProd = value.env === 'prd'
 
-module.exports = value
+export default value

@@ -1,6 +1,6 @@
-const boom = require('@hapi/boom')
+import boom from '@hapi/boom'
 
-module.exports = {
+export default {
   method: 'GET',
   path: '/status',
   options: {

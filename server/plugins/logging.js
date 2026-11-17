@@ -1,7 +1,8 @@
-const pino = require('../pino')
+import hapiPino from 'hapi-pino'
+import pino from '../pino.js'
 
-module.exports = {
-  plugin: require('hapi-pino'),
+export default {
+  plugin: hapiPino,
   options: {
     instance: pino,
     wrapSerializers: false,

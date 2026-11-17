@@ -1,65 +1,53 @@
-const Lab = require('@hapi/lab')
-const lab = exports.lab = Lab.script()
-const Code = require('@hapi/code')
-const data = require('./data')
-const services = require('../server/services')
-const http = require('../server/http')
-const mock = require('./mock')
-const mocks = {}
+import { describe, test, expect, afterEach, vi } from 'vitest'
+import data from './data/index.js'
+import services from '../server/services/index.js'
+import http from '../server/http.js'
 
-lab.experiment('Services', () => {
-  lab.beforeEach(() => {
-    // mocks.getJson = mock.replace(http, 'getJson', mock.makePromise(null, {}))
-    // mocks.postJson = mock.replace(http, 'postJson', mock.makePromise(null, {}))
-  })
-  lab.afterEach(() => {
-    Object.keys(mocks).forEach((key) => {
-      mocks[key].revert()
-    })
+describe('Services', () => {
+  afterEach(() => {
+    vi.restoreAllMocks()
   })
 
-  lab.test('Services: getFloods', async () => {
-    mocks.getJson = mock.replace(http, 'getJson', mock.makePromise(null, data.getFloods))
+  test('Services: getFloods', async () => {
+    vi.spyOn(http, 'getJson').mockResolvedValue(data.getFloods)
     const floods = await services.getFloods()
-    Code.expect(floods.warnings.length).to.equal(57)
+    expect(floods.warnings.length).toBe(57)
   })
 
-  lab.test('Services: getFloodsPlus', async () => {
-    mocks.getJson = mock.replace(http, 'getJson', mock.makePromise(null, data.getFloodsPlus))
+  test('Services: getFloodsPlus', async () => {
+    vi.spyOn(http, 'getJson').mockResolvedValue(data.getFloodsPlus)
     const floods = await services.getFloodsPlus()
-    Code.expect(floods.warnings.length).to.equal(57)
+    expect(floods.warnings.length).toBe(57)
   })
 
-  lab.test('Services: getHistoricFloods', async () => {
-    mocks.getJson = mock.replace(http, 'getJson', mock.makePromise(null, data.getHistoricFloods))
+  test('Services: getHistoricFloods', async () => {
+    vi.spyOn(http, 'getJson').mockResolvedValue(data.getHistoricFloods)
     const historicFloods = await services.getHistoricFloods()
-    Code.expect(historicFloods.warnings.length).to.equal(67)
+    expect(historicFloods.warnings.length).toBe(67)
   })
 
-  lab.test('Services: getAllAreas', async () => {
-    mocks.getJson = mock.replace(http, 'getJson', mock.makePromise(null, data.targetAreas))
+  test('Services: getAllAreas', async () => {
+    vi.spyOn(http, 'getJson').mockResolvedValue(data.targetAreas)
     const areas = await services.getAllAreas()
-    Code.expect(areas.areas.length).to.equal(14)
-    Code.expect(areas.areas[0].name).to.equal('Cumbria and Lancashire')
-    Code.expect(areas.areas[13].name).to.equal('Yorkshire')
-    Code.expect(areas.targetAreas.length).to.equal(100)
-    Code.expect(areas.targetAreas[0].ta_code).to.equal('011WACN5')
-    Code.expect(areas.targetAreas[99].ta_code).to.equal('122FWF526')
+    expect(areas.areas.length).toBe(14)
+    expect(areas.areas[0].name).toBe('Cumbria and Lancashire')
+    expect(areas.areas[13].name).toBe('Yorkshire')
+    expect(areas.targetAreas.length).toBe(100)
+    expect(areas.targetAreas[0].ta_code).toBe('011WACN5')
+    expect(areas.targetAreas[99].ta_code).toBe('122FWF526')
   })
 
-  lab.test('Services: updateWarning', async () => {
-    mocks.postJson = mock.replace(http, 'postJson', (url, payload, ext) => {
-      Code.expect(payload.bodyXml).to.include('<TargetAreaCode><![CDATA[test]]></TargetAreaCode>')
-      Code.expect(payload.bodyXml).to.include('<SeverityLevel>1</SeverityLevel>')
-      Code.expect(payload.bodyXml).to.include('<InternetSituation><![CDATA[Test situation]]></InternetSituation>')
-      Code.expect(payload.profile.id).to.equal('test')
-      Code.expect(payload.profile.name).to.equal('John Smith')
-      Code.expect(payload.profile.email).to.equal('john.smith@defra.net')
-      return new Promise((resolve, reject) => {
-        resolve({})
-      })
-    })
+  test('Services: updateWarning', async () => {
+    const postJson = vi.spyOn(http, 'postJson').mockResolvedValue({})
+    const profile = { id: 'test', name: 'John Smith', email: 'john.smith@defra.net' }
 
-    await services.updateWarning('test', 1, 'Test situation', { id: 'test', name: 'John Smith', email: 'john.smith@defra.net' })
+    await services.updateWarning('test', 1, 'Test situation', profile)
+
+    expect(postJson).toHaveBeenCalledOnce()
+    const [, payload] = postJson.mock.calls[0]
+    expect(payload.bodyXml).toContain('<TargetAreaCode><![CDATA[test]]></TargetAreaCode>')
+    expect(payload.bodyXml).toContain('<SeverityLevel>1</SeverityLevel>')
+    expect(payload.bodyXml).toContain('<InternetSituation><![CDATA[Test situation]]></InternetSituation>')
+    expect(payload.profile).toEqual(profile)
   })
 })

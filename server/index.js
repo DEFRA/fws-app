@@ -1,10 +1,21 @@
-const hapi = require('@hapi/hapi')
-const CatboxRedis = require('@hapi/catbox-redis')
-const moment = require('moment-timezone')
-const config = require('./config')
-const { version } = require('../package.json')
-const registerServerMethods = require('./services/methods')
-const { dateFormat, longDateFormat } = require('./constants')
+import hapi from '@hapi/hapi'
+import CatboxRedis from '@hapi/catbox-redis'
+import bell from '@hapi/bell'
+import cookie from '@hapi/cookie'
+import inert from '@hapi/inert'
+import blipp from 'blipp'
+import moment from 'moment-timezone'
+import config from './config.js'
+import { createRequire } from 'node:module'
+import registerServerMethods from './services/methods.js'
+import { dateFormat, longDateFormat } from './constants.js'
+import views from './plugins/views.js'
+import router from './plugins/router.js'
+import errorPages from './plugins/error-pages.js'
+import logging from './plugins/logging.js'
+
+// standard's parser does not support JSON import attributes yet
+const pkg = createRequire(import.meta.url)('../package.json')
 let cache
 
 if (!config.localCache) {
@@ -41,8 +52,8 @@ async function createServer () {
   })
 
   // Register the auth plugins
-  await server.register(require('@hapi/bell'))
-  await server.register(require('@hapi/cookie'))
+  await server.register(bell)
+  await server.register(cookie)
 
   // Setup the authentication strategies
   server.auth.strategy('azure-legacy', 'bell', {
@@ -68,12 +79,12 @@ async function createServer () {
   server.auth.default('session')
 
   // Register the remaining plugins
-  await server.register(require('@hapi/inert'))
-  await server.register(require('./plugins/views'))
-  await server.register(require('./plugins/router'))
-  await server.register(require('./plugins/error-pages'))
-  await server.register(require('./plugins/logging'))
-  await server.register(require('blipp'))
+  await server.register(inert)
+  await server.register(views)
+  await server.register(router)
+  await server.register(errorPages)
+  await server.register(logging)
+  await server.register(blipp)
 
   server.ext('onPreResponse', (request, h) => {
     const response = request.response
@@ -92,7 +103,7 @@ async function createServer () {
       meta.timestamp = new Date()
       meta.dateString = moment.tz('Europe/London').format(dateFormat)
       meta.longDateString = moment.tz('Europe/London').format(longDateFormat)
-      meta.version = version
+      meta.version = pkg.version
       meta.stage = config.env
 
       ctx.meta = meta
@@ -106,4 +117,4 @@ async function createServer () {
   return server
 }
 
-module.exports = createServer
+export default createServer

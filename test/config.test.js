@@ -1,23 +1,16 @@
-const Lab = require('@hapi/lab')
-const lab = exports.lab = Lab.script()
-const Code = require('@hapi/code')
+import { describe, test, expect, vi, afterEach } from 'vitest'
 
-lab.experiment('Config.js', () => {
-  lab.test('Config.js error thrown', async () => {
-    const oldConfigCache = require.cache[require.resolve('../server/config')]
-    delete require.cache[require.resolve('../server/config')]
+describe('Config.js', () => {
+  afterEach(() => {
+    vi.unstubAllEnvs()
+    vi.resetModules()
+  })
 
-    const oldUrl = process.env.FWS_API_URL
-    process.env.FWS_API_URL = 'sfsdfs'
+  test('Config.js error thrown', async () => {
+    vi.stubEnv('FWS_API_URL', 'sfsdfs')
+    vi.resetModules()
 
-    const err = Code.expect(() => {
-      require('../server/config')
-    }).to.throw()
-
-    Code.expect(err.message).to.equal('The server config is invalid. "api" must be a valid uri')
-
-    // return state
-    require.cache[require.resolve('../server/config')] = oldConfigCache
-    process.env.FWS_API_URL = oldUrl
+    await expect(import('../server/config.js'))
+      .rejects.toThrow('The server config is invalid. "api" must be a valid uri')
   })
 })
