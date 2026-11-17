@@ -13,7 +13,7 @@ https://eaflood.atlassian.net/jira/software/c/projects/FSR/boards/1320?selectedI
 Execute jobs
 
 1. FWS_{stage}_102_UPDATE_TARGET_AREAS
-2. FWS_{stage}_03_DEPLOY_APPLICATION_1 - Tag - v5.2.0
+2. FWS_{stage}_03_DEPLOY_APPLICATION_1 - Tag - 5.2.0
 
 The only changes to the fws-app are updated version numbers,dependency updates and a release document
 
