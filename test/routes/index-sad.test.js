@@ -100,20 +100,14 @@ describe('All basic routes', () => {
     }
   }]
 
-  urls.forEach(item => {
-    test(`Sad route: ${item.url} returns ${item.code}`, async () => {
-      const response = await server.inject({
-        method: item.method || 'GET',
-        url: item.url,
-        auth: item.auth,
-        payload: item.payload
-      })
-      expect(response.statusCode).toBe(item.code)
-      if (item.text && item.text.length > 0) {
-        item.text.forEach(text => {
-          expect(response.payload).toContain(text)
-        })
-      }
+  test.each(urls.map(u => ({ method: 'GET', ...u })))('$method $url returns $code', async (item) => {
+    const response = await server.inject({
+      method: item.method,
+      url: item.url,
+      auth: item.auth,
+      payload: item.payload
     })
+    expect(response.statusCode).toBe(item.code)
+    ;(item.text || []).forEach(text => expect(response.payload).toContain(text))
   })
 })

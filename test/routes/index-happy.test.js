@@ -11,6 +11,22 @@ describe('All basic routes', () => {
     await composeServer.stop()
   })
 
+  // Wraps strings that must all appear in the response, in the order given
+  const inOrder = (...parts) => ({ inOrder: parts })
+
+  const expectText = (payload, text) => {
+    if (text.inOrder) {
+      let from = 0
+      text.inOrder.forEach(part => {
+        const index = payload.indexOf(part, from)
+        expect(index, `expected "${part}" after position ${from}`).toBeGreaterThanOrEqual(0)
+        from = index + part.length
+      })
+    } else {
+      expect(payload).toContain(text)
+    }
+  }
+
   // Each test config:
   /*
   {
@@ -55,7 +71,7 @@ describe('All basic routes', () => {
       'Flood Warning Information System</h1>',
       'Summary</h2>',
       // test order of warning severity headers
-      '<thead class="govuk-table__head">\n    <tr class="govuk-table__row">\n    \n      <th scope="col" class="govuk-table__header">Environment agency area</th>\n    \n      <th scope="col" class="govuk-table__header center">Severe flood warnings</th>\n    \n      <th scope="col" class="govuk-table__header center">Flood warnings</th>\n    \n      <th scope="col" class="govuk-table__header center">Flood alerts</th>\n    \n      <th scope="col" class="govuk-table__header center">Warnings no longer in force</th>\n    \n      <th scope="col" class="govuk-table__header center">Area total</th>\n    \n    </tr>\n  </thead>'
+      inOrder('>Environment agency area</th>', '>Severe flood warnings</th>', '>Flood warnings</th>', '>Flood alerts</th>', '>Warnings no longer in force</th>', '>Area total</th>')
     ]
   }, {
     url: '/area',
@@ -70,7 +86,12 @@ describe('All basic routes', () => {
       'Cumbria and Lancashire',
       'Area view</h2>',
       // tests order of severities
-      '<tr class="govuk-table__row">\n    \n      \n      \n      <td class="govuk-table__cell"\n    \n        \n        \n      \n        \n      \n    \n   valign="center"><img src="/assets/images/SevereFloodWarning.png" class="flooding-icons" alt="Flooding Icon"></td>\n      \n    \n      \n      \n      <td class="govuk-table__cell"\n    \n        \n        \n      \n        \n      \n    \n   valign="center">Severe flood warning</td>\n      \n    \n      \n      \n      <td class="govuk-table__cell center"\n    \n        \n        \n      \n        \n      \n    \n   valign="center">1</td>\n      \n    \n      \n      \n      <td class="govuk-table__cell center"\n    \n        \n        \n      \n        \n      \n    \n   valign="center"><a href="/target-area/012WAFEL">River Calder</a></td>\n      \n    \n      \n      \n      <td class="govuk-table__cell center"\n    \n        \n        \n      \n        \n      \n    \n   valign="center">012WAFEL</td>\n      \n    \n      \n      \n      <td class="govuk-table__cell center"\n    \n        \n        \n      \n        \n      \n    \n   valign="center">20/09/2019 10:52am</td>\n      \n    \n      \n      \n      <td class="govuk-table__cell center"\n    \n        \n        \n      \n        \n      \n    \n   valign="center">20/09/2019 10:52am</td>\n      \n    \n    </tr>\n  \n\n  \n    <tr class="govuk-table__row">\n    \n      \n      \n      <td class="govuk-table__cell noborder"\n    \n        \n        \n      \n        \n      \n    \n   valign="center"><img src="/assets/images/FloodWarning.png" class="flooding-icons" alt="Flooding Icon"></td>\n      \n    \n      \n      \n      <td class="govuk-table__cell noborder"\n    \n        \n        \n      \n        \n      \n    \n   valign="center">Flood warning</td>\n      \n    \n      \n      \n      <td class="govuk-table__cell center noborder"\n    \n        \n        \n      \n        \n      \n    \n   valign="center">2</td>\n      \n    \n      \n      \n      <td class="govuk-table__cell center"\n    \n        \n        \n      \n        \n      \n    \n   valign="center"><a href="/target-area/012FWFY2C">River Wenning at High Bentham, comprising Lane Foot Cottages to the Sewage Works</a></td>\n      \n    \n      \n      \n      <td class="govuk-table__cell center"\n    \n        \n        \n      \n        \n      \n    \n   valign="center">012FWFY2C</td>\n      \n    \n      \n      \n      <td class="govuk-table__cell center"\n    \n        \n        \n      \n        \n      \n    \n   valign="center">20/09/2019 10:52am</td>\n      \n    \n      \n      \n      <td class="govuk-table__cell center"\n    \n        \n        \n      \n        \n      \n    \n   valign="center">20/09/2019 10:52am</td>\n      \n    \n    </tr>\n  \n\n  \n    <tr class="govuk-table__row">\n    \n      \n      \n      <td class="govuk-table__cell"></td>\n      \n    \n      \n      \n      <td class="govuk-table__cell"></td>\n      \n    \n      \n      \n      <td class="govuk-table__cell"></td>\n      \n    \n      \n      \n      <td class="govuk-table__cell center"\n    \n        \n        \n      \n        \n      \n    \n   valign="center"><a href="/target-area/012FWFY3C">River Wenning at Low Bentham, comprising Burton Rd, Collingwood Drive and Main St near Victoria Hall</a></td>\n      \n    \n      \n      \n      <td class="govuk-table__cell center"\n    \n        \n        \n      \n        \n      \n    \n   valign="center">012FWFY3C</td>\n      \n    \n      \n      \n      <td class="govuk-table__cell center"\n    \n        \n        \n      \n        \n      \n    \n   valign="center">20/09/2019 10:52am</td>\n      \n    \n      \n      \n      <td class="govuk-table__cell center"\n    \n        \n        \n      \n        \n      \n    \n   valign="center">20/09/2019 10:52am</td>\n      \n    \n    </tr>\n  \n\n  \n    <tr class="govuk-table__row">\n    \n      \n      \n      <td class="govuk-table__cell"\n    \n        \n        \n      \n        \n      \n    \n   valign="center"><img src="/assets/images/FloodAlert.png" class="flooding-icons" alt="Flooding Icon"></td>\n      \n    \n      \n      \n      <td class="govuk-table__cell"\n    \n        \n        \n      \n        \n      \n    \n   valign="center">Flood alert</td>\n      \n    \n      \n      \n      <td class="govuk-table__cell center"\n    \n        \n        \n      \n        \n      \n    \n   valign="center">1</td>\n      \n    \n      \n      \n      <td class="govuk-table__cell center"\n    \n        \n        \n      \n        \n      \n    \n   valign="center"><a href="/target-area/012FWFY1A">River Ribble at Settle, around Holmehead, Watershed Mill and Sowarth Field Ind Est</a></td>\n      \n    \n      \n      \n      <td class="govuk-table__cell center"\n    \n        \n        \n      \n        \n      \n    \n   valign="center">012FWFY1A</td>\n      \n    \n      \n      \n      <td class="govuk-table__cell center"\n    \n        \n        \n      \n        \n      \n    \n   valign="center">20/09/2019 10:52am</td>\n      \n    \n      \n      \n      <td class="govuk-table__cell center"\n    \n        \n        \n      \n        \n      \n    \n   valign="center">20/09/2019 10:52am</td>\n      \n    \n    </tr>\n  \n\n  \n    <tr class="govuk-table__row">\n    \n      \n      \n      <td class="govuk-table__cell"\n    \n        \n        \n      \n        \n      \n    \n   valign="center"><img src="/assets/images/WarningsNoLongerInForce.png" class="flooding-icons" alt="Flooding Icon"></td>\n      \n    \n      \n      \n      <td class="govuk-table__cell"\n    \n        \n        \n      \n        \n      \n    \n   valign="center">Warning no longer in force</td>\n      \n    \n      \n      \n      <td class="govuk-table__cell center"\n    \n        \n        \n      \n        \n      \n    \n   valign="center">0</td>'
+      inOrder(
+        '/assets/images/SevereFloodWarning.png', '>Severe flood warning</td>', '/target-area/012WAFEL',
+        '/assets/images/FloodWarning.png', '>Flood warning</td>', '/target-area/012FWFY2C', '/target-area/012FWFY3C',
+        '/assets/images/FloodAlert.png', '>Flood alert</td>', '/target-area/012FWFY1A',
+        '/assets/images/WarningsNoLongerInForce.png', '>Warning no longer in force</td>'
+      )
     ]
   }, {
     url: '/target-area',
@@ -211,7 +232,7 @@ describe('All basic routes', () => {
     text: [
       'Cumbria and Lancashire',
       'Coast at North Morecambe Bay (011WACN6)',
-      '  <select class="govuk-select" id="severity" name="severity">\n  \n    \n    <option value="1" selected>Flood alert</option>\n    \n  \n    \n    <option value="4">Warning no longer in force</option>\n    \n  \n  </select>'
+      inOrder('<select class="govuk-select" id="severity" name="severity">', '<option value="1" selected>Flood alert</option>', '<option value="4">Warning no longer in force</option>', '</select>')
     ]
   }, {
     url: '/target-area/011FWFNC1D/edit',
@@ -223,7 +244,7 @@ describe('All basic routes', () => {
     text: [
       'Cumbria and Lancashire',
       'Appleby, Holme and Chapel Street and Cherry Row (011FWFNC1D)',
-      '  <select class="govuk-select" id="severity" name="severity">\n  \n    \n    <option value="2">Flood warning</option>\n    \n  \n    \n    <option value="3">Severe flood warning</option>\n    \n  \n    \n    <option value="4">Warning no longer in force</option>\n    \n  \n  </select>'
+      inOrder('<select class="govuk-select" id="severity" name="severity">', '<option value="2">Flood warning</option>', '<option value="3">Severe flood warning</option>', '<option value="4">Warning no longer in force</option>', '</select>')
     ]
   }, {
     url: '/login',
@@ -314,20 +335,14 @@ describe('All basic routes', () => {
     text: ['"status":"OK"']
   }]
 
-  urls.forEach(item => {
-    test(`Happy route: ${item.url} returns ${item.code}`, async () => {
-      const response = await server.inject({
-        method: item.method || 'GET',
-        url: item.url,
-        auth: item.auth,
-        payload: item.payload
-      })
-      expect(response.statusCode).toBe(item.code)
-      if (item.text && item.text.length > 0) {
-        item.text.forEach(text => {
-          expect(response.payload).toContain(text)
-        })
-      }
+  test.each(urls.map(u => ({ method: 'GET', ...u })))('$method $url returns $code', async (item) => {
+    const response = await server.inject({
+      method: item.method,
+      url: item.url,
+      auth: item.auth,
+      payload: item.payload
     })
+    expect(response.statusCode).toBe(item.code)
+    ;(item.text || []).forEach(text => expectText(response.payload, text))
   })
 })
