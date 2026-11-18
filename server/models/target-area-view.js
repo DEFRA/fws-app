@@ -1,5 +1,5 @@
-const { severities } = require('../constants')
-const { formatUTCDate } = require('../helpers')
+import { severities } from '../constants.js'
+import { formatUTCDate } from '../helpers.js'
 
 class TargetAreaView {
   constructor (targetArea, warning, historicWarnings, { allowEdit }) {
@@ -157,4 +157,4 @@ class TargetAreaView {
   }
 }
 
-module.exports = TargetAreaView
+export default TargetAreaView

@@ -1,16 +1,14 @@
-const Lab = require('@hapi/lab')
-const lab = exports.lab = Lab.script()
-const Code = require('@hapi/code')
-const composeServer = require('../server')
+import { describe, test, expect, beforeAll, afterAll } from 'vitest'
+import composeServer from '../server.js'
 
-lab.experiment(('All basic routes'), () => {
+describe('All basic routes', () => {
   let server
-  lab.before(async () => {
+  beforeAll(async () => {
     server = await composeServer.start(true)
   })
 
-  lab.after(() => {
-    composeServer.stop()
+  afterAll(async () => {
+    await composeServer.stop()
   })
 
   const urls = [{
@@ -102,20 +100,14 @@ lab.experiment(('All basic routes'), () => {
     }
   }]
 
-  urls.forEach(item => {
-    lab.test(`Sad route: ${item.url} returns ${item.code}`, async () => {
-      const response = await server.inject({
-        method: item.method || 'GET',
-        url: item.url,
-        auth: item.auth,
-        payload: item.payload
-      })
-      Code.expect(response.statusCode).to.equal(item.code)
-      if (item.text && item.text.length > 0) {
-        item.text.forEach(text => {
-          Code.expect(response.payload).to.include(text)
-        })
-      }
+  test.each(urls.map(u => ({ method: 'GET', ...u })))('$method $url returns $code', async (item) => {
+    const response = await server.inject({
+      method: item.method,
+      url: item.url,
+      auth: item.auth,
+      payload: item.payload
     })
+    expect(response.statusCode).toBe(item.code)
+    ;(item.text || []).forEach(text => expect(response.payload).toContain(text))
   })
 })

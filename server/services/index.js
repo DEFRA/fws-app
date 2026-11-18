@@ -1,7 +1,7 @@
-const moment = require('moment-timezone')
-const http = require('../http')
-const config = require('../config')
-const { groupBy, sortByMultiple } = require('../helpers')
+import moment from 'moment-timezone'
+import http from '../http.js'
+import config from '../config.js'
+import { groupBy, sortByMultiple } from '../helpers.js'
 
 const service = {
   async getFloods () {
@@ -43,4 +43,4 @@ const service = {
   }
 }
 
-module.exports = service
+export default service

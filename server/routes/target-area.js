@@ -1,8 +1,8 @@
-const joi = require('joi')
-const boom = require('@hapi/boom')
-const TargetAreaView = require('../models/target-area-view')
+import joi from 'joi'
+import boom from '@hapi/boom'
+import TargetAreaView from '../models/target-area-view.js'
 
-module.exports = {
+export default {
   method: 'GET',
   path: '/target-area/{code}',
   options: {

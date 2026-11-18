@@ -1,31 +1,29 @@
-const Lab = require('@hapi/lab')
-const { expect } = require('@hapi/code')
-const lab = exports.lab = Lab.script()
-const pino = require('pino')
-const createLoggingTarget = require('../server/create-logging-target')
+import { describe, test, expect, beforeEach, afterAll } from 'vitest'
+import pino from 'pino'
+import createLoggingTarget from '../server/create-logging-target.js'
 
 const ORIGINAL_ENV = process.env
 
-lab.experiment('createLoggingTarget', () => {
-  lab.beforeEach(() => {
+describe('createLoggingTarget', () => {
+  beforeEach(() => {
     process.env = { ...ORIGINAL_ENV }
   })
-  lab.after(() => {
+  afterAll(() => {
     process.env = ORIGINAL_ENV
   })
 
-  lab.test('it logs json to file when PM2 is in use', () => {
+  test('it logs json to file when PM2 is in use', () => {
     process.env.pm_cwd = '/mock/path'
 
     const actual = Object.values(pino.levels.labels).map(level => createLoggingTarget(level))
 
     const targets = [...new Set(actual.map(({ target }) => target))]
-    expect(targets).to.equal(['pino/file'])
+    expect(targets).toEqual(['pino/file'])
 
     const destinations = Object.fromEntries(
       actual.map(({ level, options: { destination } }) => [level, destination])
     )
-    expect(destinations).to.equal({
+    expect(destinations).toEqual({
       trace: 1,
       debug: 1,
       info: 1,
@@ -34,16 +32,16 @@ lab.experiment('createLoggingTarget', () => {
       fatal: 2
     })
   })
-  lab.test('it logs pretty print to process when PM2 is not in use', () => {
+  test('it logs pretty print to process when PM2 is not in use', () => {
     const actual = Object.values(pino.levels.labels).map(level => createLoggingTarget(level))
 
     const targets = [...new Set(actual.map(({ target }) => target))]
-    expect(targets).to.equal(['pino-pretty'])
+    expect(targets).toEqual(['pino-pretty'])
 
     const destinations = Object.fromEntries(
       actual.map(({ level, options: { destination } }) => [level, destination])
     )
-    expect(destinations).to.equal({
+    expect(destinations).toEqual({
       trace: 1,
       debug: 1,
       info: 1,

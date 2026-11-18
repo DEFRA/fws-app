@@ -1,8 +1,8 @@
-const pino = require('pino')
-const config = require('./config')
-const createLoggingTarget = require('./create-logging-target')
+import pino from 'pino'
+import config from './config.js'
+import createLoggingTarget from './create-logging-target.js'
 
-module.exports = pino({
+export default pino({
   level: config.logLevel.toLowerCase(),
   timestamp: pino.stdTimeFunctions.isoTime,
   base: {},

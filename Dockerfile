@@ -25,13 +25,14 @@ COPY --chown=root:root ./server ./server
 
 ARG BUILD_VERSION=v4.0.0-1-g6666666
 ARG GIT_COMMIT=0
-RUN echo -e "module.exports = { version: '$BUILD_VERSION', revision: '$GIT_COMMIT' }" > ./version.js
+RUN echo -e "export default { version: '$BUILD_VERSION', revision: '$GIT_COMMIT' }" > ./version.js
 
 FROM base AS development
 
 # When developing/debugging within a container locally, --chown=root:root should be replaced with --chown=node:node to provide
 # required write permissions. SonarQube cloud will raise a security issue if analysing these changes.
 COPY --chown=root:root ./test ./test
+COPY --chown=root:root ./vitest.config.js .
 
 # Temporarily disable the postinstall NPM script
 RUN npm pkg set scripts.postinstall="echo no-postinstall" \

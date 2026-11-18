@@ -1,4 +1,4 @@
-module.exports = function createLoggingTarget (level) {
+export default function createLoggingTarget (level) {
   const target = process.env.pm_cwd ? 'pino/file' : 'pino-pretty'
   let destination
   if (level === 'fatal' || level === 'error') {

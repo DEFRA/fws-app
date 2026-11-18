@@ -1,11 +1,12 @@
-const fs = require('fs')
-const data = []
-const files = fs.readdirSync('./test/data/')
+import fs from 'node:fs'
+import path from 'node:path'
 
-files.forEach(function (file) {
-  if (file.indexOf('.json') > -1) {
-    data[file.replace('.json', '')] = require('./' + file)
-  }
-})
+const data = {}
 
-module.exports = data
+fs.readdirSync(import.meta.dirname)
+  .filter(file => file.endsWith('.json'))
+  .forEach(file => {
+    data[file.replace('.json', '')] = JSON.parse(fs.readFileSync(path.join(import.meta.dirname, file), 'utf8'))
+  })
+
+export default data

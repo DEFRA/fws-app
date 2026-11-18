@@ -1,7 +1,7 @@
-const boom = require('@hapi/boom')
-const AreaView = require('../models/area-view')
+import boom from '@hapi/boom'
+import AreaView from '../models/area-view.js'
 
-module.exports = {
+export default {
   method: 'GET',
   path: '/area/{id?}',
   options: {

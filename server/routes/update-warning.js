@@ -1,6 +1,6 @@
-const joi = require('joi')
-const boom = require('@hapi/boom')
-const UpdateWarningView = require('../models/update-warning-view')
+import joi from 'joi'
+import boom from '@hapi/boom'
+import UpdateWarningView from '../models/update-warning-view.js'
 
 const errorMessages = {
   severity: {
@@ -24,7 +24,7 @@ function mapErrors (errors) {
   return map
 }
 
-module.exports = [{
+export default [{
   method: 'GET',
   path: '/target-area/{code}/edit',
   options: {

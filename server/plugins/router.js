@@ -1,16 +1,26 @@
+import auth from '../routes/auth.js'
+import summary from '../routes/summary.js'
+import area from '../routes/area.js'
+import targetArea from '../routes/target-area.js'
+import targetAreaSearch from '../routes/target-area-search.js'
+import updateWarning from '../routes/update-warning.js'
+import publicRoutes from '../routes/public.js'
+import severityView from '../routes/severity-view.js'
+import status from '../routes/status.js'
+
 const routes = [].concat(
-  require('../routes/auth'),
-  require('../routes/summary'),
-  require('../routes/area'),
-  require('../routes/target-area'),
-  require('../routes/target-area-search'),
-  require('../routes/update-warning'),
-  require('../routes/public'),
-  require('../routes/severity-view'),
-  require('../routes/status')
+  auth,
+  summary,
+  area,
+  targetArea,
+  targetAreaSearch,
+  updateWarning,
+  publicRoutes,
+  severityView,
+  status
 )
 
-module.exports = {
+export default {
   plugin: {
     name: 'router',
     register: (server, options) => {

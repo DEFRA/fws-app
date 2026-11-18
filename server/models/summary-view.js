@@ -1,5 +1,5 @@
-const { groupBy } = require('../helpers')
-const { severities } = require('../constants')
+import { groupBy } from '../helpers.js'
+import { severities } from '../constants.js'
 
 class SummaryView {
   constructor (warnings) {
@@ -87,4 +87,4 @@ class SummaryView {
   }
 }
 
-module.exports = SummaryView
+export default SummaryView

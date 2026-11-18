@@ -1,9 +1,13 @@
-const nunjucks = require('nunjucks')
-const config = require('../config')
-const pkg = require('../../package.json')
+import { createRequire } from 'node:module'
+import nunjucks from 'nunjucks'
+import vision from '@hapi/vision'
+import config from '../config.js'
 
-module.exports = {
-  plugin: require('@hapi/vision'),
+// standard's parser does not support JSON import attributes yet
+const pkg = createRequire(import.meta.url)('../../package.json')
+
+export default {
+  plugin: vision,
   options: {
     engines: {
       html: {
