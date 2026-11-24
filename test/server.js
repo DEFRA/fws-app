@@ -38,8 +38,7 @@ let server
 
 module.exports = {
   initRedisCache: () => {
-    delete require.cache[require.resolve('../server')]
-    delete require.cache[require.resolve('../server/services')]
+    jest.resetModules()
     process.env.LOCAL_CACHE = false
 
     // Load the server and services modules so
