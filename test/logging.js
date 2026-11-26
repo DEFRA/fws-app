@@ -1,23 +1,20 @@
-const Lab = require('@hapi/lab')
-const { expect } = require('@hapi/code')
-
-const proxyquire = require('proxyquire').noCallThru()
-const lab = exports.lab = Lab.script()
 const { URL } = require('url')
+
+jest.mock('../server/pino', () => ({
+  trace: jest.fn(),
+  debug: jest.fn(),
+  info: jest.fn(),
+  warn: jest.fn(),
+  error: jest.fn(),
+  fatal: jest.fn()
+}))
+
+const loggingPlugin = require('../server/plugins/logging')
 
 const HOST = 'https://example.gov.uk'
 
-lab.experiment('logging plugin', () => {
-  let loggingPlugin
-
-  lab.before(() => {
-    loggingPlugin = proxyquire('../server/plugins/logging', {
-      '../pino': {},
-      'hapi-pino': {}
-    })
-  })
-
-  lab.test('req serializer with query', async () => {
+describe('logging plugin', () => {
+  it('req serializer with query', () => {
     const req = {
       url: new URL('/some/url', HOST),
       method: 'get',
@@ -28,7 +25,7 @@ lab.experiment('logging plugin', () => {
 
     const actual = loggingPlugin.options.serializers.req(req)
 
-    expect(actual).to.equal({
+    expect(actual).toEqual({
       url: '/some/url',
       method: 'GET',
       query: {
@@ -36,7 +33,7 @@ lab.experiment('logging plugin', () => {
       }
     })
   })
-  lab.test('req serializer with empty query', async () => {
+  it('req serializer with empty query', () => {
     const req = {
       url: new URL('/some/url', HOST),
       method: 'get',
@@ -48,13 +45,13 @@ lab.experiment('logging plugin', () => {
 
     const actual = loggingPlugin.options.serializers.req(req)
 
-    expect(actual).to.equal({
+    expect(actual).toEqual({
       url: '/some/url',
       method: 'GET',
       query: undefined
     })
   })
-  lab.test('req serializer without query', async () => {
+  it('req serializer without query', () => {
     const req = {
       url: new URL('/some/url', HOST),
       method: 'get',
@@ -65,14 +62,14 @@ lab.experiment('logging plugin', () => {
 
     const actual = loggingPlugin.options.serializers.req(req)
 
-    expect(actual).to.equal({
+    expect(actual).toEqual({
       url: '/some/url',
       method: 'GET',
       query: undefined
     })
   })
 
-  lab.test('res serializer', async () => {
+  it('res serializer', () => {
     const res = {
       statusCode: 200,
       header: {
@@ -82,18 +79,18 @@ lab.experiment('logging plugin', () => {
 
     const actual = loggingPlugin.options.serializers.res(res)
 
-    expect(actual).to.equal({
+    expect(actual).toEqual({
       statusCode: 200
     })
   })
 
-  lab.test('err serializer', async () => {
+  it('err serializer', () => {
     const err = new TypeError('Something went boom')
     err.code = 'BOOM_0001'
 
     const actual = loggingPlugin.options.serializers.err(err)
 
-    expect(actual).to.equal({
+    expect(actual).toEqual({
       name: 'TypeError',
       message: 'Something went boom',
       stack: err.stack,

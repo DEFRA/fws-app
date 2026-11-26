@@ -1,97 +1,80 @@
-const Lab = require('@hapi/lab')
-const lab = exports.lab = Lab.script()
-const Code = require('@hapi/code')
+jest.mock('../server/pino', () => ({
+  trace: jest.fn(),
+  debug: jest.fn(),
+  info: jest.fn(),
+  warn: jest.fn(),
+  error: jest.fn(),
+  fatal: jest.fn()
+}))
+
 const data = require('./data')
-
-const mock = require('./mock')
-const mocks = {}
-
-const ORIGINAL_CONFIG_CACHE = require.cache[require.resolve('../server/config')]
-const ORIGINAL_HTTP_CACHE = require.cache[require.resolve('../server/http')]
-const ORIGINAL_METHODS_CACHE = require.cache[require.resolve('../server/services/methods')]
-const ORIGINAL_SERVER_CACHE = require.cache[require.resolve('./server')]
-const ORIGINAL_SERVICES_CACHE = require.cache[require.resolve('../server/services')]
 
 let http
 let composeServer
 let services
 
-lab.experiment('Services', () => {
-  lab.before(async () => {
-    delete require.cache[require.resolve('../server')]
-    delete require.cache[require.resolve('../server/config')]
-    delete require.cache[require.resolve('../server/http')]
-    delete require.cache[require.resolve('../server/services/methods')]
-    delete require.cache[require.resolve('../server/services')]
+describe('Services', () => {
+  beforeAll(async () => {
     composeServer = require('./server')
+    // Resets Jest's module registry and sets LOCAL_CACHE=false so the server is rebuilt with Redis.
     composeServer.initRedisCache()
     // Start the server ensuring that the server method mocks in this file are used rather than those in ./server.js.
     await composeServer.start(false, false)
+    // Required after the reset so these are the same instances the server uses.
     services = require('../server/services')
     http = require('../server/http')
+    expect(require('../server/config').localCache).toBe(false)
   })
 
-  lab.after(() => {
-    composeServer.stop()
-    require.cache[require.resolve('../server')] = ORIGINAL_SERVER_CACHE
-    require.cache[require.resolve('../server/config')] = ORIGINAL_CONFIG_CACHE
-    require.cache[require.resolve('../server/http')] = ORIGINAL_HTTP_CACHE
-    require.cache[require.resolve('../server/services/methods')] = ORIGINAL_METHODS_CACHE
-    require.cache[require.resolve('../server/services')] = ORIGINAL_SERVICES_CACHE
+  afterAll(async () => {
+    await composeServer.stop()
   })
 
-  lab.beforeEach(async () => {
-    // mocks.getJson = mock.replace(http, 'getJson', mock.makePromise(null, {}))
-    // mocks.postJson = mock.replace(http, 'postJson', mock.makePromise(null, {}))
-  })
-  lab.afterEach(() => {
-    Object.keys(mocks).forEach((key) => {
-      mocks[key].revert()
-    })
+  afterEach(() => {
+    jest.restoreAllMocks()
   })
 
-  lab.test('Services: getFloods', async () => {
-    mocks.getJson = mock.replace(http, 'getJson', mock.makePromise(null, data.getFloods))
+  it('Services: getFloods', async () => {
+    jest.spyOn(http, 'getJson').mockResolvedValue(data.getFloods)
     const floods = await services.getFloods()
-    Code.expect(floods.warnings.length).to.equal(57)
+    expect(floods.warnings.length).toBe(57)
   })
 
-  lab.test('Services: getFloodsPlus', async () => {
-    mocks.getJson = mock.replace(http, 'getJson', mock.makePromise(null, data.getFloodsPlus))
+  it('Services: getFloodsPlus', async () => {
+    jest.spyOn(http, 'getJson').mockResolvedValue(data.getFloodsPlus)
     const floods = await services.getFloodsPlus()
-    Code.expect(floods.warnings.length).to.equal(57)
+    expect(floods.warnings.length).toBe(57)
   })
 
-  lab.test('Services: getHistoricFloods', async () => {
-    mocks.getJson = mock.replace(http, 'getJson', mock.makePromise(null, data.getHistoricFloods))
+  it('Services: getHistoricFloods', async () => {
+    jest.spyOn(http, 'getJson').mockResolvedValue(data.getHistoricFloods)
     const historicFloods = await services.getHistoricFloods()
-    Code.expect(historicFloods.warnings.length).to.equal(67)
+    expect(historicFloods.warnings.length).toBe(67)
   })
 
-  lab.test('Services: getAllAreas', async () => {
-    mocks.getJson = mock.replace(http, 'getJson', mock.makePromise(null, data.targetAreas))
+  it('Services: getAllAreas', async () => {
+    jest.spyOn(http, 'getJson').mockResolvedValue(data.targetAreas)
     const areas = await services.getAllAreas()
-    Code.expect(areas.areas.length).to.equal(14)
-    Code.expect(areas.areas[0].name).to.equal('Cumbria and Lancashire')
-    Code.expect(areas.areas[13].name).to.equal('Yorkshire')
-    Code.expect(areas.targetAreas.length).to.equal(100)
-    Code.expect(areas.targetAreas[0].ta_code).to.equal('011WACN5')
-    Code.expect(areas.targetAreas[99].ta_code).to.equal('122FWF526')
+    expect(areas.areas.length).toBe(14)
+    expect(areas.areas[0].name).toBe('Cumbria and Lancashire')
+    expect(areas.areas[13].name).toBe('Yorkshire')
+    expect(areas.targetAreas.length).toBe(100)
+    expect(areas.targetAreas[0].ta_code).toBe('011WACN5')
+    expect(areas.targetAreas[99].ta_code).toBe('122FWF526')
   })
 
-  lab.test('Services: updateWarning', async () => {
-    mocks.postJson = mock.replace(http, 'postJson', (url, payload, ext) => {
-      Code.expect(payload.bodyXml).to.include('<TargetAreaCode><![CDATA[test]]></TargetAreaCode>')
-      Code.expect(payload.bodyXml).to.include('<SeverityLevel>1</SeverityLevel>')
-      Code.expect(payload.bodyXml).to.include('<InternetSituation><![CDATA[Test situation]]></InternetSituation>')
-      Code.expect(payload.profile.id).to.equal('test')
-      Code.expect(payload.profile.name).to.equal('John Smith')
-      Code.expect(payload.profile.email).to.equal('john.smith@defra.net')
-      return new Promise((resolve, reject) => {
-        resolve({})
-      })
+  it('Services: updateWarning', async () => {
+    jest.spyOn(http, 'postJson').mockImplementation((url, payload, ext) => {
+      expect(payload.bodyXml).toContain('<TargetAreaCode><![CDATA[test]]></TargetAreaCode>')
+      expect(payload.bodyXml).toContain('<SeverityLevel>1</SeverityLevel>')
+      expect(payload.bodyXml).toContain('<InternetSituation><![CDATA[Test situation]]></InternetSituation>')
+      expect(payload.profile.id).toBe('test')
+      expect(payload.profile.name).toBe('John Smith')
+      expect(payload.profile.email).toBe('john.smith@defra.net')
+      return Promise.resolve({})
     })
 
     await services.updateWarning('test', 1, 'Test situation', { id: 'test', name: 'John Smith', email: 'john.smith@defra.net' })
+    expect(http.postJson).toHaveBeenCalledTimes(1)
   })
 })

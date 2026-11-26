@@ -18,6 +18,8 @@ WORKDIR /home/node/app
 # When developing/debugging within a container locally, --chown=root:root should be replaced with --chown=node:node to provide
 # required write permissions. SonarQube cloud will raise a security issue if analysing these changes.
 COPY --chown=root:root package*.json ./
+COPY --chown=root:root jest.config.js ./
+COPY --chown=root:root eslint.config.js ./
 COPY --chown=root:root ./index.js .
 COPY --chown=root:root ./bin ./bin
 COPY --chown=root:root ./client ./client
