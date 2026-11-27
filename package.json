@@ -23,6 +23,11 @@
   },
   "author": "",
   "license": "ISC",
+  "overrides": {
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "11.0.3"
+    }
+  },
   "dependencies": {
     "@hapi/bell": "13.1.0",
     "@hapi/boom": "10.0.1",
